@@ -20,7 +20,7 @@ cp docs/templates/weekly_report_template.md logs/week03.md
 # 2) 스크린샷·결과 파일 정리
 mkdir -p assets/screenshots/week03
 
-# 3) 누적 로그(logs/contribution_log.md)에 한 줄 추가, README 주차 인덱스 갱신
+# 3) 누적 로그(logs/contribution_log.md)에 한 줄 추가, README 주차 인덱스 갱신, 제출한 보고서 docx는 reports/ 에 사본
 
 # 4) 커밋 & 푸시
 git add .
