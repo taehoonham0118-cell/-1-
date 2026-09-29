@@ -8,7 +8,7 @@
 | 주차 | 게이트 | 핵심 수행 | 산출물 | 태그 |
 |---|---|---|---|---|
 | 1 | – | Isaac Sim/Lab 설치 절차·핵심 개념·데모 정리 | [week01](week01.md), `notes/01~03` | – (노션 인정) |
-| 2 | ★ SRR | (작성 중) 설치 · create_empty · Cartpole 실행, 저장소 개설 | [week02](week02.md) | `week02` |
+| 2 | ★ SRR | MuJoCo 설치·G1 관절 표, 2링크 팔 URDF·MJCF 작성·비교, 관성 실험, 하체 실측표 양식 | [week02](week02.md), `sim/`, `notes/04`, [보고서](../reports/학부생_주간활동보고서_2주차_함태훈_22212334_261001.docx) | `week02` |
 | 3 | – | | | `week03` |
 | 4 | – | | | `week04` |
 | 5 | – | | | `week05` |
