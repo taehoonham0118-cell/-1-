@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+env_isaaclab/
+
+# Isaac Lab / RL 학습 산출물 (용량 큼)
+logs/rsl_rl/
+logs/skrl/
+logs/rl_games/
+runs/
+outputs/
+wandb/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Isaac Sim 캐시
+.cache/
+*.usd.bak
+
+# 대용량 영상
+*.mp4
+*.mov
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
