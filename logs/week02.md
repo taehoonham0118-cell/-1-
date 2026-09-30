@@ -26,7 +26,7 @@
 | 2 | G1 어깨 3축 · 팔꿈치 joint의 axis · range · 토크 한계 · 액추에이터 표 (`g1.xml` 파싱) | 100 % | [notes/04_g1_arm_joints.md](../notes/04_g1_arm_joints.md) |
 | 3 | 2링크 팔 URDF · MJCF 작성 (링크 0.3 m · 1 kg × 2, 어깨 ±150°, 팔꿈치 −60°~120°, 감쇠 0.1 N·m·s/rad). 두 파일 모두 MuJoCo 뷰어에서 열어 shoulder 1.26 / elbow 0.853 rad 자세 확인 | 100 % | [sim/urdf/two_link_arm.urdf](../sim/urdf/two_link_arm.urdf), [sim/mjcf/two_link_arm.xml](../sim/mjcf/two_link_arm.xml), [mjcf 캡처](../assets/screenshots/week02/week02_two_link_arm_mjcf.jpg), [urdf 캡처](../assets/screenshots/week02/week02_two_link_arm_urdf.jpg) |
 | 4 | URDF vs MJCF 동작 비교 + 관성 변경 실험 스크립트 작성·실행 (노트북에서 재현) | 100 % | [compare_urdf_mjcf.py](../sim/scripts/compare_urdf_mjcf.py), [results.csv](../sim/scripts/results.csv), [run_log.txt](../sim/scripts/run_log.txt) |
-| 5 | 기보유 하체(홀로노믹 베이스) 실측표 양식 작성, 자료 폴더 CAD 렌더·주행 영상으로 4륨 옴니휠 구성 사전 확인 | 30 % | [logs/week02_base_measurement.md](week02_base_measurement.md) — **실물 실측은 연구실 일정 확정 후** |
+| 5 | 기보유 하체(홀로노믹 베이스) 실측표 양식 작성, 자료 폴더 CAD 렌더·주행 영상으로 4륜 옴니휠 구성 사전 확인 | 30 % (보류) | [logs/week02_base_measurement.md](week02_base_measurement.md) — **9/30 팀장 지시로 보류**: G1 시뮬 구조 이해 우선, CAD·BOM 완성 후 재개 |
 
 ### 실행 환경 (재현용)
 
@@ -85,11 +85,12 @@ python sim/scripts/compare_urdf_mjcf.py                              # → resul
 | 2링크 팔이 t=0에 어깨에 큰 접촉력 (qacc −873 rad/s²) | MuJoCo는 **월드에 고정된 body는 자식과 부모-자식 충돌 제외가 적용되지 않음** → 베이스 박스와 위팔 실린더가 충돌 | 베이스 geom `contype=0 conaffinity=0`, URDF는 베이스 collision 제거 |
 | 팔이 위로 올라가 관절 한계에 걸림 | 링크를 +Z(위) 방향으로 모델링해 q=0이 거꾸로 선 불안정 자세였음 | 링크를 −Z(아래로 늘어짐)로 재정의, q=0 = 안정 자세 |
 | 첫 비교에서 URDF·MJCF 차이 0.36 rad | MJCF에만 바닥 plane과 위치 액추에이터(kp=20, 목표 0)가 있었음 | 바닥 제거, 비교 시 액추에이터 gain 0으로 → 차이 10⁻¹⁵ rad |
+| 하체 실측표를 채울 수 없음 | 하체 CAD 공유 불가(전종욱 선배), 실측 일정 미정 | 9/30 팀장(김이겸)에게 문의 → "실제 로봇 전에 시뮬 구조부터 이해, MuJoCo·Isaac Sim에 G1을 먼저 넣어 학습. 로봇 CAD·BOM은 완성·구축 후 시뮬 구현 가능" → **실측 보류**, 양식만 유지 |
 
 ## 4. B1 업무와의 연결
 
 - URDF `origin`/`axis`, `inertial` 작성법은 4주차 우리 로봇 URDF(A팀 CAD → URDF) 작성의 기본. 관성 실험 결과가 "실측 질량·관성 없이는 시뮬 거동을 믿을 수 없다"는 ICD 요청 근거가 됨.
-- 월드 고정 베이스 충돌 문제 → 우리 로봇의 홀로노믹 베이스를 `fixed`로 둠지 `floating`으로 둠지 규약 필요 (팀장 질문 사항).
+- 월드 고정 베이스 충돌 문제 → 우리 로봇의 홀로노믹 베이스를 `fixed`로 둘지 `floating`으로 둘지 규약 필요 (팀장 질문 사항).
 - G1 팔 토크 ±25 N·m vs 우리 목표 어깨 100 Nm급 → 우리 로봇 관절 `actuatorfrcrange`는 A2 구동기 배분표 기준으로 설정.
 
 ## 5. 구술 대비 (금요일 질문 2개)
@@ -105,4 +106,4 @@ python sim/scripts/compare_urdf_mjcf.py                              # → resul
 1. usd-core로 큐브 `.usda` 생성 → 2링크 팔을 Xform 계층 USD로 작성, `RevoluteJoint` 2개 + `DriveAPI` 추가
 2. 2주차 URDF ↔ USD 대응표 (질량·관성·joint origin/axis가 어느 prim 속성으로 가는지), 박종진 임포트 체크리스트로 내 URDF 점검
 3. CAD → URDF → USD(Isaac Sim) / MJCF(MuJoCo) 파이프라인 그림 1장, 구술 준비(reference vs sublayer, inertial → USD 속성), Git `week03` 태그
-4. (SRR 잔여) 하체 실측표 채우기
+4. G1(MuJoCo)으로 시뮬 구조 이해 계속 — 하체 실측표는 CAD·BOM 완성 후 재개 (9/30 팀장 지시)
