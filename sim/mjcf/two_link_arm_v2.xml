@@ -15,8 +15,9 @@
   <!-- default class: 같은 속성을 한 곳에서 관리. body 에 childclass="arm" 을 주면 자식 전체가 상속 -->
   <default>
     <default class="arm">
-      <!-- 모든 관절: Y축 힌지, 점성 감쇠 0.1 N·m·s/rad. armature(로터 반영 관성)는 실험용으로 0 에서 시작 -->
-      <joint type="hinge" axis="0 1 0" damping="0.1" armature="0" frictionloss="0"/>
+      <!-- 모든 관절: Y축 힌지, 점성 감쇠 0.1 N·m·s/rad. armature(로터 반영 관성)는 실험용으로 0 에서 시작.
+           actuatorfrcrange = URDF effort(25 N·m) 와 동일 — 변환본과 맞추기 위해 관절 쪽에도 명시 (체크리스트 E4) -->
+      <joint type="hinge" axis="0 1 0" damping="0.1" armature="0" frictionloss="0" actuatorfrcrange="-25 25"/>
       <!-- 링크 형상: 반지름 0.02 m · 반길이 0.15 m 실린더, 링크 프레임 -Z 로 늘어짐 -->
       <geom type="cylinder" size="0.02 0.15" pos="0 0 -0.15"/>
       <!-- visual / collision 분리 (4주차 STL 분리 대비): group 2 = 시각 전용, group 3 = 충돌 전용 -->

@@ -49,6 +49,8 @@
 
 ## 4. `mj_saveLastXML` 변환에서 확인한 것 (two_link_arm.urdf → two_link_arm_from_urdf.xml)
 
+> 아래 표는 **확장 없이** 로드했을 때(기본값) 관찰. 10/7 박종진 체크리스트 B절을 반영해 URDF 에 `<mujoco><compiler fusestatic="false" discardvisual="false"/></mujoco>` 를 추가했고, 저장소의 `two_link_arm_from_urdf.xml` 은 그 결과(body 4 · geom 5)로 갱신됨. 점검 결과는 notes/07 §6.
+
 | 관찰 | 원인 | 대응 |
 |---|---|---|
 | body 3개 (`world, upper_arm, forearm`) — `base_link` 사라짐, 그 `<inertial>`(5 kg) 도 사라짐 | URDF 로드 시 `fusestatic` 기본 **true** → 관절 없는 고정 링크를 부모(world)에 합침 | 베이스 질량이 필요하면(베이스가 움직이면) `<mujoco><compiler fusestatic="false"/></mujoco>` 또는 floating joint 부여 (실험: `fusestatic=false` → body 4개) |

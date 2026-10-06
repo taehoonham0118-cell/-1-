@@ -27,7 +27,7 @@
 | 5 | URDF 로딩 옵션 실험: `fusestatic`(body 3 ↔ 4), `discardvisual`(geom 2 ↔ 5), `balanceinertia`(오류 ↔ 평균 0.00923), floating 루트(nq 2 → 9) + 베이스 고정/자유/홀로노믹 표현 정리 + 박종진 체크리스트 제안 8항목 | 100 % | [notes/07_mjcf_structure_urdf_loading.md](../notes/07_mjcf_structure_urdf_loading.md) |
 | 6 | `MjSpec.attach` 연습: 같은 팔 파일을 `left_`/`right_` prefix 로 임시 베이스(상판 0.575×0.472 m, freejoint) + 몸통 box 에 2개 부착 → body 9 · joint 5 · actuator 4 · 49.7 kg 모델 생성 (USD reference 에 대응) | 100 % | [sim/scripts/attach_arm_to_base.py](../sim/scripts/attach_arm_to_base.py), [sim/mjcf/arm_on_base.xml](../sim/mjcf/arm_on_base.xml), [week03_arm_on_base.png](../assets/screenshots/week03/week03_arm_on_base.png) |
 | 7 | CAD → URDF → MJCF(MuJoCo) 파이프라인 그림 1장 (실습 PC 배정 후 Isaac Sim 경로는 점선) | 100 % | [docs/pipeline_cad_urdf_mjcf.png](../docs/pipeline_cad_urdf_mjcf.png) (.dot · .svg 동봉) |
-| 8 | 팀 연계: 박종진 체크리스트로 내 URDF · MJCF 점검 | 대기 | 박종진 초안 공유 후 점검 결과를 notes/07 §5 에 추가 예정 |
+| 8 | 팀 연계: 10/6 대응표 전달 → 박종진 체크리스트 v0.1(10/6) 수령 → 10/7 내 URDF · MJCF 를 36항목 점검 (스크립트 자동화): **OK 30 · NG 1(armature, BOM 대기) · N-A 5**. 점검 중 URDF 에 `<mujoco><compiler>` 확장, v2 에 actuatorfrcrange 추가. 체크리스트 피드백 4건 회신 | 100 % | [sim/scripts/checklist_check.py](../sim/scripts/checklist_check.py), [notes/07 §6](../notes/07_mjcf_structure_urdf_loading.md) |
 
 ### 실행 환경 · 명령 (재현용)
 

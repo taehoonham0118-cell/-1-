@@ -7,7 +7,7 @@
   <default>
     <default class="left_main">
       <default class="left_arm">
-        <joint damping="0.1" axis="0 1 0"/>
+        <joint actuatorfrcrange="-25 25" damping="0.1" axis="0 1 0"/>
         <geom size="0.02 0.15 0" type="cylinder"/>
         <general forcerange="-25 25" biastype="affine" gainprm="20" biasprm="0 -20"/>
         <default class="left_visual">
@@ -20,7 +20,7 @@
     </default>
     <default class="right_main">
       <default class="right_arm">
-        <joint damping="0.1" axis="0 1 0"/>
+        <joint actuatorfrcrange="-25 25" damping="0.1" axis="0 1 0"/>
         <geom size="0.02 0.15 0" type="cylinder"/>
         <general forcerange="-25 25" biastype="affine" gainprm="20" biasprm="0 -20"/>
         <default class="right_visual">

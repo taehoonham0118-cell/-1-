@@ -60,3 +60,57 @@ URDF 파일 안에 `<robot>` 자식으로 `<mujoco><compiler .../></mujoco>` 확
 6. `<transmission>` 은 무시되므로 `<actuator>` 를 MJCF(include 파일)에서 추가, `armature`·`frictionloss` 도 거기서
 7. 월드 고정 베이스와 첫 링크의 충돌 (contype 0 또는 `<exclude>`)
 8. 로드 후 `mj_saveLastXML` 로 저장해 body·geom·joint 수를 URDF 와 대조
+
+## 6. 박종진 체크리스트 v0.1 로 내 URDF · MJCF 점검 결과 (10/7, 팀 연계)
+
+- 체크리스트: [PJJ0337/-1- · b1/docs/procedures/mujoco-urdf-loading-checklist.md](https://github.com/PJJ0337/-1-/blob/main/b1/docs/procedures/mujoco-urdf-loading-checklist.md) (초안 v0.1, 2026-10-06)
+- 점검 대상: `sim/urdf/two_link_arm.urdf` (A·B·C·F절), `sim/mjcf/two_link_arm_v2.xml` + `scene.xml` (D·E·E-1·F절)
+- 점검 스크립트: [sim/scripts/checklist_check.py](../sim/scripts/checklist_check.py) — 항목별 OK/NG/N-A 와 수치를 자동 출력 (아래 표는 그 출력)
+- **점검하면서 고친 것 (10/7)**: ① URDF 에 `<mujoco><compiler fusestatic="false" discardvisual="false"/></mujoco>` 확장 추가 (B1·B2·A7) → 변환본 body 3→4, geom 2→5 로 갱신 ② v2 joint default 에 `actuatorfrcrange="-25 25"` 추가해 변환본과 동일하게 (E4)
+
+| No. | 결과 | 근거 (수치) |
+|---|---|---|
+| A1 | OK | 움직이는 링크 전부 `<inertial>` (base_link · upper_arm · forearm) |
+| A2 | N-A | 가상(질량 0) 링크 없음 |
+| A3 | OK | 삼각부등식 3링크 모두 만족 (0.0075+0.0075 ≥ 0.0002 등) |
+| A4 | OK | 메시 없음(원시 도형), m · kg · rad |
+| A5 | OK | revolute 2개 모두 lower·upper·effort·velocity. 변환 후 effort → `actuatorfrcrange ±25`, velocity 소실 |
+| A6 | OK | 트리 (link 3 → body 4 with world), 폐루프 없음 |
+| A7 | OK | `<mujoco>` 확장 추가 후 로드 결과 body 4 · geom 5 로 반영 확인 (오타 시 조용히 무시되므로 결과로 검증) |
+| A8 | OK | `<transmission>` 미사용, 변환 nu = 0 → 액추에이터는 MJCF |
+| A9 | OK | damping 0.1 → joint damping [0.1, 0.1], friction 0 → frictionloss 생략 |
+| B1 | OK | fusestatic=false → body [world, base_link, upper_arm, forearm], 베이스 5 kg 유지 (총 7.0 kg) |
+| B2 | OK | discardvisual=false → geom 5 (visual 3 contype=conaffinity=0 + collision 2) |
+| B3 | OK | v2 `angle="radian"` 명시 |
+| B4 | N-A | 메시 없음 → meshdir 은 4주차 STL 때 |
+| B5 · B6 · B7 | OK | inertiafromgeom auto / balanceinertia false / autolimits (jnt_limited [T, T]) |
+| C1 | OK | 팔 단독 = 고정 베이스 (nq 2). 결합 모델 arm_on_base.xml 은 freejoint(C2). 평면 3-DOF(C3)는 팀장 결정 대기 |
+| D1 | OK | world 용접 base_link ↔ upper_arm: 베이스 collision 없음 → 수평 낙하 2 s 최대 접촉 0 (URDF · v2 모두) |
+| D2 | N-A | 접촉 0 이라 exclude 불필요. 베이스 collision 을 쓰면 `<exclude base_link upper_arm>` (fusestatic=false 라 이름 참조 가능) |
+| D3 | N-A | 팔 1개 — 비부모자식 쌍 없음. arm_on_base(팔 2 + 몸통)에서 적용 예정 |
+| D4 | OK | class=visual geom 3개 contype=conaffinity=0, group 2 |
+| E1 | OK* | actuator 를 **팔 파일** `<actuator>` + default class 에 두고 scene.xml 은 include 만 (menagerie g1.xml/scene.xml 방식). 체크리스트는 "scene 쪽에 추가" → **위치 협의 필요** (아래) |
+| E2 | OK | position gainprm kp=20, biasprm [0, −20, 0] = f = kp(ctrl−q) − kv·q̇ |
+| E3 | N-A | 베이스 평면 관절 없음 |
+| E4 | OK | forcerange ±25 = URDF effort, ctrlrange = inheritrange → joint range, joint actuatorfrcrange ±25 (10/7 추가) |
+| E5 | OK | kv 사용 + implicitfast. kv=14(≈kv_c 13.9) 오버슈트 0 % |
+| **E6** | **NG(보류)** | armature = 0 — RI85 로터 관성 · 감속비(BOM) 미확보. 0.01/0.1 영향만 실험(notes/06) → BOM 수령 후 J_rotor·N² 입력 |
+| E7 | OK | e_ss 실험 0.0137 rad vs 이론 2.75/200 = 0.0138 |
+| H1 | OK | cylinder size (0.02, 0.15) = 반지름 · 반길이, 4개 |
+| H2 | OK | angle=radian |
+| H3 | OK | 변환본 vs v2 자동 비교: 질량 1/1 kg, 관성 (0.0075, 0.0075, 0.0002), 수평 중력토크 [5.886, 1.4715] N·m 동일 = 손계산 0.6·9.81 / 0.15·9.81, range · damping 일치 |
+| F1 | OK | body · joint 이름 = URDF |
+| F2 | OK | 총질량 7.000 kg = 5+1+1 |
+| F3 | OK | 중력토크 = 손계산 |
+| F4 | OK | 확장 반영 → two_link_arm_from_urdf.xml 갱신 |
+| F5 | OK | 뷰어 week02 캡처 + week03 렌더, 자유 낙하 v1 = v2 |
+
+**합계: OK 30 · NG 1(E6, BOM 대기) · N-A 5**
+
+### 체크리스트에 보내는 피드백 (박종진에게)
+
+1. **E1 액추에이터 위치**: 체크리스트는 scene 쪽, 내 파일은 팔 파일 쪽. menagerie 는 로봇 xml 에 actuator 를 넣고 scene 은 환경만 두는 구조라 로봇 파일 단독으로도 제어 가능 → "변환본(robot.xml)은 손대지 않고, **actuator 는 robot 파일을 include 하는 중간 파일(robot_actuated.xml)** 에, scene 은 환경만" 3단 구조를 제안. 어느 쪽이든 팀 규약으로 하나만 정하자.
+   → **10/7 합의: 3단 구조(robot.xml 수정 금지 → robot_actuated.xml = include + actuator·sensor → scene.xml = include + 바닥·조명) 를 4주차 우리 로봇 v0 부터 적용.** week03 파일은 그대로 둠. 체크리스트 E1·0절에 팀 규약으로 기재(박종진).
+2. **E6 armature**: BOM 전엔 전원 NG 가 될 항목 → "BOM 수령 전 0 허용, 수령 후 J_rotor·N² 필수" 로 조건 명시 제안.
+3. **D1 보강**: 베이스에 collision 을 아예 두지 않는 것도 해결책(내 방식). exclude 와 병기.
+4. **H3**: 내 `checklist_check.py` 의 질량 · 관성 · 중력토크 자동 비교를 H3 공용 스크립트로 써도 됨.

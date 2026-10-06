@@ -4,6 +4,11 @@
      어깨·팔꿈치 revolute (Y축 회전).
      링크 길이 0.3 m, 각 링크 질량 1.0 kg, 관성은 균일 막대 근사 (I = m·L²/12). -->
 <robot name="two_link_arm">
+  <!-- week03 (10/7) 추가 | 박종진 체크리스트 v0.1 B절 반영: MuJoCo 전용 확장.
+       fusestatic=false → base_link(5 kg) body 유지, discardvisual=false → visual 형상도 로드 (MuJoCo 외 파서는 이 블록을 무시) -->
+  <mujoco>
+    <compiler fusestatic="false" discardvisual="false" balanceinertia="false"/>
+  </mujoco>
 
   <link name="base_link">
     <visual>
