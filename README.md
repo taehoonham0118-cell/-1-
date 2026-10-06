@@ -18,7 +18,8 @@
 |---|---|---|---|---|
 | 1주 | – | Isaac Sim / Lab 개요·개념·데모 파악 | [week01](logs/week01.md) | – (저장소 개설 전, 노션으로 대체 인정) |
 | 2주 | **SRR (×2)** | MuJoCo 설치 · G1 joint 표 · 2링크 팔 URDF/MJCF 비교 · 관성 실험 · 하체 실측표 | [week02](logs/week02.md) | `week02` |
-| 3주 | – | USD 개념 · 2링크 팔 USD · URDF↔USD 대응표 · 파이프라인 그림 | | `week03` |
+| 3주 | – | MJCF 심화(default·include·mjSpec attach) · position 액추에이터 계단 응답(kp·kv·armature) · URDF↔MJCF 대응표 · URDF 로딩 옵션 · 파이프라인 그림 | [week03](logs/week03.md) | `week03` |
+| 4주 | – | 우리 로봇 STEP → 링크별 STL · 질량/관성 표 · inertial 블록 · v0 URDF (STEP·BOM 원본 커밋 금지) | | `week04` |
 
 전체 누적표는 [`logs/contribution_log.md`](logs/contribution_log.md) 참고.
 
@@ -33,21 +34,26 @@
 │   ├── contribution_log.md    ← 누적 기여 로그 (매주 한 줄 추가)
 │   ├── week01.md              ← 주차별 기여 로그 (주차별 1개)
 │   ├── week02.md
-│   └── week02_base_measurement.md  ← SRR 하체 실측표
+│   ├── week02_base_measurement.md  ← SRR 하체 실측표 (보류)
+│   └── week03.md
 ├── reports/                   ← 제출한 주간활동보고서(docx) 사본
 ├── notes/                     ← 학습 정리
 │   ├── 01_isaac_install.md    (Isaac Sim/Lab 설치, 노션 기준)
 │   ├── 02_isaaclab_core_concepts.md
 │   ├── 03_isaaclab_demos.md
-│   └── 04_g1_arm_joints.md    (G1 어깨·팔꿈치 joint 표)
+│   ├── 04_g1_arm_joints.md    (G1 어깨·팔꿈치 joint 표)
+│   ├── 05_urdf_mjcf_mapping.md          (URDF ↔ MJCF 속성 대응표)
+│   ├── 06_mjcf_actuator_step_response.md (액추에이터 · 계단 응답 · 구술)
+│   └── 07_mjcf_structure_urdf_loading.md (MJCF 구성 · include · attach · URDF 로딩 옵션)
 ├── sim/
 │   ├── urdf/                  ← URDF 모델 (two_link_arm.urdf)
-│   ├── mjcf/                  ← MJCF 모델 (two_link_arm.xml)
-│   ├── scripts/               ← 실험 스크립트·결과 (compare_urdf_mjcf.py, results.csv)
+│   ├── mjcf/                  ← MJCF 모델 (two_link_arm.xml, two_link_arm_v2.xml + scene.xml, arm_on_base.xml)
+│   ├── scripts/               ← 실험 스크립트·결과 (compare_urdf_mjcf.py, step_response.py, attach_arm_to_base.py)
 │   └── configs/               ← 환경/로봇 설정 파일
 ├── assets/screenshots/weekNN/ ← 실행 확인 스크린샷 (주차별 폴더)
 └── docs/
     ├── GIT_RULES.md           ← 저장소 운영 규칙 (커밋·태그)
+    ├── pipeline_cad_urdf_mjcf.png  ← CAD → URDF → MJCF 파이프라인 그림 (.dot 원본)
     └── templates/weekly_report_template.md
 ```
 

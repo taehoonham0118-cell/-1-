@@ -1,0 +1,70 @@
+<!-- week03 | 2링크 팔 MJCF v2 (함태훈, B1)
+     2주차 two_link_arm.xml 을 default class · include 구조로 정리한 버전.
+       - 이 파일 = "팔" 만 (compiler · option · default · 팔 body 트리 · actuator)
+       - scene.xml   = 바닥 · 조명 · 카메라 + <include file="two_link_arm_v2.xml"/>
+     기하 · 질량 · 관성은 2주차와 동일 (링크 0.3 m · 1 kg × 2, 어깨 ±150°, 팔꿈치 −60°~120°).
+     단위: m, kg, rad, N·m -->
+<mujoco model="two_link_arm_v2">
+
+  <!-- compiler: angle=radian (URDF와 동일 단위), autolimits: range 를 주면 limited 자동 -->
+  <compiler angle="radian" autolimits="true"/>
+
+  <!-- option: 적분 주기 1 ms (관절 1 kHz 제어 주기와 맞춤), implicitfast 는 damping·armature 가 커도 안정 -->
+  <option timestep="0.001" integrator="implicitfast" gravity="0 0 -9.81"/>
+
+  <!-- default class: 같은 속성을 한 곳에서 관리. body 에 childclass="arm" 을 주면 자식 전체가 상속 -->
+  <default>
+    <default class="arm">
+      <!-- 모든 관절: Y축 힌지, 점성 감쇠 0.1 N·m·s/rad. armature(로터 반영 관성)는 실험용으로 0 에서 시작 -->
+      <joint type="hinge" axis="0 1 0" damping="0.1" armature="0" frictionloss="0"/>
+      <!-- 링크 형상: 반지름 0.02 m · 반길이 0.15 m 실린더, 링크 프레임 -Z 로 늘어짐 -->
+      <geom type="cylinder" size="0.02 0.15" pos="0 0 -0.15"/>
+      <!-- visual / collision 분리 (4주차 STL 분리 대비): group 2 = 시각 전용, group 3 = 충돌 전용 -->
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom group="3" rgba="0.6 0.6 0.6 0.3"/>
+      </default>
+      <!-- position 액추에이터 기본값: τ = kp·(ctrl − q) − kv·q̇, ctrlrange 는 joint range 상속, 토크 한계 ±25 N·m -->
+      <position kp="20" kv="0" inheritrange="1" forcerange="-25 25"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <!-- 천장 높이 1 m 에 고정된 베이스. 월드 고정 body 는 자식과 부모-자식 충돌 제외가 안 되므로 collision 없음 -->
+    <body name="base_link" pos="0 0 1.0" childclass="arm">
+      <geom class="visual" type="box" size="0.05 0.05 0.025" pos="0 0 0" rgba="0.5 0.5 0.5 1"/>
+      <inertial pos="0 0 0" mass="5.0" diaginertia="0.01 0.01 0.01"/>
+
+      <body name="upper_arm" pos="0 0 -0.025">
+        <joint name="shoulder" range="-2.618 2.618"/>
+        <geom class="visual"    rgba="0.8 0.2 0.2 1"/>
+        <geom class="collision"/>
+        <inertial pos="0 0 -0.15" mass="1.0" diaginertia="0.0075 0.0075 0.0002"/>
+
+        <body name="forearm" pos="0 0 -0.3">
+          <joint name="elbow" range="-1.047 2.094"/>
+          <geom class="visual"    rgba="0.2 0.2 0.8 1"/>
+          <geom class="collision"/>
+          <inertial pos="0 0 -0.15" mass="1.0" diaginertia="0.0075 0.0075 0.0002"/>
+          <!-- 팔 끝 site: 나중에 센서·그리퍼 attach 지점 -->
+          <site name="tip" pos="0 0 -0.3" size="0.01" rgba="0 1 0 1"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- 액추에이터: class="arm" 의 position 기본값(kp=20, kv=0, forcerange ±25) 을 상속 -->
+  <actuator>
+    <position name="shoulder_pos" joint="shoulder" class="arm"/>
+    <position name="elbow_pos"    joint="elbow"    class="arm"/>
+  </actuator>
+
+  <!-- 센서: 관절각·각속도·액추에이터 토크 (data.sensordata 로 기록) -->
+  <sensor>
+    <jointpos name="shoulder_q"  joint="shoulder"/>
+    <jointvel name="shoulder_qd" joint="shoulder"/>
+    <actuatorfrc name="shoulder_tau" actuator="shoulder_pos"/>
+  </sensor>
+</mujoco>

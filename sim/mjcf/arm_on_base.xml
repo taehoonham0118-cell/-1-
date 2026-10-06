@@ -1,0 +1,108 @@
+<!-- week03 | attach_arm_to_base.py 가 생성. 직접 수정하지 말고 스크립트를 고칠 것 -->
+<mujoco model="arm_on_base">
+  <compiler angle="radian"/>
+
+  <option timestep="0.001" integrator="implicitfast"/>
+
+  <default>
+    <default class="left_main">
+      <default class="left_arm">
+        <joint damping="0.1" axis="0 1 0"/>
+        <geom size="0.02 0.15 0" type="cylinder"/>
+        <general forcerange="-25 25" biastype="affine" gainprm="20" biasprm="0 -20"/>
+        <default class="left_visual">
+          <geom contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="left_collision">
+          <geom group="3" rgba="0.6 0.6 0.6 0.3"/>
+        </default>
+      </default>
+    </default>
+    <default class="right_main">
+      <default class="right_arm">
+        <joint damping="0.1" axis="0 1 0"/>
+        <geom size="0.02 0.15 0" type="cylinder"/>
+        <general forcerange="-25 25" biastype="affine" gainprm="20" biasprm="0 -20"/>
+        <default class="right_visual">
+          <geom contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="right_collision">
+          <geom group="3" rgba="0.6 0.6 0.6 0.3"/>
+        </default>
+      </default>
+    </default>
+  </default>
+
+  <worldbody>
+    <geom name="floor" size="2 2 0.05" type="plane" rgba="0.9 0.9 0.9 1"/>
+    <light pos="0 0 3"/>
+    <body name="base" pos="0 0 0.35">
+      <joint type="free"/>
+      <geom name="deck" size="0.2875 0.236 0.006" type="box" rgba="0.3 0.3 0.35 1" mass="3.7"/>
+      <geom name="frame" size="0.25 0.2 0.15" pos="0 0 -0.16" type="box" rgba="0.2 0.2 0.2 1" mass="20"/>
+      <geom name="wheel0" size="0.06 0.02" pos="0.24 0.21 -0.29" quat="0.707107 0.707107 0 0" type="cylinder" contype="0" conaffinity="0" rgba="0.1 0.1 0.1 1" mass="0.5"/>
+      <geom name="wheel1" size="0.06 0.02" pos="0.24 -0.21 -0.29" quat="0.707107 0.707107 0 0" type="cylinder" contype="0" conaffinity="0" rgba="0.1 0.1 0.1 1" mass="0.5"/>
+      <geom name="wheel2" size="0.06 0.02" pos="-0.24 0.21 -0.29" quat="0.707107 0.707107 0 0" type="cylinder" contype="0" conaffinity="0" rgba="0.1 0.1 0.1 1" mass="0.5"/>
+      <geom name="wheel3" size="0.06 0.02" pos="-0.24 -0.21 -0.29" quat="0.707107 0.707107 0 0" type="cylinder" contype="0" conaffinity="0" rgba="0.1 0.1 0.1 1" mass="0.5"/>
+      <body name="torso" pos="0 0 0.3">
+        <geom name="torso_box" size="0.1 0.15 0.3" type="box" rgba="0.5 0.5 0.6 1" mass="10"/>
+        <frame pos="0 0.3 0.25">
+          <body name="left_base_link" childclass="left_arm">
+            <inertial pos="0 0 0" mass="5" diaginertia="0.01 0.01 0.01"/>
+            <geom class="left_visual" size="0.05 0.05 0.025" type="box"/>
+            <body name="left_upper_arm" pos="0 0 -0.025">
+              <inertial pos="0 0 -0.15" mass="1" diaginertia="0.0075 0.0075 0.0002"/>
+              <joint name="left_shoulder" range="-2.618 2.618"/>
+              <geom class="left_visual" pos="0 0 -0.15" rgba="0.8 0.2 0.2 1"/>
+              <geom class="left_collision" pos="0 0 -0.15"/>
+              <body name="left_forearm" pos="0 0 -0.3">
+                <inertial pos="0 0 -0.15" mass="1" diaginertia="0.0075 0.0075 0.0002"/>
+                <joint name="left_elbow" range="-1.047 2.094"/>
+                <geom class="left_visual" pos="0 0 -0.15" rgba="0.2 0.2 0.8 1"/>
+                <geom class="left_collision" pos="0 0 -0.15"/>
+                <site name="left_tip" size="0.01" pos="0 0 -0.3" rgba="0 1 0 1"/>
+              </body>
+            </body>
+          </body>
+        </frame>
+        <frame pos="0 -0.3 0.25">
+          <body name="right_base_link" childclass="right_arm">
+            <inertial pos="0 0 0" mass="5" diaginertia="0.01 0.01 0.01"/>
+            <geom class="right_visual" size="0.05 0.05 0.025" type="box"/>
+            <body name="right_upper_arm" pos="0 0 -0.025">
+              <inertial pos="0 0 -0.15" mass="1" diaginertia="0.0075 0.0075 0.0002"/>
+              <joint name="right_shoulder" range="-2.618 2.618"/>
+              <geom class="right_visual" pos="0 0 -0.15" rgba="0.8 0.2 0.2 1"/>
+              <geom class="right_collision" pos="0 0 -0.15"/>
+              <body name="right_forearm" pos="0 0 -0.3">
+                <inertial pos="0 0 -0.15" mass="1" diaginertia="0.0075 0.0075 0.0002"/>
+                <joint name="right_elbow" range="-1.047 2.094"/>
+                <geom class="right_visual" pos="0 0 -0.15" rgba="0.2 0.2 0.8 1"/>
+                <geom class="right_collision" pos="0 0 -0.15"/>
+                <site name="right_tip" size="0.01" pos="0 0 -0.3" rgba="0 1 0 1"/>
+              </body>
+            </body>
+          </body>
+        </frame>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="left_shoulder_pos" class="left_arm" joint="left_shoulder" ctrlrange="-2.618 2.618"/>
+    <general name="left_elbow_pos" class="left_arm" joint="left_elbow" ctrlrange="-1.047 2.094"/>
+    <general name="right_shoulder_pos" class="right_arm" joint="right_shoulder" ctrlrange="-2.618 2.618"/>
+    <general name="right_elbow_pos" class="right_arm" joint="right_elbow" ctrlrange="-1.047 2.094"/>
+  </actuator>
+
+  <sensor>
+    <jointpos joint="left_shoulder" name="left_shoulder_q"/>
+    <jointvel joint="left_shoulder" name="left_shoulder_qd"/>
+
+    <actuatorfrc actuator="left_shoulder_pos" name="left_shoulder_tau"/>
+    <jointpos joint="right_shoulder" name="right_shoulder_q"/>
+    <jointvel joint="right_shoulder" name="right_shoulder_qd"/>
+
+    <actuatorfrc actuator="right_shoulder_pos" name="right_shoulder_tau"/>
+  </sensor>
+</mujoco>

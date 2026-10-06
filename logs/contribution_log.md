@@ -9,7 +9,7 @@
 |---|---|---|---|---|
 | 1 | – | Isaac Sim/Lab 설치 절차·핵심 개념·데모 정리 | [week01](week01.md), `notes/01~03` | – (노션 인정) |
 | 2 | ★ SRR | MuJoCo 설치·G1 관절 표, 2링크 팔 URDF·MJCF 작성·비교, 관성 실험, 하체 실측표 양식 | [week02](week02.md), `sim/`, `notes/04`, [보고서](../reports/학부생_주간활동보고서_2주차_함태훈_22212334_261001.docx) | `week02` |
-| 3 | – | | | `week03` |
+| 3 | – | MJCF default·include 정리, position 액추에이터 계단 응답(kp·kv·armature) 9조건, URDF↔MJCF 대응표, URDF 로딩 옵션 실험, mjSpec attach, 파이프라인 그림 | [week03](week03.md), `sim/mjcf/*_v2·scene·arm_on_base`, `notes/05~07`, [보고서](../reports/학부생_주간활동보고서_3주차_함태훈_22212334_261008.docx) | `week03` |
 | 4 | – | | | `week04` |
 | 5 | – | | | `week05` |
 | 6 | ★ PDR | | | `week06` |

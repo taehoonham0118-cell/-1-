@@ -1,0 +1,31 @@
+// week03 | CAD → URDF → MJCF(MuJoCo) 파이프라인 (함태훈, B1)
+// 렌더: dot -Tpng docs/pipeline_cad_urdf_mjcf.dot -o docs/pipeline_cad_urdf_mjcf.png
+digraph pipeline {
+  rankdir=LR;
+  graph [fontname="Noto Sans CJK KR", fontsize=13, labelloc=t, pad=0.3, nodesep=0.35, ranksep=0.5,
+         label="CAD → URDF → MJCF(MuJoCo) 파이프라인  (B1 모델링 · 시뮬레이션)      실선 = 지금 (GPU 없이)    점선 = 실습 PC 배정 후"];
+  node  [fontname="Noto Sans CJK KR", fontsize=11, shape=box, style="rounded,filled", fillcolor="#F4F6F8", color="#5B6770"];
+  edge  [fontname="Noto Sans CJK KR", fontsize=9.5, color="#5B6770"];
+
+  cad   [label="① CAD (STEP)\nA팀 Inventor / SolidWorks\n양팔로봇 최종버전.stp · BASE 3.STEP\n단위 mm, AP214", fillcolor="#E8EEF5"];
+  split [label="② 링크 분할 · 메시\nFreeCAD: 링크별 STL 내보내기 (mm→m ×0.001)\nvisual(세밀) / collision(convex hull) 분리\ntrimesh: watertight · 면 수 · 부피 검사"];
+  inert [label="③ 질량 · 관성 · 관절 축\nFreeCAD 재질(밀도) → 질량 · COM · 관성 텐서\nBOM 질량과 대조, 평행축 정리\njoint origin · axis = 부모 링크 프레임 기준\n구동기 사양 → effort · velocity · limit"];
+  urdf  [label="④ URDF (단일 진실 공급원)\n<link> visual · collision · inertial\n<joint> origin · axis · limit · dynamics\n+ <mujoco><compiler .../></mujoco> 확장\n(meshdir · fusestatic · discardvisual · balanceinertia)", fillcolor="#FFF4DC", color="#B8860B"];
+  load  [label="⑤ MuJoCo 로드 · 변환\nMjModel.from_xml_path(urdf)\n→ mj_saveLastXML → MJCF\n(고정 베이스 vs freejoint, 자기 충돌 필터)"];
+  mjcf  [label="⑥ MJCF 정리\n<default class>로 속성 재사용\n<include>로 팔 / scene 분리\nmjSpec.attach 로 팔 × 2 + 베이스 조립\n<actuator> position kp · kv · gear · forcerange\njoint armature · damping · frictionloss\n<sensor> jointpos · actuatorfrc", fillcolor="#FFF4DC", color="#B8860B"];
+  verify[label="⑦ 검증 (MuJoCo)\n뷰어 자세 확인 · 자유 낙하 · 관절 범위 · 충돌\n계단 응답(kp · kv · armature) → 그래프\nB2(관절 제어) · B3(WBC) 에 모델 전달", fillcolor="#E6F4EA", color="#2E7D32"];
+  isaac [label="⑧ Isaac Sim (실습 PC 배정 후)\nURDF Importer → USD 자동 생성\nfix base · merge fixed joints · self-collision\nDrive stiffness = kp, damping = kv", style="rounded,filled,dashed", fillcolor="#F4F4F4", color="#888888"];
+
+  // 2단 배치: 윗줄 ①~④, 아랫줄 ⑤~⑧
+  {rank=same; cad; isaac;}
+  {rank=same; split; verify;}
+  {rank=same; inert; mjcf;}
+  {rank=same; urdf; load;}
+  cad -> split -> inert -> urdf;
+  urdf -> load [weight=0];
+  load -> mjcf -> verify;
+  verify -> isaac [style=dashed, color="#888888", label="④ 의 URDF 를 그대로\nImporter 에 넣음"];
+  verify -> inert [label="실측 질량 · 관성 갱신 (A4 → B1, ICD)", constraint=false, color="#2E7D32", fontcolor="#2E7D32"];
+  // 아랫줄은 오른쪽→왼쪽이 아니라 왼쪽→오른쪽으로 읽히도록 isaac 을 맨 왼쪽 열에 두지 않고 순서 고정
+  edge [style=invis]; cad -> isaac; split -> verify; inert -> mjcf; urdf -> load;
+}
