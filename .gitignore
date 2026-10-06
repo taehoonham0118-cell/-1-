@@ -31,3 +31,12 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+# 4주차부터: 우리 로봇 CAD·BOM 원본은 공개 저장소에 올리지 않음 (커리큘럼 규칙). 변환한 STL·URDF·표만 커밋
+*.step
+*.stp
+*.STEP
+*.STP
+*.sldprt
+*.SLDPRT
+bom*
+BOM*
