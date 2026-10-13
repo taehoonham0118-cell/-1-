@@ -25,9 +25,9 @@
 | 3 | **링크 분할표 (월)**: 팔 STEP 부품 389개 → 9개 링크(몸통 + 팔 4 × 2), 중복 · 누락 0. RI85 축 = 출력부 R52 원통 축, 링크 배정 = 부품 사이 거리 0 mm 접촉. RI85 는 출력측(output · ring2 · cover plate1)/고정측으로 분할 | 100 % (BOM 열 대기) | [notes/09 §1~2](../notes/09_our_robot_link_split_v0.md), [find_joint_axes.py](../sim/scripts/find_joint_axes.py), [make_linkmap_arm.py](../sim/scripts/make_linkmap_arm.py), [sim/robot/linkmap_arm.json](../sim/robot/linkmap_arm.json), [joint_axes_cad.csv](../sim/robot/joint_axes_cad.csv) |
 | 4 | **링크별 STL (화)**: 9개 링크 + 상판 visual(1.1만~5.6만 면, 구동기 내부 기어 · 베어링 제외) · collision(hull 270~390 면) | 100 % | [sim/robot/meshes/](../sim/robot/meshes/) (20개) |
 | 5 | **질량 · COM · 관성 표 → inertial 블록 (수)**: 밀도 Al 2700 / 강 7850 / PCB 1850 가정. OpenCascade · trimesh · **FreeCAD 1.0.2(노트북)** 3자 중 2자+FreeCAD 비교, BOM 열 대기 | 90 % (BOM) | [link_mass_props.csv](../sim/robot/link_mass_props.csv), [inertial_blocks.xml](../sim/robot/inertial_blocks.xml), [freecad_link_export.FCMacro](../sim/scripts/freecad_link_export.FCMacro), 캡처 [상판](../assets/screenshots/week04/week04_freecad_base_plate.png) · [팔꿈치](../assets/screenshots/week04/week04_freecad_left_elbow_al.png) |
-| 6 | **v0 URDF → MuJoCo (수)**: world —planar→ base(상판 STEP 메시 + 임시 box) —fixed→ torso(어깨 RI85 고정부 + 임시 box) → 양팔 4링크. 3단 구조 robot.xml(mj_saveLastXML, 수정 금지) → robot_actuated.xml → scene.xml | 100 % (가정값 표 포함) | [build_v0_urdf.py](../sim/scripts/build_v0_urdf.py), [our_robot_v0.urdf](../sim/robot/our_robot_v0.urdf), [robot.xml](../sim/robot/robot.xml) · [robot_actuated.xml](../sim/robot/robot_actuated.xml) · [scene.xml](../sim/robot/scene.xml), 캡처 [iso](../assets/screenshots/week04/week04_v0_iso.png) · [pose](../assets/screenshots/week04/week04_v0_pose.png) · [collision](../assets/screenshots/week04/week04_v0_iso_collision.png) |
+| 6 | **v0 URDF → MuJoCo (수)**: world —planar→ base(상판 STEP 메시 + 임시 box) —fixed→ torso(어깨 RI85 고정부 + 임시 box) → 양팔 4링크. 3단 구조 robot.xml(mj_saveLastXML, 수정 금지) → robot_actuated.xml → scene.xml | 100 % (가정값 표 포함) | [build_v0_urdf.py](../sim/scripts/build_v0_urdf.py), [our_robot_v0.urdf](../sim/robot/our_robot_v0.urdf), [robot.xml](../sim/robot/robot.xml) · [robot_actuated.xml](../sim/robot/robot_actuated.xml) · [scene.xml](../sim/robot/scene.xml), 캡처 [iso](../assets/screenshots/week04/week04_v0_iso.png) · [pose](../assets/screenshots/week04/week04_v0_pose.png) · [collision](../assets/screenshots/week04/week04_v0_iso_collision.png), **노트북 MuJoCo 뷰어** [기본 자세](../assets/screenshots/week04/week04_v0_viewer_laptop.png) · [Control 로 왼팔 pitch −1.21 · elbow 0.801 유지](../assets/screenshots/week04/week04_v0_viewer_laptop_pose.png) |
 | 7 | v0 점검 (금 과제 일부 선행): 초기 접촉 0, 관절 앵커 = CAD 관절점 0.0 mm, 2 s 자세 유지 최대 0.145°, 중력 토크 | 70 % (관절 범위는 가정) | [verify_robot_v0.py](../sim/scripts/verify_robot_v0.py), [verify_robot_v0_log.txt](../sim/robot/verify_robot_v0_log.txt), [joint_origin_check.csv](../sim/robot/joint_origin_check.csv) |
-| 8 | **팀 연계**: ① 박종진 관절 표(0dfa6e8) ↔ CAD 축: 수직거리 ≤ 0.064 mm, 축 ≤ 0.024°, 분할 차이 1건 반영(모터드라이버 5 · 6 → elbow) ② **골격 URDF(e292b37) joint origin 검증표**: pitch · roll 앵커 ≤ 0.05 mm · 0.01° 일치, yaw · elbow 는 골격의 축 정렬 1.37° · 거울 대칭 7.4 mm(의도된 차이), 축 부호 규약 4건 차이 → 통일 요청 | 100 % | [check_joint_table_vs_pjj.py](../sim/scripts/check_joint_table_vs_pjj.py) · [check_skeleton_vs_cad.py](../sim/scripts/check_skeleton_vs_cad.py), [joint_check_vs_pjj.csv](../sim/robot/joint_check_vs_pjj.csv) · [joint_check_skeleton.csv](../sim/robot/joint_check_skeleton.csv), [notes/09 §8~9](../notes/09_our_robot_link_split_v0.md) |
+| 8 | **팀 연계**: ① 박종진 관절 표(0dfa6e8) ↔ CAD 축: 수직거리 ≤ 0.064 mm, 축 ≤ 0.024°, 분할 차이 1건 반영(모터드라이버 5 · 6 → elbow) ② **골격 URDF(e292b37) joint origin 검증표**: pitch · roll 앵커 ≤ 0.05 mm · 0.01° 일치, yaw · elbow 는 골격의 축 정렬 1.37° · 거울 대칭 7.4 mm(의도된 차이), 축 부호 규약 3건 차이 → 통일 요청 | 100 % | [check_joint_table_vs_pjj.py](../sim/scripts/check_joint_table_vs_pjj.py) · [check_skeleton_vs_cad.py](../sim/scripts/check_skeleton_vs_cad.py), [joint_check_vs_pjj.csv](../sim/robot/joint_check_vs_pjj.csv) · [joint_check_skeleton.csv](../sim/robot/joint_check_skeleton.csv), [notes/09 §8~9](../notes/09_our_robot_link_split_v0.md) |
 | 9 | (팀장 회신 10/8) 박종진 RI85 ICD 요청서 v0 검토 — 보완 3건(다단 유성기어 반사관성, 기어 효율 · 백래시, 질량 항목 근거) | 50 % (전달 · 공동 제출 전) | b1/docs/icd/actuator-spec-request.md (박종진 저장소) |
 
 ### 실행 환경 · 명령 (재현용)
@@ -35,6 +35,7 @@
 | 항목 | 값 |
 |---|---|
 | 계산 | 클라우드 Linux, Python 3.13, cadquery-ocp 7.8.1.1, trimesh 5.1.1, mujoco 3.15.0 (노트북 Windows · Python 3.14 · cadquery-ocp 8.0.1.1 도 같은 결과) |
+| 노트북 뷰어 | Windows 11, `py sim/scripts/view_v0.py` (한글 경로, `python` 은 스토어 별칭이라 `py` 사용) — 10/14 로드 · Run 상태 자세 유지 확인 |
 | FreeCAD | 노트북 Windows 11, FreeCAD 1.0.2 (`winget install --id FreeCAD.FreeCAD --version 1.0.2 -e`) |
 
 ```bash
@@ -49,7 +50,7 @@ python sim/scripts/build_v0_urdf.py
 python sim/scripts/verify_robot_v0.py          # → robot.xml · robot_actuated.xml · scene.xml · 점검 로그 · 캡처
 python sim/scripts/check_joint_table_vs_pjj.py
 python sim/scripts/check_skeleton_vs_cad.py --skeleton <박종진 저장소>/b1/models/v0/urdf/b1_humanoid_skeleton.urdf
-python -m mujoco.viewer --mjcf=sim/robot/scene.xml
+python sim/scripts/view_v0.py                  # 뷰어 (한글 경로 대비). 영어 경로면 python -m mujoco.viewer --mjcf=sim/robot/scene.xml
 # 테스트 STEP 검증: python sim/scripts/make_test_step.py && python sim/scripts/step_to_links.py --step sim/test_cad/test_arm.step --linkmap sim/test_cad/linkmap_test.json --out sim/test_cad/out && python sim/scripts/verify_test_step.py
 ```
 
@@ -71,7 +72,7 @@ python -m mujoco.viewer --mjcf=sim/robot/scene.xml
 | 자세 유지 | 2 s 최대 0.145° | position kp 200 · kv 10 (가정), armature 0 |
 | 중력 토크 | 팔 수평(pitch −90°) 어깨 22.725 Nm = 14.170 × 9.81 × 0.1635 | 팔 내림 0.301 Nm |
 | 박종진 관절 표 대조 | 수직거리 ≤ 0.064 mm, 축 각도 ≤ 0.024° | 원점 위치 차 22 mm 는 축 위 이동 |
-| 박종진 골격 URDF 검증 | pitch · roll ≤ 0.05 mm · 0.01°, yaw · elbow 1.37° · 오른팔 7.4~7.5 mm, 축 부호 반대 4건 | q = 0, 몸통 프레임 기준 |
+| 박종진 골격 URDF 검증 | pitch · roll ≤ 0.05 mm · 0.01°, yaw · elbow 1.37° · 오른팔 7.4~7.5 mm, 축 부호 반대 3건(L yaw, R roll, R elbow) | q = 0, 몸통 프레임 기준 |
 | 골격 v0 vs 함태훈 질량 (왼 elbow) | 2.1425 vs 2.268 kg, 차 0.1255 kg = ring2 기어 + cover plate1 | 출력측 부품 범위 차 |
 | E6 armature (F3) | **0 — RI85 사양 미수령, 팀장 10/8 0 허용** | ICD 요청 중 |
 

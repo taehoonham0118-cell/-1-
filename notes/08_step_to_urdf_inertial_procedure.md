@@ -2,7 +2,7 @@
 
 | 항목 | 내용 |
 |---|---|
-| 상태 | **v0 (2026-10-13)** — 우리 로봇 STEP(「양팔로봇 최종버전.stp」·「BASE 3.STEP」)은 아직 받지 못함. 절차와 스크립트는 ① 손계산이 가능한 테스트 STEP, ② Unitree G1 실제 메시로 먼저 검증했다. STEP을 받으면 §2~§4 명령을 그대로 실행한다. |
+| 상태 | **v1 (2026-10-14)** — 절차와 스크립트를 ① 손계산이 가능한 테스트 STEP, ② Unitree G1 실제 메시로 먼저 검증(10/13)한 뒤, ③ 우리 로봇 STEP(「양팔로봇 최종버전.stp」 10/13 · 「BASE 3.STEP」 10/14)에 그대로 실행했다 → 결과는 [notes/09](09_our_robot_link_split_v0.md). ④ 노트북 FreeCAD 1.0.2 매크로로 같은 값이 나오는지 확인(§4-4). |
 | 도구 | OpenCascade(`pip install cadquery-ocp`, FreeCAD가 내부에서 쓰는 CAD 엔진) · trimesh 5.1 · MuJoCo 3.14/3.15. FreeCAD 1.0은 눈으로 확인·캡처용 (§4-4 매크로) |
 | 스크립트 | [step_to_links.py](../sim/scripts/step_to_links.py) (본 절차) · [make_test_step.py](../sim/scripts/make_test_step.py) · [verify_test_step.py](../sim/scripts/verify_test_step.py) · [g1_mesh_vs_official.py](../sim/scripts/g1_mesh_vs_official.py) · [check_inertial_roundtrip.py](../sim/scripts/check_inertial_roundtrip.py) · [hull_contact_demo.py](../sim/scripts/hull_contact_demo.py) · [freecad_link_export.FCMacro](../sim/scripts/freecad_link_export.FCMacro) |
 | 근거 | ROS URDF XML `link/inertial` · MuJoCo XML Reference `asset/mesh`, `compiler`(inertiafromgeom · balanceinertia) · MuJoCo Computation 「Collision detection」(mesh = convex hull) · OpenCascade `GProp_GProps::MatrixOfInertia`(COM 기준) |
@@ -89,7 +89,9 @@ python sim/scripts/step_to_links.py --step "<STEP 경로>" --linkmap sim/linkmap
 ### 4-4. 노트북 FreeCAD로 확인할 때
 1. FreeCAD 1.0 → 파일 → 열기 → STEP → 트리에서 한 링크의 부품을 Ctrl+클릭으로 선택
 2. 매크로 → `sim/scripts/freecad_link_export.FCMacro` 실행 → 링크 이름 · 원점(mm) · 밀도 입력
-3. 리포트 뷰의 `<inertial>` 이 `inertial_blocks.xml` 과 같은지 비교 (같은 CAD 엔진이라 일치해야 함). ※ 매크로는 FreeCAD 설치 후 첫 실행으로 검증 예정
+3. 리포트 뷰의 `<inertial>` 이 `inertial_blocks.xml` 과 같은지 비교 (같은 CAD 엔진이라 일치해야 함)
+4. **10/14 노트북 FreeCAD 1.0.2 로 검증 완료**: 상판 3.6901 kg · 팔꿈치 Al 3부품 1.65145 kg, 관성 6성분이 스크립트와 6자리까지 일치 (notes/09 §7, 캡처 `assets/screenshots/week04/week04_freecad_*.png`)
+5. 주의 ① STEP 을 열고 저장하지 않은 문서는 파일 경로가 비어 있음 → 매크로가 결과를 먼저 출력하고 STL 저장 폴더는 선택 창으로 받음 ② 이 STEP 의 한글 부품 이름이 트리에 `\X2\C804…\X0\`(UTF-16 코드)로 보임 → `freecad_select_parts.FCMacro`(이름 코드 + 위치)로 부품 자동 선택 ③ 파이썬 콘솔에 여러 줄을 붙여 넣으면 for 문 뒤 빈 줄이 빠져 SyntaxError → 매크로 파일로 실행
 
 ---
 
@@ -156,8 +158,8 @@ G1 공식 값을 URDF식 전체 텐서(I = R·diag·Rᵀ)로 바꿔 MuJoCo에 �
 | 6 | 오목 링크 충돌을 메시 하나로 | 가짜 접촉 (§5-4, 28.8 mm) | 원시 도형 · convex 분해 |
 | 7 | 구동기 내부 부품 누락 | 링크 질량 과소 | 메시에서는 빼도 질량에는 포함, BOM 대조 |
 
-## 7. 다음 단계 (STEP · BOM 받은 뒤)
-1. `--inventory` → 링크 분할표(`linkmap.json`)를 박종진 골격의 링크 이름과 맞춰 작성
-2. `--linkmap` 실행 → 메시 · `inertial_blocks.xml` → 박종진 골격 URDF에 합침 → `robot.xml`(mj_saveLastXML, 수정 금지) → `robot_actuated.xml` → `scene.xml`
-3. 박종진 골격의 joint origin vs CAD 관절 축 위치 검증표 (팀 연계)
-4. v0 낙하 · 관절 범위 · 충돌 확인, BOM 질량과 3자 비교표 완성
+## 7. 진행 상태 (10/14)
+1. ✅ `--inventory` → 링크 분할표 `sim/robot/linkmap_arm.json` (박종진 ICD 이름 규칙)
+2. ✅ `--linkmap` 실행 → 메시 · `inertial_blocks.xml` → `build_v0_urdf.py` → `robot.xml`(mj_saveLastXML, 수정 금지) → `robot_actuated.xml` → `scene.xml`
+3. ✅ 박종진 골격 joint origin vs CAD 관절 축 검증표 (`check_skeleton_vs_cad.py`, notes/09 §9)
+4. ◐ v0 자세 유지 · 초기 접촉 확인 완료, 관절 범위 · 자기 충돌 · BOM 3자 비교는 BOM · RI85 사양 수령 후
