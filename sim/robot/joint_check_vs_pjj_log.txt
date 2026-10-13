@@ -1,0 +1,9 @@
+left_shoulder_pitch    수직거리  0.000 mm  축 위 거리  22.14 mm  축 각도 차 0.000°
+left_shoulder_roll     수직거리  0.040 mm  축 위 거리  22.20 mm  축 각도 차 0.011°
+left_shoulder_yaw      수직거리  0.015 mm  축 위 거리  22.16 mm  축 각도 차 0.008°
+left_elbow             수직거리  0.051 mm  축 위 거리  22.22 mm  축 각도 차 0.005°
+right_shoulder_roll    수직거리  0.040 mm  축 위 거리  22.20 mm  축 각도 차 0.011°
+right_shoulder_pitch   수직거리  0.000 mm  축 위 거리  22.16 mm  축 각도 차 0.000°
+right_shoulder_yaw     수직거리  0.031 mm  축 위 거리  22.15 mm  축 각도 차 0.024°
+right_elbow            수직거리  0.064 mm  축 위 거리  22.20 mm  축 각도 차 0.005°
+최대 수직거리 0.064 mm, 최대 축 각도 차 0.024 °

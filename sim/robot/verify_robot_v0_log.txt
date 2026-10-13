@@ -1,0 +1,12 @@
+mujoco 3.15.0 | body 11 · joint 11 · dof 11 · actuator 8 · geom 24 · mesh 19
+관절: ['base_joint_TX', 'base_joint_TY', 'base_joint_RZ', 'left_shoulder_pitch_joint', 'left_shoulder_roll_joint', 'left_shoulder_yaw_joint', 'left_elbow_joint', 'right_shoulder_pitch_joint', 'right_shoulder_roll_joint', 'right_shoulder_yaw_joint', 'right_elbow_joint']
+총질량 67.464 kg  (CAD 링크 합 32.465 + 가정 베이스 30 + 몸통 box 5)
+팔 1개 질량 (CAD, 밀도 가정): 왼 14.170 kg · 오른 14.231 kg
+관성 삼각부등식 위반 body: 없음 (balanceinertia=false 로 컴파일 통과)
+초기 자세 접촉 0개: []
+관절 앵커 vs CAD 관절점 최대 차: 0.0 mm  → joint_origin_check.csv
+중력 토크 [팔 내림(q=0)]: {'left_shoulder_pitch_joint': np.float64(0.301), 'left_shoulder_roll_joint': np.float64(0.009), 'left_elbow_joint': np.float64(-0.002)} Nm
+중력 토크 [팔 앞으로 수평(pitch -π/2)]: {'left_shoulder_pitch_joint': np.float64(-22.725), 'left_shoulder_roll_joint': np.float64(-0.0), 'left_elbow_joint': np.float64(-0.0)} Nm
+  검산: 팔 질량 14.170 kg × 9.81 × COM 수평거리 0.1635 m = 22.725 Nm
+2 s 유지 후 관절각 [deg] (kp 200.0): {'left_shoulder_pitch_joint': -0.077, 'left_shoulder_roll_joint': -0.002, 'left_shoulder_yaw_joint': 0.0, 'left_elbow_joint': 0.0, 'right_shoulder_pitch_joint': -0.085, 'right_shoulder_roll_joint': -0.145, 'right_shoulder_yaw_joint': 0.0, 'right_elbow_joint': 0.002} | 베이스 이동 [-0.0001, 8e-05, -2e-05] | 접촉 0
+캡처 저장: assets/screenshots/week04/week04_v0_front.png · _iso · _pose · _iso_collision

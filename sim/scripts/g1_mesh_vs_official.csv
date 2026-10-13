@@ -1,0 +1,10 @@
+﻿link,n_mesh,faces,watertight,volume_cm3,mass_official,mass_if_aluminum,rho_eff,com_off_mm,I_rel_err_pct,Imax_ratio_mesh_over_official,hull_faces,hull_vol_ratio,hull_gap_max_mm,hull_gap_p95_mm,triangle_ok
+left_shoulder_pitch_link,1,3534,False,285.68,0.718,0.7713,2513,2.72,23.1,1.221,2030,1.044,3.8,2.0,True
+left_shoulder_roll_link,1,8004,False,172.0,0.643,0.4644,3738,14.39,69.4,1.788,2030,3.202,30.9,23.7,True
+left_shoulder_yaw_link,1,4982,False,414.27,0.734,1.1185,1772,22.44,28.5,1.292,1388,1.411,23.4,15.4,True
+left_elbow_link,1,1774,False,214.49,0.6,0.5791,2797,7.21,49.8,1.532,842,1.488,26.9,17.4,True
+left_wrist_roll_link,1,7122,True,11.91,0.085445,0.0322,7175,1.67,21.4,1.198,3868,10.695,22.1,17.8,True
+left_wrist_pitch_link,1,1718,True,208.14,0.48405,0.562,2326,0.85,5.2,1.046,1062,1.124,4.7,4.1,True
+left_wrist_yaw_link,2,52120,True,172.02,0.254576,0.4645,1480,20.97,27.6,0.756,4124,3.675,30.3,25.3,True
+waist_yaw_link,1,12398,False,145.59,0.214,0.3931,1470,5.32,9.3,0.957,444,1.483,15.3,9.4,True
+waist_roll_link,1,1716,True,6.94,0.086,0.0187,12400,0.02,24.6,1.084,994,1.52,5.8,2.6,True

@@ -1,0 +1,7 @@
+{"step": "BASE 3.STEP (모바일로봇 상판, SolidWorks 2025, mm) — 원본은 저장소 밖",
+ "density_default": 2700,
+ "density_note": "가정: 알루미늄 2700 (BOM 수령 시 교체)",
+ "links": [{"name": "base_plate", "parts": ["BASE 3"],
+            "origin_mm": [0, 0, -294], "rpy": [0, 0, 0],
+            "note": "base_link 원점 = 바닥 중심(ICD 3.1). 상판 중심이 바닥 위 0.294 m(= 윗면 0.30 m 가정 − 두께/2). 상판 x(575) = 로봇 전방 가정",
+            "bom_mass_kg": null}]}

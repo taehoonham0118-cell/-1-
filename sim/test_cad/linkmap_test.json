@@ -1,0 +1,5 @@
+{"density_default": 2700,
+ "links": [
+  {"name": "upper_arm_link", "parts": ["upper_block", "upper_bolt"], "origin_mm": [0, 0, 0], "rpy": [0, 0, 0], "bom_mass_kg": null},
+  {"name": "forearm_link",   "parts": ["fore_cyl"],                  "origin_mm": [0, 0, -200], "rpy": [0, 0, 0], "bom_mass_kg": null}
+ ]}

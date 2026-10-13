@@ -1,0 +1,270 @@
+{
+ "step": "양팔로봇 최종버전.stp (팀장 10/13 카톡, 원본은 저장소 밖)",
+ "density_default": 2700,
+ "density_note": "가정: 브래킷 · 하우징 · 출력부 = 알루미늄 2700, 기어 · 축 · 키 · 베어링 · 모터 = 강 7850, 엔코더 기판 1850. BOM 수령 시 교체",
+ "links": [
+  {
+   "name": "torso_link",
+   "parts": [
+    "/RI85 제작건:1/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))",
+    "/RI85 제작건:6/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "origin_mm": [
+    -118.14,
+    0,
+    0
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "note": "STEP 에 몸통 없음 — 어깨 RI85 두 개의 고정부만. 몸통 본체는 URDF 에서 임시 box",
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "left_shoulder_pitch_link",
+   "origin_mm": [
+    29.46,
+    0,
+    0
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/어깨 브래킷1:1/",
+    "^[^/]+/어깨 브래킷2:1/",
+    "^[^/]+/모터드라이버 예상:1/",
+    "^[^/]+/JIS B 1521 6810 50x65x7:1/",
+    "/RI85 제작건:1/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:2/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "left_shoulder_roll_link",
+   "origin_mm": [
+    159.46,
+    -20.0,
+    19.0
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/C브래킷1\\(수정본\\):1/",
+    "^[^/]+/C브래킷2\\(수정본\\):1/",
+    "^[^/]+/상완원통 일체형:2/",
+    "^[^/]+/모터드라이버 예상:3/",
+    "/RI85 제작건:2/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:3/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "left_shoulder_yaw_link",
+   "origin_mm": [
+    159.47,
+    -180.15,
+    -1.66
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/상완 칼라1:1/",
+    "^[^/]+/상완 칼라2:1/",
+    "^[^/]+/JIS B 1521 6810 50x65x7:2/",
+    "/RI85 제작건:3/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:4/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "left_elbow_link",
+   "origin_mm": [
+    159.57,
+    -295.61,
+    16.09
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/전완요크1:1/",
+    "^[^/]+/전완요크2:1/",
+    "^[^/]+/그리퍼 플랜지:1/",
+    "^[^/]+/모터드라이버 예상:5/",
+    "/RI85 제작건:4/(output-v1|ring2-InternalInvoluteGear|cover plate1:)"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "right_shoulder_pitch_link",
+   "origin_mm": [
+    -265.74,
+    0,
+    0
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/어깨 브래킷1\\(반대\\):1/",
+    "^[^/]+/어깨 브래킷2\\(반대\\):1/",
+    "^[^/]+/모터드라이버 예상:2/",
+    "^[^/]+/JIS B 1521 6810 50x65x7:3/",
+    "/RI85 제작건:6/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:5/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "right_shoulder_roll_link",
+   "origin_mm": [
+    -395.74,
+    -20.0,
+    19.0
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/C브래킷1\\(수정본\\):2/",
+    "^[^/]+/C브래킷2\\(수정본\\):2/",
+    "^[^/]+/상완원통 일체형:1/",
+    "^[^/]+/모터드라이버 예상:4/",
+    "/RI85 제작건:5/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:7/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "right_shoulder_yaw_link",
+   "origin_mm": [
+    -388.62,
+    -179.66,
+    -1.64
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/상완 칼라1:2/",
+    "^[^/]+/상완 칼라2:2/",
+    "^[^/]+/JIS B 1521 6810 50x65x7:4/",
+    "/RI85 제작건:7/(output-v1|ring2-InternalInvoluteGear|cover plate1:)",
+    "/RI85 제작건:8/(?!(output-v1|ring2-InternalInvoluteGear|cover plate1:))"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  },
+  {
+   "name": "right_elbow_link",
+   "origin_mm": [
+    -388.54,
+    -295.12,
+    16.11
+   ],
+   "rpy": [
+    -1.5707963267948966,
+    -1.5707963267948966,
+    0.0
+   ],
+   "parts": [
+    "^[^/]+/전완요크1:2/",
+    "^[^/]+/전완요크2:2/",
+    "^[^/]+/그리퍼 플랜지:2/",
+    "^[^/]+/모터드라이버 예상:6/",
+    "/RI85 제작건:8/(output-v1|ring2-InternalInvoluteGear|cover plate1:)"
+   ],
+   "density_by_part": {
+    "InvoluteGear|planet shaft|/key:|JIS B 1521|ISO 3245|50305040210|MB039|Prirobnica": 7850,
+    "encoder plate": 1850
+   },
+   "mesh_exclude": [
+    "/RI85 제작건:\\d+/(?!housing|RI85-PH|output-v1|encoder cover|cover plate1:)",
+    "^[^/]+/JIS B 1521 6810"
+   ],
+   "bom_mass_kg": null
+  }
+ ]
+}

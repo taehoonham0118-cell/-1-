@@ -1,0 +1,9 @@
+left_elbow_joint             수직거리   0.88 mm  축 위  -16.07 mm  축 각도 차  1.37°  부호 같음
+left_shoulder_pitch_joint    수직거리   0.00 mm  축 위   22.15 mm  축 각도 차  0.00°  부호 같음
+left_shoulder_roll_joint     수직거리   0.05 mm  축 위  -19.00 mm  축 각도 차  0.01°  부호 같음
+left_shoulder_yaw_joint      수직거리   2.19 mm  축 위  -22.10 mm  축 각도 차  1.37°  부호 반대
+right_elbow_joint            수직거리   7.38 mm  축 위  -16.08 mm  축 각도 차  1.37°  부호 반대
+right_shoulder_pitch_joint   수직거리   0.00 mm  축 위  -22.15 mm  축 각도 차  0.00°  부호 같음
+right_shoulder_roll_joint    수직거리   0.05 mm  축 위  -19.00 mm  축 각도 차  0.01°  부호 반대
+right_shoulder_yaw_joint     수직거리   7.51 mm  축 위  -22.59 mm  축 각도 차  1.37°  부호 같음
+저장: sim/robot/joint_check_skeleton.csv

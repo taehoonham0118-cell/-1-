@@ -1,0 +1,7 @@
+<!-- step_to_links.py 생성. URDF 각 <link> 안에 붙여 넣는다 -->
+  <!-- base_plate: OpenCascade 질량 특성, 밀도 2700 kg/m³, 부품 1개 -->
+  <inertial>
+    <origin xyz="2.89781e-06 2.89927e-06 0.293967" rpy="0 0 0"/>
+    <mass value="3.6901"/>
+    <inertia ixx="0.0710614" iyy="0.11366" izz="0.184633" ixy="2.6775e-08" ixz="-3.56489e-10" iyz="-3.56072e-10"/>
+  </inertial>

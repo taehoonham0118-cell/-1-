@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot name="test_arm">
+  <mujoco><compiler meshdir="meshes" fusestatic="false" discardvisual="false"/></mujoco>
+  <link name="base_link"/>
+  <joint name="shoulder" type="revolute"><parent link="base_link"/><child link="upper_arm_link"/>
+    <origin xyz="0 0 0"/><axis xyz="0 1 0"/><limit lower="-3" upper="3" effort="10" velocity="5"/></joint>
+  <link name="upper_arm_link">
+  <!-- upper_arm_link: OpenCascade 질량 특성, 밀도 2700 kg/m³, 부품 2개 -->
+  <inertial>
+    <origin xyz="0.000388881 0 -0.1" rpy="0 0 0"/>
+    <mass value="0.872482"/>
+    <inertia ixx="0.00299531" iyy="0.00300982" izz="0.000245024" ixy="0" ixz="0" iyz="0"/>
+  </inertial>
+      <visual><geometry><mesh filename="upper_arm_link_visual.stl"/></geometry></visual>
+    <collision><geometry><mesh filename="upper_arm_link_collision.stl"/></geometry></collision>
+  </link>
+  <joint name="elbow" type="revolute"><parent link="upper_arm_link"/><child link="forearm_link"/>
+    <origin xyz="0 0 -0.2"/><axis xyz="0 1 0"/><limit lower="-3" upper="3" effort="10" velocity="5"/></joint>
+  <link name="forearm_link">
+  <!-- forearm_link: OpenCascade 질량 특성, 밀도 2700 kg/m³, 부품 1개 -->
+  <inertial>
+    <origin xyz="0 0 -0.09" rpy="0 0 0"/>
+    <mass value="0.610726"/>
+    <inertia ixx="0.0066569092" iyy="0.0066569092" izz="0.00012214512" ixy="0" ixz="0" iyz="0"/>
+  </inertial>
+    <visual><geometry><mesh filename="forearm_link_visual.stl"/></geometry></visual>
+    <collision><geometry><mesh filename="forearm_link_collision.stl"/></geometry></collision>
+  </link>
+</robot>

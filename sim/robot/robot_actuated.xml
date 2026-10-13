@@ -1,0 +1,14 @@
+<!-- 3단 구조 2단: robot.xml(수정 금지) + 액추에이터. kp 200.0 · kv 10.0 는 가정값 -->
+<mujoco model="our_robot_v0_actuated">
+  <include file="robot.xml"/>
+  <actuator>
+    <position name="left_shoulder_pitch_joint" joint="left_shoulder_pitch_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="left_shoulder_roll_joint" joint="left_shoulder_roll_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="left_shoulder_yaw_joint" joint="left_shoulder_yaw_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="left_elbow_joint" joint="left_elbow_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="right_shoulder_pitch_joint" joint="right_shoulder_pitch_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="right_shoulder_roll_joint" joint="right_shoulder_roll_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="right_shoulder_yaw_joint" joint="right_shoulder_yaw_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+    <position name="right_elbow_joint" joint="right_elbow_joint" kp="200.0" kv="10.0" inheritrange="1"/>
+  </actuator>
+</mujoco>

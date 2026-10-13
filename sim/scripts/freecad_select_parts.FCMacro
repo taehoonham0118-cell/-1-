@@ -1,0 +1,24 @@
+# week04 | FreeCAD 1.0: 「양팔로봇 최종버전.stp」에서 한 링크 부품을 자동 선택 (함태훈, B1)
+# FreeCAD 는 이 STEP 의 한글 이름을 \X2\...\X0\ (UTF-16 코드)로 보여 줘서 트리에서 고르기 어렵다 → 이름 코드 + 위치로 선택
+# 기본: 왼팔(CAD x>0) 팔꿈치 링크의 알루미늄 부품 = 그리퍼 플랜지(ADF8B9AC…) + 전완요크1·2(C804C644C694…)
+# 실행 후 그대로 freecad_link_export.FCMacro 실행 (원점 159.57,-295.61,16.09 · 밀도 2700). 목표 부피 611.648 cm³
+import FreeCAD as App, FreeCADGui as Gui
+KEYS = ["ADF8B9AC", "C804C644C694"]
+
+Gui.Selection.clearSelection()
+n = 0
+V = 0.0
+for o in App.ActiveDocument.Objects:
+    if o.TypeId != "Part::Feature" or not o.Shape.Solids:
+        continue
+    names = [o.Label] + [p.Label for p in o.InListRecursive]
+    if not any(k in nm for k in KEYS for nm in names):
+        continue
+    s = o.Shape.copy()
+    s.Placement = o.getGlobalPlacement()
+    if s.BoundBox.Center.x > 0:
+        Gui.Selection.addSelection(o)
+        n += 1
+        V += s.Volume
+
+App.Console.PrintMessage(f"\n선택 {n}개, 부피 {V/1000:.3f} cm3 (목표 611.648)\n")

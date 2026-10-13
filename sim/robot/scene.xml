@@ -1,0 +1,10 @@
+<!-- 3단 구조 3단: 장면(바닥 · 조명 · 카메라) -->
+<mujoco model="our_robot_v0_scene">
+  <include file="robot_actuated.xml"/>
+  <visual><headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3"/><global azimuth="150" elevation="-15" offwidth="1280" offheight="960"/></visual>
+  <asset><texture name="grid" type="2d" builtin="checker" rgb1=".85 .85 .85" rgb2=".7 .7 .7" width="300" height="300"/>
+    <material name="grid" texture="grid" texrepeat="8 8"/></asset>
+  <worldbody><light pos="1 -1 3" dir="-0.3 0.3 -1"/><geom name="floor" type="plane" size="3 3 0.05" material="grid" group="2"/>
+    <camera name="front" pos="2.0 0 0.9" xyaxes="0 1 0 -0.25 0 1"/>
+    <camera name="iso" pos="1.5 1.4 1.3" xyaxes="-0.68 0.73 0 -0.3 -0.28 0.9"/></worldbody>
+</mujoco>

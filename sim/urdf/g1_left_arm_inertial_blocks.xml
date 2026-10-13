@@ -1,0 +1,55 @@
+<!-- g1_mesh_vs_official.py 생성 — G1 공식 inertial 을 URDF 형식으로 옮긴 것 -->
+  <!-- left_shoulder_pitch_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0 0.035892 -0.011628" rpy="0 0 0"/>
+    <mass value="0.718"/>
+    <inertia ixx="0.0004291" iyy="0.000453" izz="0.000423" ixy="-9.20002e-06" ixz="6.39978e-06" iyz="2.26001e-05"/>
+  </inertial>
+  <!-- left_shoulder_roll_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="-0.000227 0.00727 -0.063243" rpy="0 0 0"/>
+    <mass value="0.643"/>
+    <inertia ixx="0.0006177" iyy="0.0006912" izz="0.0003894" ixy="-1.00008e-06" ixz="8.7e-06" iyz="-5.30032e-06"/>
+  </inertial>
+  <!-- left_shoulder_yaw_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.010773 -0.002949 -0.072009" rpy="0 0 0"/>
+    <mass value="0.734"/>
+    <inertia ixx="0.000998804" iyy="0.0010605" izz="0.0004354" ixy="7.89971e-06" ixz="0.000141201" iyz="-2.85999e-05"/>
+  </inertial>
+  <!-- left_elbow_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.064956 0.004454 -0.010062" rpy="0 0 0"/>
+    <mass value="0.6"/>
+    <inertia ixx="0.0002891" iyy="0.0004152" izz="0.0004197" ixy="6.53002e-05" ixz="1.72001e-05" iyz="-5.60009e-06"/>
+  </inertial>
+  <!-- left_wrist_roll_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.0171394 0.000537591 4.8864e-07" rpy="0 0 0"/>
+    <mass value="0.085445"/>
+    <inertia ixx="4.82154e-05" iyy="3.7229e-05" izz="5.48211e-05" ixy="-4.24514e-06" ixz="5.10751e-09" iyz="-1.23121e-09"/>
+  </inertial>
+  <!-- left_wrist_pitch_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.0229999 -0.00111685 -0.00111658" rpy="0 0 0"/>
+    <mass value="0.48405"/>
+    <inertia ixx="0.000165797" iyy="0.000429541" izz="0.000429537" ixy="-1.2312e-05" ixz="1.2317e-05" iyz="8.14249e-07"/>
+  </inertial>
+  <!-- left_wrist_yaw_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.0708244 0.000191745 0.00161742" rpy="0 0 0"/>
+    <mass value="0.254576"/>
+    <inertia ixx="0.000150445" iyy="0.000643114" izz="0.000560114" ixy="3.76029e-05" ixz="-2.95447e-06" iyz="3.77545e-06"/>
+  </inertial>
+  <!-- waist_yaw_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0.003494 0.000233 0.018034" rpy="0 0 0"/>
+    <mass value="0.214"/>
+    <inertia ixx="0.00010673" iyy="0.00010422" izz="0.0001625" ixy="2.70281e-06" ixz="-7.63112e-06" iyz="-2.00998e-07"/>
+  </inertial>
+  <!-- waist_roll_link: G1 공식 값(g1.xml quat+diaginertia → 링크 축 전체 텐서로 변환) -->
+  <inertial>
+    <origin xyz="0 2.3e-05 0" rpy="0 0 0"/>
+    <mass value="0.086"/>
+    <inertia ixx="7.079e-06" iyy="6.339e-06" izz="8.245e-06" ixy="0" ixz="0" iyz="0"/>
+  </inertial>

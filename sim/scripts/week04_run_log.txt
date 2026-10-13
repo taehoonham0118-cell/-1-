@@ -1,0 +1,72 @@
+# week04 실행 기록 — 2026-10-13 16:04 KST · Linux · Python 3.13.16 · mujoco 3.15.0 · trimesh 5.1.1 · cadquery-ocp 7.8.1.1
+
+$ python sim/scripts/make_test_step.py
+saved sim/test_cad/test_arm.step 25852 bytes
+
+$ python sim/scripts/step_to_links.py --step sim/test_cad/test_arm.step --inventory sim/test_cad/out/parts.csv --linkmap sim/test_cad/linkmap_test.json --out sim/test_cad/out
+STEP 부품 인스턴스 3개
+저장: sim/test_cad/out/parts.csv
+upper_arm_link         m=0.8725 kg  COM=[ 0.0004  0.     -0.1   ] m  watertight=True  faces vis/col=512/264  trimesh 차이: m 0.000 %, I 0.000 %
+forearm_link           m=0.6107 kg  COM=[-0.   -0.   -0.09] m  watertight=True  faces vis/col=500/500  trimesh 차이: m 0.041 %, I 0.043 %
+저장: sim/test_cad/out/link_mass_props.csv sim/test_cad/out/inertial_blocks.xml
+
+$ python sim/scripts/verify_test_step.py
+=== (1) step_to_links.py (OpenCascade) vs 손계산 ===
+  upper_arm_link  질량 0.872482 / 손 0.872482 kg (오차 2.54e-14 %) | COM 차 1.19e-04 mm | 관성 상대오차 9.21e-08 | 메시(trimesh) 관성오차 0.000 %
+      손계산 Ixx Iyy Izz = [0.00299531, 0.00300982, 0.00024502] kg·m²
+  forearm_link    질량 0.610726 / 손 0.610726 kg (오차 1.82e-14 %) | COM 차 0.00e+00 mm | 관성 상대오차 1.75e-07 | 메시(trimesh) 관성오차 0.043 %
+      손계산 Ixx Iyy Izz = [0.00171003, 0.00171003, 0.00012215] kg·m²
+
+=== (2) 평행축 정리 검산: 링크 원점(관절축) 기준 관성 ===
+  upper_arm_link  평행축 I_O 대각 = [0.01172013, 0.01173478, 0.00024516]
+                  직접 적분 대각  = [0.01172009, 0.01173474, 0.00024515]  (상대차 0.000 %)
+                  → 링크 원점 기준이 COM 기준보다 Ixx 3.9 배 (m·d² = 0.008725 kg·m² 추가)
+  forearm_link    평행축 I_O 대각 = [0.00665691, 0.00665691, 0.00012215]
+                  직접 적분 대각  = [0.00665413, 0.00665413, 0.00012204]  (상대차 0.042 %)
+                  → 링크 원점 기준이 COM 기준보다 Ixx 3.9 배 (m·d² = 0.004947 kg·m² 추가)
+
+=== (3) MuJoCo 로드 (mujoco 3.15.0 ) ===
+  body 4, joint 2, 총질량 1.483208 kg (손 1.483208)
+  forearm body_ipos [0.0, 0.0, -0.09], 주관성 [0.00012214, 0.00171003, 0.00171003]
+  질량행렬 M[elbow,elbow] = 0.00665691  vs  손계산 Iyy_C + m·d² = 0.00171003 + 0.610726·0.09² = 0.00665691  (상대차 0.000 %)
+  질량행렬 M[shoulder,shoulder] = 0.06480686  vs  손계산 (팔 전체, 어깨축 기준) 0.06480683  (상대차 0.000 %)
+  저장: sim/test_cad/out/test_arm.urdf
+
+=== (4) 원점 기준 관성을 그대로 넣은 경우 ===
+  M[elbow,elbow] = 0.01160379 (올바른 값 0.00665691의 1.74 배) = I_O + m·d² = 0.00665691 + 0.00494688
+
+$ python sim/scripts/g1_mesh_vs_official.py --g1 mujoco_menagerie/unitree_g1
+left_shoulder_pitch_link   면   3534 닫힘 False 부피  285.68 cm³ | 질량 공식 0.718 / Al 0.771 kg (ρ_eff 2513) | COM 차   2.7 mm | 관성 오차  23.1 % | hull 부피 ×1.04, 틈 최대 3.8 mm
+left_shoulder_roll_link    면   8004 닫힘 False 부피  172.00 cm³ | 질량 공식 0.643 / Al 0.464 kg (ρ_eff 3738) | COM 차  14.4 mm | 관성 오차  69.4 % | hull 부피 ×3.20, 틈 최대 30.9 mm
+left_shoulder_yaw_link     면   4982 닫힘 False 부피  414.27 cm³ | 질량 공식 0.734 / Al 1.119 kg (ρ_eff 1772) | COM 차  22.4 mm | 관성 오차  28.5 % | hull 부피 ×1.41, 틈 최대 23.4 mm
+left_elbow_link            면   1774 닫힘 False 부피  214.49 cm³ | 질량 공식 0.600 / Al 0.579 kg (ρ_eff 2797) | COM 차   7.2 mm | 관성 오차  49.8 % | hull 부피 ×1.49, 틈 최대 26.9 mm
+left_wrist_roll_link       면   7122 닫힘 True  부피   11.91 cm³ | 질량 공식 0.085 / Al 0.032 kg (ρ_eff 7175) | COM 차   1.7 mm | 관성 오차  21.4 % | hull 부피 ×10.70, 틈 최대 22.1 mm
+left_wrist_pitch_link      면   1718 닫힘 True  부피  208.14 cm³ | 질량 공식 0.484 / Al 0.562 kg (ρ_eff 2326) | COM 차   0.8 mm | 관성 오차   5.2 % | hull 부피 ×1.12, 틈 최대 4.7 mm
+left_wrist_yaw_link        면  52120 닫힘 True  부피  172.02 cm³ | 질량 공식 0.255 / Al 0.465 kg (ρ_eff 1480) | COM 차  21.0 mm | 관성 오차  27.6 % | hull 부피 ×3.67, 틈 최대 30.3 mm
+waist_yaw_link             면  12398 닫힘 False 부피  145.59 cm³ | 질량 공식 0.214 / Al 0.393 kg (ρ_eff 1470) | COM 차   5.3 mm | 관성 오차   9.3 % | hull 부피 ×1.48, 틈 최대 15.3 mm
+waist_roll_link            면   1716 닫힘 True  부피    6.94 cm³ | 질량 공식 0.086 / Al 0.019 kg (ρ_eff 12400) | COM 차   0.0 mm | 관성 오차  24.6 % | hull 부피 ×1.52, 틈 최대 5.8 mm
+저장: sim/scripts/g1_mesh_vs_official.csv sim/urdf/g1_left_arm_inertial_blocks.xml
+
+$ python sim/scripts/check_inertial_roundtrip.py --g1 mujoco_menagerie/unitree_g1
+left_shoulder_pitch_link   질량 0.718000 / 0.718000  COM 차 0.0e+00 mm  관성 상대오차 7.5e-07
+left_shoulder_roll_link    질량 0.643000 / 0.643000  COM 차 0.0e+00 mm  관성 상대오차 7.4e-07
+left_shoulder_yaw_link     질량 0.734000 / 0.734000  COM 차 0.0e+00 mm  관성 상대오차 1.6e-06
+left_elbow_link            질량 0.600000 / 0.600000  COM 차 0.0e+00 mm  관성 상대오차 1.8e-06
+left_wrist_roll_link       질량 0.085445 / 0.085445  COM 차 0.0e+00 mm  관성 상대오차 2.6e-06
+left_wrist_pitch_link      질량 0.484050 / 0.484050  COM 차 0.0e+00 mm  관성 상대오차 2.1e-06
+left_wrist_yaw_link        질량 0.254576 / 0.254576  COM 차 0.0e+00 mm  관성 상대오차 5.2e-07
+waist_yaw_link             질량 0.214000 / 0.214000  COM 차 0.0e+00 mm  관성 상대오차 2.3e-06
+waist_roll_link            질량 0.086000 / 0.086000  COM 차 0.0e+00 mm  관성 상대오차 5.3e-15
+최대 상대오차 2.6e-06 (출력 유효숫자 6자리 반올림 수준이면 정상)
+
+# hull_contact_demo: 공 아래 「실제 표면」은 메시에 수직 광선을 쏴서 찾는다. 열린(watertight 아님) 메시는 구멍으로 광선이 빠질 수 있어 결과를 hull 틈 측정값(g1_mesh_vs_official.csv)과 함께 본다.
+$ python sim/scripts/hull_contact_demo.py --g1 mujoco_menagerie/unitree_g1 --link left_elbow_link
+left_elbow_link: hull 윗면 점 [32.4 22.5 25.5] mm, 그 아래 실제 표면까지 28.9 mm
+MuJoCo 2 s 낙하 후 공 바닥 높이 25.5 mm  |  hull 표면 25.5 mm  |  실제 메시 표면 -3.3 mm
+→ 실제 표면보다 28.8 mm 위에서 멈춤 (convex hull 이 메운 틈). 접촉 수 1
+
+
+$ python sim/scripts/hull_contact_demo.py --g1 mujoco_menagerie/unitree_g1 --link left_wrist_roll_link
+left_wrist_roll_link: hull 윗면 점 [15.9 21.  21.3] mm, 그 아래 실제 표면까지 3.1 mm
+MuJoCo 2 s 낙하 후 공 바닥 높이 21.9 mm  |  hull 표면 21.3 mm  |  실제 메시 표면 18.2 mm
+→ 실제 표면보다 3.7 mm 위에서 멈춤 (convex hull 이 메운 틈). 접촉 수 1

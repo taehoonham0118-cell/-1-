@@ -1,0 +1,85 @@
+# week04 | FreeCAD 1.0 매크로 — 선택한 부품들을 「링크 1개」로 묶어 STL 내보내기 + 질량 특성 출력 (함태훈, B1)
+# ※ 2026-10-13 작성, 10/14 수정: 저장 안 한 문서(STEP 바로 열기)는 FileName 이 비어 C:\Users\links_out 쓰기 권한 오류 →
+#   결과를 먼저 리포트 뷰에 출력하고, 저장 폴더는 STEP 폴더 → 없으면 폴더 선택 창으로 받는다.
+#    같은 계산을 하는 sim/scripts/step_to_links.py 는 FreeCAD 와 같은 CAD 엔진(OpenCascade)으로 검증을 마쳤다.
+#
+# 사용법 (노트북)
+#   1) FreeCAD 1.0 → 파일 → 열기 → STEP (단위 mm 그대로)
+#   2) 트리에서 한 링크에 들어갈 부품을 Ctrl+클릭으로 모두 선택 (구동기 내부 기어·베어링 포함, 한 강체로 묶음)
+#   3) 매크로 → 매크로… → 이 파일 실행 → 링크 이름 · 링크 원점(mm) · 밀도 입력
+#   4) 결과: STEP 과 같은 폴더의 links_out/ 에 <링크>_visual.stl · <링크>_collision.stl (m 단위), 리포트 뷰에 inertial 블록
+import os
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part, Mesh, MeshPart
+from PySide import QtGui
+
+sel = [o for o in Gui.Selection.getSelection() if hasattr(o, "Shape")]
+if not sel:
+    raise SystemExit("부품을 먼저 선택하세요")
+name, ok = QtGui.QInputDialog.getText(None, "링크 이름", "예: left_shoulder_pitch_link")
+org, ok2 = QtGui.QInputDialog.getText(None, "링크 원점 [mm]", "부모 관절 축 위 점 x,y,z (조립 좌표)", text="0,0,0")
+rho, ok3 = QtGui.QInputDialog.getDouble(None, "밀도", "kg/m³ (알루미늄 2700)", 2700, 1, 30000, 0)
+ox, oy, oz = [float(v) for v in org.split(",")]
+
+# 전역 좌표 형상 모으기 (조립품 안 위치 반영) → 링크 원점으로 평행이동
+shapes = []
+for o in sel:
+    s = o.Shape.copy()
+    try:
+        s.Placement = o.getGlobalPlacement()
+    except Exception:
+        pass
+    s.translate(App.Vector(-ox, -oy, -oz))
+    shapes.append(s)
+comp = Part.makeCompound(shapes)
+
+# 질량 특성: FreeCAD 의 Volume · CenterOfMass · MatrixOfInertia 는 밀도 1, 단위 mm 기준이고
+#            MatrixOfInertia 는 「COM 기준」 [mm^5] → 밀도(kg/mm³) 곱하고 mm² → m² 로 바꾼다.
+V = 0.0; M = None; C = App.Vector(0, 0, 0)
+solids = [s for sh in shapes for s in sh.Solids]
+for s in solids:
+    V += s.Volume
+    C += s.CenterOfMass * s.Volume
+C = C * (1.0 / V)
+m = rho * V * 1e-9                                   # kg
+# 여러 솔리드의 COM 기준 관성 합치기 (평행축 정리)
+I = [[0.0] * 3 for _ in range(3)]
+for s in solids:
+    Mi = s.MatrixOfInertia; c = s.CenterOfMass - C; v = s.Volume
+    d = [c.x, c.y, c.z]; dd = sum(x * x for x in d)
+    for i in range(3):
+        for j in range(3):
+            I[i][j] += Mi.A[i * 4 + j] + v * ((dd if i == j else 0.0) - d[i] * d[j])
+k = rho * 1e-9 * 1e-6                                # kg/mm³ × (mm² → m²)
+I = [[I[i][j] * k for j in range(3)] for i in range(3)]
+
+f = lambda v: f"{v:.6g}"
+App.Console.PrintMessage(
+    f"\n<!-- {name}: FreeCAD {App.Version()[0]}.{App.Version()[1]}.{App.Version()[2]} 질량 특성, 밀도 {rho:g} kg/m³, 부품 {len(sel)}개, 솔리드 {len(solids)}개, 부피 {V/1000:.3f} cm³ -->\n"
+    f"<inertial>\n  <origin xyz=\"{f(C.x/1000)} {f(C.y/1000)} {f(C.z/1000)}\" rpy=\"0 0 0\"/>\n"
+    f"  <mass value=\"{f(m)}\"/>\n"
+    f"  <inertia ixx=\"{f(I[0][0])}\" iyy=\"{f(I[1][1])}\" izz=\"{f(I[2][2])}\" ixy=\"{f(I[0][1])}\" ixz=\"{f(I[0][2])}\" iyz=\"{f(I[1][2])}\"/>\n"
+    f"</inertial>\n")
+
+# STL 저장 폴더: 문서 파일 폴더 → STEP 원본 폴더(가져온 객체의 원본 경로) → 직접 선택
+base = os.path.dirname(App.ActiveDocument.FileName) if App.ActiveDocument.FileName else ""
+if not base:
+    base = QtGui.QFileDialog.getExistingDirectory(None, "STL 저장 폴더 선택 (예: 모델링파일)")
+if not base:
+    raise SystemExit("저장 폴더를 고르지 않아 STL 은 건너뜀 (질량 특성은 위에 출력됨)")
+out = os.path.join(base, "links_out")
+os.makedirs(out, exist_ok=True)
+msh = MeshPart.meshFromShape(Shape=comp, LinearDeflection=0.05, AngularDeflection=0.1, Relative=False)
+msh.transform(App.Matrix(0.001, 0, 0, 0, 0, 0.001, 0, 0, 0, 0, 0.001, 0))        # mm → m
+msh.write(os.path.join(out, name + "_visual.stl"))
+hull_pts = msh.Points
+try:
+    import numpy as np
+    from scipy.spatial import ConvexHull
+    P = np.array([[p.x, p.y, p.z] for p in hull_pts]); h = ConvexHull(P)
+    hm = Mesh.Mesh([[list(P[i]) for i in tri] for tri in h.simplices]); hm.harmonizeNormals()
+    hm.write(os.path.join(out, name + "_collision.stl"))
+except Exception as e:
+    App.Console.PrintWarning(f"collision hull 생략 ({e}) — sim/scripts/step_to_links.py 로 만드세요\n")
+App.Console.PrintMessage(f"저장: {out}\n")

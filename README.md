@@ -7,7 +7,7 @@
 |---|---|
 | 이름 / 학번 | 함태훈 / 22212334 |
 | 팀 / 서브팀 | TEAM B / B1 (모델링 · 시뮬레이션) |
-| 주요 도구 | MuJoCo 3.14 · URDF/MJCF/USD · (PC 배정 후) Ubuntu 24.04 · CUDA 12 · Isaac Sim 5.1 · Isaac Lab 2.3.2 |
+| 주요 도구 | MuJoCo 3.14 · FreeCAD 1.0.2 · cadquery-ocp(OpenCascade) · trimesh · URDF/MJCF/USD · (PC 배정 후) Ubuntu 24.04 · CUDA 12 · Isaac Sim 5.1 · Isaac Lab 2.3.2 |
 | 저장소 용도 | 주차별 **개인 기여 로그**, 주차 보고, 학습 정리, 시뮬레이션 코드·결과 보관 |
 
 ---
@@ -19,7 +19,7 @@
 | 1주 | – | Isaac Sim / Lab 개요·개념·데모 파악 | [week01](logs/week01.md) | – (저장소 개설 전, 노션으로 대체 인정) |
 | 2주 | **SRR (×2)** | MuJoCo 설치 · G1 joint 표 · 2링크 팔 URDF/MJCF 비교 · 관성 실험 · 하체 실측표 | [week02](logs/week02.md) | `week02` |
 | 3주 | – | MJCF 심화(default·include·mjSpec attach) · position 액추에이터 계단 응답(kp·kv·armature) · URDF↔MJCF 대응표 · URDF 로딩 옵션 · 파이프라인 그림 | [week03](logs/week03.md) | `week03` |
-| 4주 | – | 우리 로봇 STEP → 링크별 STL · 질량/관성 표 · inertial 블록 · v0 URDF (STEP·BOM 원본 커밋 금지) | | `week04` |
+| 4주 | – | 우리 로봇 STEP → 링크 분할표(9링크, 팔 4-DOF) · 링크별 STL · 질량/관성 표(FreeCAD 1.0.2 일치) · inertial 블록 · v0 URDF(planar 베이스 + 양팔) MuJoCo 로드 · 박종진 관절 표 대조 (STEP·BOM 원본 커밋 금지) | [week04](logs/week04.md) | `week04` |
 
 전체 누적표는 [`logs/contribution_log.md`](logs/contribution_log.md) 참고.
 
@@ -35,7 +35,8 @@
 │   ├── week01.md              ← 주차별 기여 로그 (주차별 1개)
 │   ├── week02.md
 │   ├── week02_base_measurement.md  ← SRR 하체 실측표 (보류)
-│   └── week03.md
+│   ├── week03.md
+│   └── week04.md
 ├── reports/                   ← 제출한 주간활동보고서(docx) 사본
 ├── notes/                     ← 학습 정리
 │   ├── 01_isaac_install.md    (Isaac Sim/Lab 설치, 노션 기준)
@@ -44,9 +45,13 @@
 │   ├── 04_g1_arm_joints.md    (G1 어깨·팔꿈치 joint 표)
 │   ├── 05_urdf_mjcf_mapping.md          (URDF ↔ MJCF 속성 대응표)
 │   ├── 06_mjcf_actuator_step_response.md (액추에이터 · 계단 응답 · 구술)
-│   └── 07_mjcf_structure_urdf_loading.md (MJCF 구성 · include · attach · URDF 로딩 옵션)
+│   ├── 07_mjcf_structure_urdf_loading.md (MJCF 구성 · include · attach · URDF 로딩 옵션)
+│   ├── 08_step_to_urdf_inertial_procedure.md (STEP → STL · 질량 · 관성 → URDF inertial 변환 절차서)
+│   └── 09_our_robot_link_split_v0.md     (우리 로봇 링크 분할 · 질량 · 관성 · 관절 원점 · v0 URDF)
 ├── sim/
-│   ├── urdf/                  ← URDF 모델 (two_link_arm.urdf)
+│   ├── robot/                 ← 우리 로봇 v0: linkmap · 질량 CSV · inertial · meshes · our_robot_v0.urdf → robot.xml → robot_actuated.xml → scene.xml
+│   ├── test_cad/              ← 손계산 정답이 있는 테스트 STEP 결과 (STEP 은 make_test_step.py 로 생성)
+│   ├── urdf/                  ← URDF 모델 (two_link_arm.urdf, G1 inertial 예)
 │   ├── mjcf/                  ← MJCF 모델 (two_link_arm.xml, two_link_arm_v2.xml + scene.xml, arm_on_base.xml)
 │   ├── scripts/               ← 실험 스크립트·결과 (compare_urdf_mjcf.py, step_response.py, attach_arm_to_base.py)
 │   └── configs/               ← 환경/로봇 설정 파일

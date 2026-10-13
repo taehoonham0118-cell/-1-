@@ -10,7 +10,7 @@
 | 1 | – | Isaac Sim/Lab 설치 절차·핵심 개념·데모 정리 | [week01](week01.md), `notes/01~03` | – (노션 인정) |
 | 2 | ★ SRR | MuJoCo 설치·G1 관절 표, 2링크 팔 URDF·MJCF 작성·비교, 관성 실험, 하체 실측표 양식 | [week02](week02.md), `sim/`, `notes/04`, [보고서](../reports/학부생_주간활동보고서_2주차_함태훈_22212334_261001.docx) | `week02` |
 | 3 | – | MJCF default·include 정리, position 액추에이터 계단 응답(kp·kv·armature) 9조건, URDF↔MJCF 대응표, URDF 로딩 옵션 실험, mjSpec attach, 파이프라인 그림 | [week03](week03.md), `sim/mjcf/*_v2·scene·arm_on_base`, `notes/05~07`, [보고서](../reports/학부생_주간활동보고서_3주차_함태훈_22212334_261008.docx) | `week03` |
-| 4 | – | | | `week04` |
+| 4 | – | 팔 · 상판 STEP → 링크 분할표(389부품 → 9링크, 팔 4-DOF), 링크별 STL 20개, 질량 · COM · 관성 표(FreeCAD 1.0.2 · trimesh 비교) · inertial 블록, v0 URDF(planar + 양팔) MuJoCo 로드 · 캡처, 박종진 관절 표 대조(≤0.064 mm) | [week04](week04.md), `sim/robot/`, `notes/08~09`, [보고서](../reports/학부생_주간활동보고서_4주차_함태훈_22212334_261015.docx) | `week04` |
 | 5 | – | | | `week05` |
 | 6 | ★ PDR | | | `week06` |
 | 7 | – | | | `week07` |
