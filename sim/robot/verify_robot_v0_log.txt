@@ -1,12 +1,22 @@
-mujoco 3.15.0 | body 11 · joint 11 · dof 11 · actuator 8 · geom 24 · mesh 19
+mujoco 3.15.0 | body 12 · joint 11 · dof 11 · actuator 8 · geom 24 · mesh 19
 관절: ['base_joint_TX', 'base_joint_TY', 'base_joint_RZ', 'left_shoulder_pitch_joint', 'left_shoulder_roll_joint', 'left_shoulder_yaw_joint', 'left_elbow_joint', 'right_shoulder_pitch_joint', 'right_shoulder_roll_joint', 'right_shoulder_yaw_joint', 'right_elbow_joint']
 총질량 67.464 kg  (CAD 링크 합 32.465 + 가정 베이스 30 + 몸통 box 5)
 팔 1개 질량 (CAD, 밀도 가정): 왼 14.170 kg · 오른 14.231 kg
 관성 삼각부등식 위반 body: 없음 (balanceinertia=false 로 컴파일 통과)
 초기 자세 접촉 0개: []
-관절 앵커 vs CAD 관절점 최대 차: 0.0 mm  → joint_origin_check.csv
-중력 토크 [팔 내림(q=0)]: {'left_shoulder_pitch_joint': np.float64(0.301), 'left_shoulder_roll_joint': np.float64(0.009), 'left_elbow_joint': np.float64(-0.002)} Nm
-중력 토크 [팔 앞으로 수평(pitch -π/2)]: {'left_shoulder_pitch_joint': np.float64(-22.725), 'left_shoulder_roll_joint': np.float64(-0.0), 'left_elbow_joint': np.float64(-0.0)} Nm
+공칭 URDF vs CAD (CAD 자세, yaw = +π/2) 편차:
+  left_shoulder_pitch_joint    축 직선까지  0.00 mm · 축 각도 0.00°
+  left_shoulder_roll_joint     축 직선까지  0.00 mm · 축 각도 0.01°
+  left_shoulder_yaw_joint      축 직선까지  0.01 mm · 축 각도 1.37°
+  left_elbow_joint             축 직선까지  0.11 mm · 축 각도 1.37°
+  right_shoulder_pitch_joint   축 직선까지  0.00 mm · 축 각도 0.00°
+  right_shoulder_roll_joint    축 직선까지  0.00 mm · 축 각도 0.01°
+  right_shoulder_yaw_joint     축 직선까지  7.12 mm · 축 각도 1.37°
+  right_elbow_joint            축 직선까지  7.22 mm · 축 각도 1.37°
+영점 확인 [left]: elbow +0.5 rad → 팔꿈치 링크 COM x -1.7 → +36.5 mm (앞 = +x)
+영점 확인 [right]: elbow +0.5 rad → 팔꿈치 링크 COM x -1.6 → +36.7 mm (앞 = +x)
+중력 토크 [팔 내림(q=0)]: {'left_shoulder_pitch_joint': np.float64(0.095), 'left_shoulder_roll_joint': np.float64(0.215), 'left_elbow_joint': np.float64(-0.002)} Nm
+중력 토크 [팔 앞으로 수평(pitch -π/2)]: {'left_shoulder_pitch_joint': np.float64(-22.725), 'left_shoulder_roll_joint': np.float64(0.0), 'left_elbow_joint': np.float64(1.775)} Nm
   검산: 팔 질량 14.170 kg × 9.81 × COM 수평거리 0.1635 m = 22.725 Nm
-2 s 유지 후 관절각 [deg] (kp 200.0): {'left_shoulder_pitch_joint': -0.077, 'left_shoulder_roll_joint': -0.002, 'left_shoulder_yaw_joint': 0.0, 'left_elbow_joint': 0.0, 'right_shoulder_pitch_joint': -0.085, 'right_shoulder_roll_joint': -0.145, 'right_shoulder_yaw_joint': 0.0, 'right_elbow_joint': 0.002} | 베이스 이동 [-0.0001, 8e-05, -2e-05] | 접촉 0
+2 s 유지 후 관절각 [deg] (kp 200.0): {'left_shoulder_pitch_joint': -0.024, 'left_shoulder_roll_joint': -0.056, 'left_shoulder_yaw_joint': 0.0, 'left_elbow_joint': 0.0, 'right_shoulder_pitch_joint': -0.031, 'right_shoulder_roll_joint': -0.01, 'right_shoulder_yaw_joint': 0.0, 'right_elbow_joint': -0.001} | 베이스 이동 [-3e-05, 2e-05, -2e-05] | 접촉 0
 캡처 저장: assets/screenshots/week04/week04_v0_front.png · _iso · _pose · _iso_collision

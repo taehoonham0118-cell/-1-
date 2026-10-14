@@ -57,20 +57,37 @@ pairs = [(s.geom(c.geom1).name or s.body(s.geom_bodyid[c.geom1]).name, s.geom(c.
          for c in d.contact[:d.ncon]]
 print(f"초기 자세 접촉 {d.ncon}개:", pairs[:12])
 
-# 관절 앵커 · 축 (월드) vs CAD 관절점을 월드로 옮긴 값
+# 관절 앵커 · 축: 공칭 URDF 를 「CAD 자세」(양팔 shoulder_yaw q = +π/2)로 두고 CAD 관절점 · 축과 비교 = 편차 기록 (팀장 10/14: URDF 공칭, 편차는 검증표)
 lm = {L["name"]: L for L in json.load(open(os.path.join(ROOT, "linkmap_arm.json"), encoding="utf-8"))["links"]}
+axes_cad = {int(r["actuator"].split(":")[1]): np.array([float(r[k]) for k in ("axis_x", "axis_y", "axis_z")])
+            for r in csv.DictReader(open(os.path.join(ROOT, "joint_axes_cad.csv"), encoding="utf-8-sig"))}
+ACT = {"left": [1, 2, 3, 4], "right": [6, 5, 7, 8]}
 mid = np.array(lm["torso_link"]["origin_mm"])
+dc = mujoco.MjData(s)
+for side in ("left", "right"):
+    dc.qpos[s.joint(f"{side}_shoulder_yaw_joint").qposadr[0]] = np.pi / 2
+mujoco.mj_forward(s, dc)
 rows = []
 for side in ("left", "right"):
-    for part in ("shoulder_pitch", "shoulder_roll", "shoulder_yaw", "elbow"):
+    for part, act in zip(("shoulder_pitch", "shoulder_roll", "shoulder_yaw", "elbow"), ACT[side]):
         j = s.joint(f"{side}_{part}_joint")
         cad_w = np.array([0, 0, SHOULDER_Z]) + R.T @ (np.array(lm[f"{side}_{part}_link"]["origin_mm"]) - mid) / 1000
-        err = np.linalg.norm(d.xanchor[j.id] - cad_w) * 1000
-        rows.append(dict(joint=j.name, anchor_world_m=np.round(d.xanchor[j.id], 5).tolist(), cad_world_m=np.round(cad_w, 5).tolist(),
-                         err_mm=round(err, 4), axis_world=np.round(d.xaxis[j.id], 4).tolist()))
+        a_cad = R.T @ axes_cad[act]; a_cad /= np.linalg.norm(a_cad)
+        v = dc.xanchor[j.id] - cad_w; ax = dc.xaxis[j.id]
+        perp = np.linalg.norm(v - (v @ a_cad) * a_cad) * 1000
+        ang = np.degrees(np.arccos(min(1.0, abs(ax @ a_cad))))
+        rows.append(dict(joint=j.name, urdf_anchor_m=np.round(dc.xanchor[j.id], 5).tolist(), cad_point_m=np.round(cad_w, 5).tolist(),
+                         dev_perp_mm=round(perp, 2), dev_axis_deg=round(ang, 2), urdf_axis_world=np.round(ax, 4).tolist(),
+                         cad_axis_world=np.round(a_cad, 4).tolist()))
 with open(os.path.join(ROOT, "joint_origin_check.csv"), "w", newline="", encoding="utf-8-sig") as fp:
     w = csv.DictWriter(fp, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
-print("관절 앵커 vs CAD 관절점 최대 차:", max(r["err_mm"] for r in rows), "mm  → joint_origin_check.csv")
+print("공칭 URDF vs CAD (CAD 자세, yaw = +π/2) 편차:")
+for r in rows: print(f"  {r['joint']:28s} 축 직선까지 {r['dev_perp_mm']:5.2f} mm · 축 각도 {r['dev_axis_deg']:4.2f}°")
+# 영점 정의 확인: 팔 내림 자세에서 elbow + 가 앞(+x)으로 굽는지
+for side in ("left", "right"):
+    de = mujoco.MjData(s); mujoco.mj_forward(s, de); b = s.body(f"{side}_elbow_link").id; x0 = de.xipos[b].copy()
+    de.qpos[s.joint(f"{side}_elbow_joint").qposadr[0]] = 0.5; mujoco.mj_forward(s, de)
+    print(f"영점 확인 [{side}]: elbow +0.5 rad → 팔꿈치 링크 COM x {x0[0]*1000:+.1f} → {de.xipos[b][0]*1000:+.1f} mm (앞 = +x)")
 
 # 중력 토크: 팔을 내린 자세(0) · 앞으로 수평(pitch -90°)
 for label, q in (("팔 내림(q=0)", 0.0), ("팔 앞으로 수평(pitch -π/2)", -np.pi / 2)):

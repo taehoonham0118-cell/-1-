@@ -82,9 +82,11 @@
 
 ## 6. v0 URDF (`our_robot_v0.urdf` → `robot.xml` → `robot_actuated.xml` → `scene.xml`)
 
+> **10/14 팀장 회신 반영으로 다시 만듦** (§10): REP 103 + `cad_frame` 1개, 공칭값(축 직교 · 오른팔 거울), 영점 = 팔 내림 · 팔꿈치 전방 굽힘(yaw origin rpy ∓π/2). 아래 수치 중 자세 유지 · 중력 토크는 10/14 공칭 v0 기준, 10/13 CAD 그대로 판은 커밋 43fc7ae.
+
 - 구성: world —planar→ base_link(상판 STEP 메시 + 아래 하체 임시 box) —fixed→ torso_link(어깨 RI85 고정부 + 임시 box) → 양팔 4링크. 관절 11개(베이스 _TX · _TY · _RZ + 팔 8), 질량 67.464 kg
-- MuJoCo 3.15 로드: 초기 자세 접촉 0개, 관성 경고 없음. position 액추에이터(kp 200 · kv 10, 가정)로 2 s 유지 시 최대 0.145°
-- 중력 토크: 왼팔을 앞으로 수평(pitch −π/2)으로 들 때 어깨 pitch **22.725 Nm** = 팔 14.170 kg × 9.81 × COM 수평거리 0.1635 m. 팔 내림 자세 0.301 Nm → RI85 정격 토크 확인 필요(ICD)
+- MuJoCo 3.15 로드: 초기 자세 접촉 0개, 관성 경고 없음. position 액추에이터(kp 200 · kv 10, 가정)로 2 s 유지 시 최대 0.056° (10/13 CAD 판 0.145°)
+- 중력 토크: 왼팔을 앞으로 수평(pitch −π/2)으로 들 때 어깨 pitch **22.725 Nm** = 팔 14.170 kg × 9.81 × COM 수평거리 0.1635 m. 팔 내림 자세 0.095 Nm → RI85 정격 토크 확인 필요(ICD)
 - 캡처: `assets/screenshots/week04/week04_v0_front.png` · `_iso` · `_pose`(visual) · `_iso_collision`(convex hull 충돌 형상)
 
 ### 가정값 표 (build_v0_urdf.py `ASSUME`, 확정 시 교체)
@@ -153,3 +155,25 @@ FreeCAD 는 이 STEP 의 한글 이름을 `\X2\…\X0\`(UTF-16 코드)로 표시
 - 축 위 거리(원점 선택 차) 16~23 mm 는 같은 관절이라 무관
 - 결론: 위치는 CAD 와 맞고, 차이는 ① 1.37° · 7 mm 를 골격이 보정한 것(팀장 확인 대상) ② **축 부호 규약 3건** — 골격은 오른팔 roll · elbow 를 거울(−x), 왼 yaw 를 −z 로 둠. 함태훈 v0 는 양팔 같은 방향(+x, +z) → 관절각 양(+) 방향이 반대가 되므로 B2 제어 전 통일 필요
 - 질량 비교: 골격 v0 왼팔 pitch 4.610 · roll 4.383 · yaw 3.550 · elbow 2.1425 kg vs 함태훈 4.396 · 4.170 · 3.336 · 2.268 kg. elbow 차 0.1255 kg = 함태훈이 출력측에 넣은 ring2 기어(강 15.24 cm³ = 0.1197 kg) + cover plate1(Al 2.08 cm³ = 0.0056 kg) → 출력측 부품 범위만 통일하면 맞음. 나머지 링크 차 0.21 kg 은 같은 방식으로 대조 예정
+
+## 10. 팀장 회신(10/14) 반영 — 공칭 v0 (`build_v0_urdf.py` 머리말 규칙 ①~④)
+
+| 규칙 | 반영 |
+|---|---|
+| ① REP 103 + CAD → base 고정 변환 하나 | `cad_frame` (torso_link 아래 고정, xyz (0, 0.11814, 0) m, rpy (π/2, 0, π/2)). CAD 점 p[mm] → cad_frame 기준 p/1000 |
+| ② 공칭값 | 축 = 단위축, 왼팔 joint origin 에서 1 mm 미만 성분(축 기울기 · 조립 오차)은 0, 오른팔 origin = 왼팔 y 거울 |
+| ③ 영점 | shoulder_yaw origin rpy (0, 0, −π/2) left · (+π/2) right → 팔 내림에서 elbow + = 전방. 확인: 양팔 elbow +0.5 rad → 팔꿈치 링크 COM x −1.7 → +36.5 mm (left) · −1.6 → +36.7 mm (right) |
+| ④ 축 부호 | 왼팔 +y · +x · +z · +x, 오른팔 +y · −x · −z · −x (거울, ICD v0 3.4) |
+
+**편차 기록 (joint 원점 검증표, `joint_origin_check.csv`)** — 공칭 URDF 를 CAD 자세(양팔 yaw q = +π/2)로 두고 CAD 축과 비교
+
+| 관절 | left: 축 직선까지 · 축 각도 | right |
+|---|---|---|
+| shoulder_pitch | 0.00 mm · 0.00° | 0.00 mm · 0.00° |
+| shoulder_roll | 0.00 mm · 0.01° | 0.00 mm · 0.01° |
+| shoulder_yaw | 0.01 mm · 1.37° | **7.12 mm** · 1.37° |
+| elbow | 0.11 mm · 1.37° | **7.22 mm** · 1.37° |
+
+**박종진 골격(0129b3c 이후)과 대조** (`joint_check_nominal_vs_skeleton.csv`, q = 0, 몸통 프레임): 8개 관절 축 방향 · 부호 모두 일치(0.00°), 앵커 수직거리 pitch 0.00 · roll 0.05 · yaw 1.66 · elbow 1.73 mm(양팔 같음) — 공칭 위치를 어느 점 기준으로 반올림했는지의 차이, 한 벌로 합칠 때 하나로 통일.
+
+질량 · 관성 · 메시는 링크 프레임 기준이라 바뀌지 않음(§3 표 그대로). 왼 팔꿈치 평행축: 공칭 축 +x 기준 I_C 0.01449 → 0.02893 kg·m² (COM 축에서 79.8 mm) = MuJoCo M[elbow] 0.028927.

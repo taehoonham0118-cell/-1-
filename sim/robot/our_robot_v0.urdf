@@ -22,6 +22,9 @@
     <visual><origin xyz="0 0 -0.225"/><geometry><box size="0.125 0.15 0.55"/></geometry></visual>
     <collision><origin xyz="0 0 -0.225"/><geometry><box size="0.125 0.148 0.55"/></geometry></collision>
   </link>
+  <joint name="cad_frame_joint" type="fixed"><parent link="torso_link"/><child link="cad_frame"/>
+    <origin xyz="0 0.11814 0" rpy="1.5708 0 1.5708"/></joint>
+  <link name="cad_frame"/>   <!-- CAD 점 p[mm] → 이 프레임 기준 p/1000. 정면(+z_CAD) 확정 시 이 변환만 바꿈 -->
   <joint name="left_shoulder_pitch_joint" type="revolute"><parent link="torso_link"/><child link="left_shoulder_pitch_link"/>
     <origin xyz="0 0.1476 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
@@ -32,7 +35,7 @@
     <collision><geometry><mesh filename="left_shoulder_pitch_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="left_shoulder_roll_joint" type="revolute"><parent link="left_shoulder_pitch_link"/><child link="left_shoulder_roll_link"/>
-    <origin xyz="0.019 0.13 -0.02" rpy="0 0 0"/><axis xyz="1 0 0.0002"/>
+    <origin xyz="0.019 0.13 -0.02" rpy="0 0 0"/><axis xyz="1 0 0"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="left_shoulder_roll_link">
     <inertial><origin xyz="-0.019215 0.000179 -0.095874" rpy="0 0 0"/><mass value="4.1696"/>
@@ -41,7 +44,7 @@
     <collision><geometry><mesh filename="left_shoulder_roll_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="left_shoulder_yaw_joint" type="revolute"><parent link="left_shoulder_roll_link"/><child link="left_shoulder_yaw_link"/>
-    <origin xyz="-0.02066 1e-05 -0.16015" rpy="0 0 0"/><axis xyz="0.0239 -0.0009 0.9997"/>
+    <origin xyz="-0.02066 0 -0.16015" rpy="0 0 -1.5708"/><axis xyz="0 0 1"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="left_shoulder_yaw_link">
     <inertial><origin xyz="-0.00384 2e-06 -0.099318" rpy="0 0 0"/><mass value="3.33643"/>
@@ -50,7 +53,7 @@
     <collision><geometry><mesh filename="left_shoulder_yaw_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="left_elbow_joint" type="revolute"><parent link="left_shoulder_yaw_link"/><child link="left_elbow_link"/>
-    <origin xyz="0.01775 0.0001 -0.11546" rpy="0 0 0"/><axis xyz="0.9997 0 -0.0239"/>
+    <origin xyz="0.01775 0 -0.11546" rpy="0 0 0"/><axis xyz="1 0 0"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="left_elbow_link">
     <inertial><origin xyz="-0.021456 -7.2e-05 -0.079788" rpy="0 0 0"/><mass value="2.26772"/>
@@ -68,7 +71,7 @@
     <collision><geometry><mesh filename="right_shoulder_pitch_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="right_shoulder_roll_joint" type="revolute"><parent link="right_shoulder_pitch_link"/><child link="right_shoulder_roll_link"/>
-    <origin xyz="0.019 -0.13 -0.02" rpy="0 0 0"/><axis xyz="1 0 0.0002"/>
+    <origin xyz="0.019 -0.13 -0.02" rpy="0 0 0"/><axis xyz="-1 0 0"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="right_shoulder_roll_link">
     <inertial><origin xyz="-0.019209 0.004115 -0.095681" rpy="0 0 0"/><mass value="4.1696"/>
@@ -77,7 +80,7 @@
     <collision><geometry><mesh filename="right_shoulder_roll_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="right_shoulder_yaw_joint" type="revolute"><parent link="right_shoulder_roll_link"/><child link="right_shoulder_yaw_link"/>
-    <origin xyz="-0.02064 0.00712 -0.15966" rpy="0 0 0"/><axis xyz="0.0239 -0.0006 0.9997"/>
+    <origin xyz="-0.02066 0 -0.16015" rpy="0 0 1.5708"/><axis xyz="0 0 -1"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="right_shoulder_yaw_link">
     <inertial><origin xyz="-0.00384 -2.4e-05 -0.099309" rpy="0 0 0"/><mass value="3.33643"/>
@@ -86,7 +89,7 @@
     <collision><geometry><mesh filename="right_shoulder_yaw_link_collision.stl"/></geometry></collision>
   </link>
   <joint name="right_elbow_joint" type="revolute"><parent link="right_shoulder_yaw_link"/><child link="right_elbow_link"/>
-    <origin xyz="0.01775 8e-05 -0.11546" rpy="0 0 0"/><axis xyz="0.9997 0 -0.0239"/>
+    <origin xyz="0.01775 0 -0.11546" rpy="0 0 0"/><axis xyz="-1 0 0"/>
     <limit lower="-1.57" upper="1.57" effort="50.0" velocity="3.0"/></joint>
   <link name="right_elbow_link">
     <inertial><origin xyz="-0.021456 -7.7e-05 -0.07979" rpy="0 0 0"/><mass value="2.26772"/>

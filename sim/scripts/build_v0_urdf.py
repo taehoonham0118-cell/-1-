@@ -1,6 +1,12 @@
 # week04 | 우리 로봇 v0 URDF 조립: 베이스(planar, 임시 box) + 몸통(임시 box + 어깨 RI85 고정부) + 양팔 4링크 (함태훈, B1)
 # 입력 (step_to_links.py · find_joint_axes.py 결과): sim/robot/link_mass_props.csv, joint_axes_cad.csv, linkmap_arm.json, meshes/
 # 출력: sim/robot/our_robot_v0.urdf  (+ 가정값은 아래 ASSUME 표 — 확정 시 교체)
+# 팀장 회신(10/14) 규칙 반영:
+#   ① base_link = REP 103, CAD → 로봇 고정 변환은 하나(cad_frame, torso_link 아래 고정 프레임)로만 표현. CAD 점 p[mm] = cad_frame 기준 p/1000
+#   ② URDF 는 공칭값: 축은 단위축(직교), 오른팔 joint origin 은 왼팔의 거울(y 부호 반대). CAD 편차(1.37° · 7 mm)는 joint 원점 검증표에 기록
+#   ③ 영점 = 팔 내린 자세 + 팔꿈치 전방 굽힘. CAD 자세와의 90° 차이는 shoulder_yaw origin rpy (0, 0, ∓π/2)(left −, right +)로 흡수
+#      → CAD 자세 = 양팔 shoulder_yaw q = +π/2. 메시 · 관성은 링크 프레임 기준이라 그대로
+#   ④ 축 부호: 왼팔 pitch +y · roll +x · yaw +z · elbow +x, 오른팔은 거울(roll −x · yaw −z · elbow −x) — 박종진 ICD v0 3.4 와 같음
 # 실행: python sim/scripts/build_v0_urdf.py
 import csv, json, math, os
 import numpy as np
@@ -83,18 +89,32 @@ out += [f'  <joint name="torso_joint" type="fixed"><parent link="base_link"/><ch
         f'    <visual><origin xyz="{vec(tc)}"/><geometry><box size="{vec(tb)}"/></geometry></visual>\n',
         f'    <collision><origin xyz="{vec(tc - [0, 0, 0.0])}"/><geometry><box size="{f(tb[0])} {f(tb[1] - 0.002)} {f(tb[2])}"/></geometry></collision>\n',
         '  </link>\n']
+# ---- cad_frame: CAD 좌표계를 몸통 아래 고정 프레임 하나로 (CAD 원점 · 축 그대로, m 단위)
+mid_mm = np.array(lm["torso_link"]["origin_mm"])
+cad_xyz = R.T @ (-mid_mm) / 1000                              # 몸통 원점 → CAD 원점 (로봇 축)
+out += [f'  <joint name="cad_frame_joint" type="fixed"><parent link="torso_link"/><child link="cad_frame"/>\n'
+        f'    <origin xyz="{vec(np.round(cad_xyz, 5))}" rpy="1.5708 0 1.5708"/></joint>\n',
+        '  <link name="cad_frame"/>   <!-- CAD 점 p[mm] → 이 프레임 기준 p/1000. 정면(+z_CAD) 확정 시 이 변환만 바꿈 -->\n']
+AXIS = {"shoulder_pitch": (0, 1, 0), "shoulder_roll": (1, 0, 0), "shoulder_yaw": (0, 0, 1), "elbow": (1, 0, 0)}
+MIRROR = {"shoulder_pitch": 1, "shoulder_roll": -1, "shoulder_yaw": -1, "elbow": -1}     # 오른팔 축 부호
+YAW_RPY = {"left": -np.pi / 2, "right": np.pi / 2}
+# 공칭 joint origin: 왼팔 CAD 값에서 1e-3 m 미만 성분(축 기울기 · 조립 오차로 생긴 것)을 0 으로, 오른팔은 y 거울
+nominal = {}
+for (part, parent, jk), act in zip(CHAIN, ACT["left"]):
+    child = f"left_{part}_link"; par = parent if parent == "torso_link" else f"left_{parent}_link"
+    xyz = R.T @ (np.array(lm[child]["origin_mm"]) - np.array(lm[par]["origin_mm"])) / 1000
+    nominal[part] = np.where(np.abs(xyz) < 1e-3, 0.0, np.round(xyz, 5))
 rows = []
 for side in SIDES:
     for (part, parent, jk), act in zip(CHAIN, ACT[side]):
         child = f"{side}_{part}_link"
         par = parent if parent == "torso_link" else f"{side}_{parent}_link"
-        p_cad, c_cad = np.array(lm[par]["origin_mm"]), np.array(lm[child]["origin_mm"])
-        xyz = R.T @ (c_cad - p_cad) / 1000
-        ax = R.T @ np.array([float(axes[act][k]) for k in ("axis_x", "axis_y", "axis_z")])
-        ax = ax / np.linalg.norm(ax); ax = ax if ax[np.argmax(np.abs(ax))] > 0 else -ax    # 주성분 + 방향 (G1 관례)
+        xyz = nominal[part] * (np.array([1, -1, 1]) if side == "right" else 1)
+        ax = np.array(AXIS[part], float) * (MIRROR[part] if side == "right" else 1)
+        rpy = (0, 0, YAW_RPY[side]) if part == "shoulder_yaw" else (0, 0, 0)
         m, c, I = cad(child)
         out += [f'  <joint name="{side}_{part}_joint" type="revolute"><parent link="{par}"/><child link="{child}"/>\n'
-                f'    <origin xyz="{vec(xyz)}" rpy="0 0 0"/><axis xyz="{vec(np.round(ax, 4))}"/>\n'
+                f'    <origin xyz="{vec(xyz)}" rpy="{vec(np.round(rpy, 4))}"/><axis xyz="{vec(ax)}"/>\n'
                 f'    <limit lower="{-A["limit"]}" upper="{A["limit"]}" effort="{A["effort"]}" velocity="{A["velocity"]}"/></joint>\n',
                 f'  <link name="{child}">\n', inertial(m, c, I), mesh_geoms(child), '  </link>\n']
         rows.append((f"{side}_{part}_joint", act, xyz, ax))

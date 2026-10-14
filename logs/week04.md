@@ -26,7 +26,7 @@
 | 4 | **링크별 STL (화)**: 9개 링크 + 상판 visual(1.1만~5.6만 면, 구동기 내부 기어 · 베어링 제외) · collision(hull 270~390 면) | 100 % | [sim/robot/meshes/](../sim/robot/meshes/) (20개) |
 | 5 | **질량 · COM · 관성 표 → inertial 블록 (수)**: 밀도 Al 2700 / 강 7850 / PCB 1850 가정. OpenCascade · trimesh · **FreeCAD 1.0.2(노트북)** 3자 중 2자+FreeCAD 비교, BOM 열 대기 | 90 % (BOM) | [link_mass_props.csv](../sim/robot/link_mass_props.csv), [inertial_blocks.xml](../sim/robot/inertial_blocks.xml), [freecad_link_export.FCMacro](../sim/scripts/freecad_link_export.FCMacro), 캡처 [상판](../assets/screenshots/week04/week04_freecad_base_plate.png) · [팔꿈치](../assets/screenshots/week04/week04_freecad_left_elbow_al.png) |
 | 6 | **v0 URDF → MuJoCo (수)**: world —planar→ base(상판 STEP 메시 + 임시 box) —fixed→ torso(어깨 RI85 고정부 + 임시 box) → 양팔 4링크. 3단 구조 robot.xml(mj_saveLastXML, 수정 금지) → robot_actuated.xml → scene.xml | 100 % (가정값 표 포함) | [build_v0_urdf.py](../sim/scripts/build_v0_urdf.py), [our_robot_v0.urdf](../sim/robot/our_robot_v0.urdf), [robot.xml](../sim/robot/robot.xml) · [robot_actuated.xml](../sim/robot/robot_actuated.xml) · [scene.xml](../sim/robot/scene.xml), 캡처 [iso](../assets/screenshots/week04/week04_v0_iso.png) · [pose](../assets/screenshots/week04/week04_v0_pose.png) · [collision](../assets/screenshots/week04/week04_v0_iso_collision.png), **노트북 MuJoCo 뷰어** [기본 자세](../assets/screenshots/week04/week04_v0_viewer_laptop.png) · [Control 로 왼팔 pitch −1.21 · elbow 0.801 유지](../assets/screenshots/week04/week04_v0_viewer_laptop_pose.png) |
-| 7 | v0 점검 (금 과제 일부 선행): 초기 접촉 0, 관절 앵커 = CAD 관절점 0.0 mm, 2 s 자세 유지 최대 0.145°, 중력 토크 | 70 % (관절 범위는 가정) | [verify_robot_v0.py](../sim/scripts/verify_robot_v0.py), [verify_robot_v0_log.txt](../sim/robot/verify_robot_v0_log.txt), [joint_origin_check.csv](../sim/robot/joint_origin_check.csv) |
+| 7 | v0 점검 (금 과제 일부 선행): 초기 접촉 0, 2 s 자세 유지 최대 0.056°, 영점 확인(양팔 elbow +0.5 rad → 팔꿈치 COM +x 38 mm, 앞으로 굽힘), 공칭 vs CAD 편차표, 중력 토크 | 70 % (관절 범위는 가정) | [verify_robot_v0.py](../sim/scripts/verify_robot_v0.py), [verify_robot_v0_log.txt](../sim/robot/verify_robot_v0_log.txt), [joint_origin_check.csv](../sim/robot/joint_origin_check.csv) |
 | 8 | **팀 연계**: ① 박종진 관절 표(0dfa6e8) ↔ CAD 축: 수직거리 ≤ 0.064 mm, 축 ≤ 0.024°, 분할 차이 1건 반영(모터드라이버 5 · 6 → elbow) ② **골격 URDF(e292b37) joint origin 검증표**: pitch · roll 앵커 ≤ 0.05 mm · 0.01° 일치, yaw · elbow 는 골격의 축 정렬 1.37° · 거울 대칭 7.4 mm(의도된 차이), 축 부호 규약 3건 차이 → 통일 요청 | 100 % | [check_joint_table_vs_pjj.py](../sim/scripts/check_joint_table_vs_pjj.py) · [check_skeleton_vs_cad.py](../sim/scripts/check_skeleton_vs_cad.py), [joint_check_vs_pjj.csv](../sim/robot/joint_check_vs_pjj.csv) · [joint_check_skeleton.csv](../sim/robot/joint_check_skeleton.csv), [notes/09 §8~9](../notes/09_our_robot_link_split_v0.md) |
 | 9 | (팀장 회신 10/8) 박종진 RI85 ICD 요청서 v0 검토 — 보완 3건(다단 유성기어 반사관성, 기어 효율 · 백래시, 질량 항목 근거) | 50 % (전달 · 공동 제출 전) | b1/docs/icd/actuator-spec-request.md (박종진 저장소) |
 
@@ -65,14 +65,15 @@ python sim/scripts/view_v0.py                  # 뷰어 (한글 경로 대비). 
 | 3자 비교 — 상판 | FreeCAD 3.6901 kg = 스크립트 3.690097, 관성 6자리 일치, trimesh 0.034 % | Al 2700, 상판 중심 기준 |
 | 3자 비교 — 팔꿈치 Al 3부품 | FreeCAD 1.65145 kg, ixx 0.0115097 = 스크립트 동일 | 원점 J4, CAD 축 |
 | trimesh vs OpenCascade (링크) | 질량 0.2~1.3 %, 관성 0.3~3.2 % | 부품이 맞닿아 메시 watertight 아님 |
-| 평행축 정리 (왼 팔꿈치) | I_C 0.01453 → 축 기준 0.02914 kg·m² (2.0배) = MuJoCo M[elbow] 0.029144 | COM 이 축에서 80.3 mm, 2.268 kg |
+| 평행축 정리 (왼 팔꿈치) | I_C 0.01449 → 축 기준 0.02893 kg·m² (2.0배) = MuJoCo M[elbow] 0.028927 | 공칭 축(+x), COM 이 축에서 79.8 mm, 2.268 kg |
 | convex hull / 실제 부피 | pitch 2.59 · roll 3.84 · yaw 2.95 · elbow 4.34 · 몸통 6.08배 | collision 270~390 면 |
-| 관절 축 기울기 · 비대칭 (CAD) | yaw · elbow 축 1.37°, 오른팔 상완 이하 x +7.1 mm | v0 는 CAD 그대로, 팀장 확인 |
+| 관절 축 기울기 · 비대칭 (CAD) | yaw · elbow 축 1.37°, 오른팔 상완 이하 7.1~7.2 mm | v0 URDF 는 공칭값, 편차는 `joint_origin_check.csv` (팀장 10/14) · A1 확인 요청 |
 | v0 MuJoCo | body 11 · joint 11(planar _TX _TY _RZ + 8) · 67.464 kg, 초기 접촉 0 | mujoco 3.15, 베이스 30 kg · 몸통 box 5 kg 가정 |
-| 자세 유지 | 2 s 최대 0.145° | position kp 200 · kv 10 (가정), armature 0 |
-| 중력 토크 | 팔 수평(pitch −90°) 어깨 22.725 Nm = 14.170 × 9.81 × 0.1635 | 팔 내림 0.301 Nm |
+| 자세 유지 | 2 s 최대 0.056° | position kp 200 · kv 10 (가정), armature 0 |
+| 중력 토크 | 팔 수평(pitch −90°) 어깨 22.725 Nm = 14.170 × 9.81 × 0.1635 | 팔 내림 0.095 Nm, 공칭 v0 (영점 = 팔 내림 · 팔꿈치 전방) |
 | 박종진 관절 표 대조 | 수직거리 ≤ 0.064 mm, 축 각도 ≤ 0.024° | 원점 위치 차 22 mm 는 축 위 이동 |
-| 박종진 골격 URDF 검증 | pitch · roll ≤ 0.05 mm · 0.01°, yaw · elbow 1.37° · 오른팔 7.4~7.5 mm, 축 부호 반대 3건(L yaw, R roll, R elbow) | q = 0, 몸통 프레임 기준 |
+| 공칭 v0 vs 박종진 골격(0129b3c 이후) | 축 · 부호 8개 모두 일치(0.00°), 앵커 수직거리 ≤ 1.73 mm (공칭 위치 반올림 기준 차) | q = 0, `joint_check_nominal_vs_skeleton.csv` |
+| 박종진 골격 URDF 검증 (10/13, CAD v0 vs e292b37) | pitch · roll ≤ 0.05 mm · 0.01°, yaw · elbow 1.37° · 오른팔 7.4~7.5 mm, 축 부호 반대 3건(L yaw, R roll, R elbow) | q = 0, 몸통 프레임 기준 |
 | 골격 v0 vs 함태훈 질량 (왼 elbow) | 2.1425 vs 2.268 kg, 차 0.1255 kg = ring2 기어 + cover plate1 | 출력측 부품 범위 차 |
 | E6 armature (F3) | **0 — RI85 사양 미수령, 팀장 10/8 0 허용** | ICD 요청 중 |
 
@@ -98,15 +99,27 @@ python sim/scripts/view_v0.py                  # 뷰어 (한글 경로 대비). 
 
 ## 5. 구술 대비 (10/15 목, 2문항) — 상세: 구술 답변 파일 · notes/09
 
-- **Q1. 평행축 정리와 URDF inertial 기준**: I_O = I_C + m(|d|²E − ddᵀ). URDF `<inertial>` 은 origin = 링크 원점 → COM, inertia = **COM 기준**. 우리 왼 팔꿈치 2.268 kg, COM 축에서 80.3 mm → 0.01453 → 0.02914 kg·m²(2.0배) = MuJoCo 질량행렬 0.029144. FreeCAD 1.0.2 와 6자리 일치
+- **Q1. 평행축 정리와 URDF inertial 기준**: I_O = I_C + m(|d|²E − ddᵀ). URDF `<inertial>` 은 origin = 링크 원점 → COM, inertia = **COM 기준**. 우리 왼 팔꿈치 2.268 kg, COM 축에서 79.8 mm → 0.01449 → 0.02893 kg·m²(2.0배) = MuJoCo 질량행렬 0.028927. FreeCAD 1.0.2 와 6자리 일치
 - **Q2. visual · collision 분리와 convex hull 한계**: 충돌은 매 스텝 계산 → 단순 형상(우리 팔 visual 1.1만~4.2만 면 → collision 270~320 면). MuJoCo 메시 충돌 = convex hull → 오목한 C브래킷 · 요크가 메워짐(hull/실제 2.6~4.3배), G1 팔꿈치 낙하 시험 28.8 mm 위 정지 → 원시 도형 · convex 분해 · exclude
 
 ## 6. 다음 주 목표 (5주차, 커리큘럼 공지 후 확정)
 
 1. BOM · RI85 사양 수령 시 밀도 · 질량 보정, 3자 비교 BOM 열 · armature · effort 반영
 2. 박종진과 RI85 출력측 부품 범위 · 축 부호 규약 통일, 메시 · 관성 한 벌로 합치기
-3. 팀장 확인 결과(4-DOF, 축 1.37°, 오른팔 7.1 mm, 전방, planar 베이스) 반영해 v1 URDF
+3. A1 회신(1.37° · 7 mm 의도 여부, 손목 2축) · 정면(+z_CAD) 확정 반영
 4. 금요일 과제 마무리: 관절 범위 · 자기 충돌 점검, 오목 링크 convex 분해 비교
+
+## 6-1. 팀장 회신 (10/14, 박종진 공유 · 박종진 0129b3c) → **10/14 v0 에 반영 완료**
+
+| 규칙 | 내용 | 10/13 v0 | 10/14 v0 (반영) |
+|---|---|---|---|
+| 좌표 | base_link = REP 103(+x 전방, +y 좌, +z 상), CAD → base 고정 변환 하나(`cad_frame`)만 둠. CAD 점 p[mm] → cad_frame 기준 p/1000 | 링크마다 rpy(−π/2, −π/2, 0)로 같은 변환을 직접 적용 | ✅ `cad_frame` (torso 아래 고정, xyz 0 0.11814 0, rpy π/2 0 π/2) |
+| 영점 | CAD 자세가 아니라 「팔 내림 + 팔꿈치 전방 굽힘」 = 0. 90° 차이는 shoulder_yaw origin rpy (0, 0, ∓π/2)(left −, right +)로 흡수 → 양팔 elbow + = 앞으로 굽힘 | CAD 자세 = 0 (팔꿈치가 옆으로 굽힘) | ✅ yaw origin rpy (0,0,∓π/2), CAD 자세 = yaw q +π/2. elbow +0.5 rad → 팔꿈치 COM +38 mm 전방 |
+| 공칭값 | URDF 는 축 직교 · 좌우 대칭 공칭값, 편차(1.37°, 7.4 mm)는 joint 원점 검증표에 기록 | CAD 측정값 그대로(축 1.37° 기울기 · 오른팔 7.1 mm 포함) | ✅ 공칭 축 · 오른팔 거울 위치, 편차는 `joint_origin_check.csv`(CAD 자세에서 1.37° · 7.1~7.2 mm) |
+| 축 부호 | 오른팔 거울(roll · yaw · elbow 부호 반대), 구동기 출력 방향과 URDF 축이 반대인 관절은 B2 부호표로 | 양팔 같은 부호 | ✅ 오른팔 roll −x · yaw −z · elbow −x — 박종진 골격과 8개 관절 축 · 부호 일치 |
+
+- 팀장이 「이번 주 보고서에 그대로」라고 해서 제출 전(10/14)에 v0 를 다시 만듦: `build_v0_urdf.py` · `verify_robot_v0.py` 재실행, 캡처 갱신. 10/13 CAD 그대로 판은 커밋 43fc7ae 에 남음.
+- 1.37° · 7 mm 는 A1 전달 대상 — 박종진이 측정 부품 · 기준 그림으로 팀장께 전달(10/14).
 
 ## 7. 제출 · 릴리스 기록
 
