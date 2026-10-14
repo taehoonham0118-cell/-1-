@@ -72,7 +72,7 @@ python sim/scripts/view_v0.py                  # 뷰어 (한글 경로 대비). 
 | 자세 유지 | 2 s 최대 0.056° | position kp 200 · kv 10 (가정), armature 0 |
 | 중력 토크 | 팔 수평(pitch −90°) 어깨 22.725 Nm = 14.170 × 9.81 × 0.1635 | 팔 내림 0.095 Nm, 공칭 v0 (영점 = 팔 내림 · 팔꿈치 전방) |
 | 박종진 관절 표 대조 | 수직거리 ≤ 0.064 mm, 축 각도 ≤ 0.024° | 원점 위치 차 22 mm 는 축 위 이동 |
-| 공칭 v0 vs 박종진 골격(0129b3c 이후) | 축 · 부호 8개 모두 일치(0.00°), 앵커 수직거리 ≤ 1.73 mm (공칭 위치 반올림 기준 차) | q = 0, `joint_check_nominal_vs_skeleton.csv` |
+| 공칭 v0 vs 박종진 골격(0129b3c 이후) | 축 · 부호 8개 모두 일치(0.00°), 축선 수직거리 ≤ 1.73 mm, 축 방향 원점 차 17.8~22.15 mm (링크 원점을 축 위 어느 점에 두었는지의 차 — 운동학은 같고 inertial origin 은 평행이동 필요. 박종진 29a5d8c 에서 cad_frame 기준 평행이동으로 통합, 74.10 kg · 팔 14.17 kg) | q = 0, `joint_check_nominal_vs_skeleton.csv` |
 | 박종진 골격 URDF 검증 (10/13, CAD v0 vs e292b37) | pitch · roll ≤ 0.05 mm · 0.01°, yaw · elbow 1.37° · 오른팔 7.4~7.5 mm, 축 부호 반대 3건(L yaw, R roll, R elbow) | q = 0, 몸통 프레임 기준 |
 | 골격 v0 vs 함태훈 질량 (왼 elbow) | 2.1425 vs 2.268 kg, 차 0.1255 kg = ring2 기어 + cover plate1 | 출력측 부품 범위 차 |
 | E6 armature (F3) | **0 — RI85 사양 미수령, 팀장 10/8 0 허용** | ICD 요청 중 |
