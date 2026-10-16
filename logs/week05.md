@@ -32,6 +32,7 @@
 | 8 | 재현용 공용 모델 사본(박종진 347a0ca) → 이 저장소만으로 sim/v1 스크립트 실행 | 100 % | [sim/v1/b1_snapshot/](../sim/v1/b1_snapshot/) |
 | 8-1 | **노트북 재현 (10/17)**: Windows 11 · Python 3.14.7 · MuJoCo 3.15.0 에서 검증 · 액추에이터표 · 미러 점검 재실행 → 핵심 수치 14개 클라우드와 차 0, 미러 17/17 | 100 % | [sim/v1/laptop_check.py](../sim/v1/laptop_check.py), [results_laptop/laptop_compare.md](../sim/v1/results_laptop/laptop_compare.md) |
 | 8-2 | **(커리큘럼 수) 노트북 뷰어 캡처 (10/17)**: Control 슬라이더 11개 동작(left_shoulder_pitch 1.32 · right_elbow 1.04 → 목표 자세 유지, 중력보상 B) / 양팔 앞 수평 보상 없음 4.832° 처짐(ee z 1.1469 m) / 중력보상 B 0.000°(ee z 1.200 m) — 좌우 ee y ±0.2866 대칭 | 100 % | [sim/v1/view_v1.py](../sim/v1/view_v1.py), [sliders](../assets/screenshots/week05/week05_laptop_sliders.png) · [sag](../assets/screenshots/week05/week05_laptop_sag.png) · [gravcomp](../assets/screenshots/week05/week05_laptop_gravcomp.png) |
+| 8-3 | **(커리큘럼 화, 공통 실습) 베이스 속도 명령 vs qvel (10/17)**: x · y 시정수 0.380 s(이론 M/kv = 75.10/200 = 0.3755), yaw 0.082 s(3.915/50 = 0.0783), 축 섞임 ≤ 2e-4. 로봇 기준 전진 + 회전(R(yaw) 변환): 전진 0.482 · 옆 0.091 m/s = 이론 v/(1+(ωτ)²) 0.483 · v·ωτ/(1+(ωτ)²) 0.091 | 100 % | [sim/v1/v1_base_velocity.py](../sim/v1/v1_base_velocity.py), [results/base_velocity.md](../sim/v1/results/base_velocity.md), [week05_base_velocity.png](../assets/screenshots/week05/week05_base_velocity.png) |
 | 9 | (4주차 합의 2) 가정값 통일 | 100 % | 박종진 0653da5 에서 공용값 적용 시 74.093 = 74.096 kg 확인 → v1 부터 **한 벌**(공용 빌드 + 함태훈 link_inertials) |
 | 10 | (4주차 합의 3) 관절 범위 · 자기 충돌 / convex 분해 비교 | 50 % | 범위 = 박종진 충돌 스윕(공용 C3, 검증 ④ 3,770자세 0건) 채택. convex 분해 비교는 6주차로 |
 | 11 | (4주차 합의 1) BOM · RI85 사양 반영 | 0 % (미수령) | armature 0 · 정격 46 판정 기준 유지 |
@@ -72,6 +73,7 @@ python sim/v1/v1_mirror_actuator_check.py
 | ③ 페이로드별 pitch | 0 · 0.5 · 1 · 3 kg = 25.41 · 28.32 · 31.24 · 42.92 N·m | 1 kg 까지 × 1.2 ≤ 46 통과. 작용점 플랜지면 3 kg 39.98 (−2.94) |
 | armature (kv 고정 20.53) | 0 → 0.1 → 0.5 kg·m²: OS 3.6 → 5.2 → **11.5 %**, ω_n 18.8 → 17.8 → 14.9 rad/s | shoulder_pitch 계단. dampratio 1 이면 OS 3.6 → 2.6 → 1.0 % (kv 20.5 → 32.0 자동) |
 | 적분 안정 한계 (Euler) | armature 0 · 0.01 · 0.05 → 0.006 · 0.007 · 0.012 s (예측 0.0054 · 0.0071 · 0.0117) | shoulder_yaw 계단, implicitfast 는 0.03 · 0.04 · 0.05 s. 현재 dt 0.002 |
+| 베이스 속도 응답 | x · y τ 0.380 s (이론 0.3755) · yaw 0.082 s (0.0783), 회전하며 전진 시 옆 미끄러짐 0.091 m/s (이론 0.091) | kv 200 / 50, 0.5 m/s · 0.5 rad/s 계단, 팔 영점 + 중력보상 B |
 | 노트북 재현 | 14개 수치 차 0 (Windows 11 · Py 3.14.7 · MuJoCo 3.15.0) | results_laptop/laptop_compare.md |
 | 미러 점검 | 17/17 OK, 좌우 중력 토크 차 1.8e-14 N·m, B2 「반대」 4관절 박종진 표와 8/8 일치 | 생성 팔 = right |
 
