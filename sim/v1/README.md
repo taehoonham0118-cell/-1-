@@ -6,6 +6,8 @@
 | `v1_actuator_table.py` | 액추에이터 파라미터표 (kp · 컴파일 kv · I_eff · Mᵢᵢ 범위 · ζ_hold · 계단 응답 · 포화 · 처짐) | `results/actuator_table.md` · .csv |
 | `v1_validate_123.py` | 검증 ① 질량 · ② 정지 유지(보상 3방식) · ③ 중력 토크(4방법 검산, 전역 최적화, 페이로드별) | `results/validate_123.md` · .json |
 | `v1_armature_study.py` | armature 유무 계단 응답 · 적분 안정 한계 (구술 Q2) | `results/armature_study.md` · .csv |
+| `view_v1.py` | 노트북 뷰어: `sliders`(Control 슬라이더, 중력보상 B) · `sag`(수평 처짐 4.8°) · `gravcomp`(0°) · `mirror`(양팔 대칭) | 화면 캡처 → `assets/screenshots/week05/week05_laptop_*.png` |
+| `laptop_check.py` | 노트북 재현: 검증 · 액추에이터표 · 미러 점검을 `results_laptop/` 에 다시 계산해 클라우드 값과 비교 | `results_laptop/laptop_compare.md` |
 | `v1_mirror_actuator_check.py` | 팀 연계: 미러 규칙표로 생성 팔 액추에이터 부호 · 범위 · B2 부호표 교차 | `results/mirror_actuator_check.md` · .csv |
 
 - `handoff/` — 박종진에게 넘기는 것: 근거를 채운 `actuator_params.json`(값 동일, 빌드 결과 동일), `build_v1_gravcomp_option.patch`(기본 꺼짐)

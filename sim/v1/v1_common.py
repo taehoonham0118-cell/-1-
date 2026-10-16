@@ -8,8 +8,8 @@ import numpy as np, mujoco
 HERE = os.path.dirname(os.path.abspath(__file__))
 V1 = os.environ.get("B1_V1", os.path.join(HERE, "b1_snapshot", "v1"))     # 기본 = 저장소 안 스냅샷 (박종진 347a0ca)
 V1 = os.path.abspath(V1)
-OUT = os.path.join(HERE, "results"); os.makedirs(OUT, exist_ok=True)
-IMG = os.path.join(HERE, "..", "..", "assets", "screenshots", "week05"); os.makedirs(IMG, exist_ok=True)
+OUT = os.environ.get("V1_OUT", os.path.join(HERE, "results")); os.makedirs(OUT, exist_ok=True)          # V1_OUT: 노트북 재현 시 다른 폴더로
+IMG = os.environ.get("V1_IMG", os.path.join(HERE, "..", "..", "assets", "screenshots", "week05")); os.makedirs(IMG, exist_ok=True)
 ARM = ["shoulder_pitch", "shoulder_roll", "shoulder_yaw", "elbow"]
 SIDES = ("left", "right")
 G = 9.81
@@ -20,6 +20,13 @@ def assets():
     for f in glob.glob(os.path.join(V1, "mjcf", "*.xml")): a[os.path.basename(f)] = open(f, "rb").read()
     for f in glob.glob(os.path.join(V1, "meshes", "*.stl")): a[os.path.basename(f)] = open(f, "rb").read()
     return a
+
+
+def gravcomp_edit(x):
+    """중력보상 방식 B: 팔 body gravcomp="1" + joint actuatorgravcomp (메모리에서만, 파일 그대로)"""
+    import re
+    x = re.sub(r'<body name="((left|right)_(shoulder|elbow|tool0|gripper)[^"]*)"', r'<body name="\1" gravcomp="1"', x)
+    return x.replace('<joint armature=', '<joint actuatorgravcomp="true" armature=')
 
 
 def load(name="scene.xml", xml_edit=None):

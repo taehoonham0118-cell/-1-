@@ -183,6 +183,11 @@
   4. **B2 부호표 교차 확인**: 함태훈 CAD 축(고정측 → 출력측, joint_axes_cad.csv)을 CAD 자세(yaw = +π/2)의 URDF 축과 내적 → 「반대」 = left yaw, right pitch · roll · elbow — 박종진 joint-origin-check-v0 §2 와 8/8 일치. 각도차 1.37° = A1 편차
 - 결론: MJCF 쪽 gear 는 전부 +1 이 맞음 (부호 반전은 B2 드라이버 한 곳)
 
+## 7-1. 노트북 재현 · 뷰어 캡처 (10/17)
+
+- `py sim/v1/laptop_check.py` (Windows 11 · Python 3.14.7 · MuJoCo 3.15.0): 질량 · 손계산 · ② · ③ · kv 14개 수치 클라우드와 차 0, 미러 17/17 → [results_laptop/laptop_compare.md](../sim/v1/results_laptop/laptop_compare.md)
+- `py sim/v1/view_v1.py`: [Control 슬라이더](../assets/screenshots/week05/week05_laptop_sliders.png) (11개, 중력보상 B 라 놓은 자세 그대로 유지) · [수평 처짐 4.832°](../assets/screenshots/week05/week05_laptop_sag.png) (ee z 1.1469 m) · [중력보상 0.000°](../assets/screenshots/week05/week05_laptop_gravcomp.png) (ee z 1.200 m = 어깨 높이), 좌우 ee y ±0.2866
+
 ## 8. B1 업무와의 연결
 
 - 액추에이터 파라미터표 = 6주차 Isaac Lab `ImplicitActuatorCfg` (stiffness = kp, damping = kv, effort_limit = forcerange, velocity_limit, armature) 로 옮길 값의 출처. **kv 는 dampratio 로부터 계산된 숫자(20.53 등)를 옮겨야** 함 — Isaac 에는 dampratio 가 없음
