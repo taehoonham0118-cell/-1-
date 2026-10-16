@@ -1,0 +1,18 @@
+﻿check,joint,left_axis,right_axis,axis_rule,axis_ok,ctrlrange,ctrl_eq_range,diffs,ok,detail,dL_mm,dR_mm,mirror,meaning,meaning_ok,actuator,dot,ham,pjj,angle_deg
+1 정적,shoulder_pitch,"[0.0, 1.0, 0.0]","[0.0, 1.0, 0.0]",유지,True,"[-3.0, 3.0]",True,없음,True,,,,,,,,,,,
+1 정적,shoulder_roll,"[1.0, 0.0, 0.0]","[-1.0, 0.0, 0.0]",반전,True,"[-0.28, 1.5]",True,없음,True,,,,,,,,,,,
+1 정적,shoulder_yaw,"[0.0, 0.0, 1.0]","[0.0, 0.0, -1.0]",반전,True,"[-2.5, 2.5]",True,없음,True,,,,,,,,,,,
+1 정적,elbow,"[1.0, 0.0, 0.0]","[-1.0, 0.0, 0.0]",반전,True,"[-1.83, 1.83]",True,없음,True,,,,,,,,,,,
+2 중력,전체,,,,,,,,True,300 자세 max|τ_L − τ_R| = 1.8e-14 N·m,,,,,,,,,,
+3 동작,shoulder_pitch,,,,,,,,True,,"[-175.85, -0.0, 26.57]","[-175.85, 0.0, 26.57]",True,pitch + = 팔 뒤로 (ee x 감소) — y축 오른손 법칙,True,,,,,
+3 동작,shoulder_roll,,,,,,,,True,,"[0.0, 169.53, 28.34]","[0.0, -169.53, 28.34]",True,roll + = 바깥으로 벌림 (ee |y| 증가),True,,,,,
+3 동작,shoulder_yaw,,,,,,,,True,,"[-2.66, -0.4, -0.0]","[-2.66, 0.4, -0.0]",True,영점에서 팔이 수직이라 ee 거의 안 움직임 (축 = 팔 길이 방향),True,,,,,
+3 동작,elbow,,,,,,,,True,,"[88.35, -0.0, 13.35]","[88.35, 0.0, 13.35]",True,elbow + = 앞으로 굽힘 (ee x 증가),True,,,,,
+4 B2 부호,left_shoulder_pitch,,,,,,,,True,,,,,,,RI85:1,1.0,같음,같음,0.0
+4 B2 부호,left_shoulder_roll,,,,,,,,True,,,,,,,RI85:2,1.0,같음,같음,0.0
+4 B2 부호,left_shoulder_yaw,,,,,,,,True,,,,,,,RI85:3,-0.9997,반대,반대,1.4
+4 B2 부호,left_elbow,,,,,,,,True,,,,,,,RI85:4,0.9997,같음,같음,1.4
+4 B2 부호,right_shoulder_pitch,,,,,,,,True,,,,,,,RI85:6,-1.0,반대,반대,0.0
+4 B2 부호,right_shoulder_roll,,,,,,,,True,,,,,,,RI85:5,-1.0,반대,반대,0.0
+4 B2 부호,right_shoulder_yaw,,,,,,,,True,,,,,,,RI85:7,0.9997,같음,같음,1.4
+4 B2 부호,right_elbow,,,,,,,,True,,,,,,,RI85:8,-0.9997,반대,반대,1.4

@@ -1,0 +1,10 @@
+{
+ "_note": "MJCF 덧붙이기 파라미터 (week05 커리큘럼: 함태훈 담당 — 값 · 근거는 함태훈이 채움). build_v1.py가 URDF 재생성 후에도 이 파일을 다시 읽어 b1.xml에 덧붙인다. 초기값 = B1 공용 가정값 v0.1 (assumptions-v0.md §0 C4 · C5)",
+ "owner": "함태훈 (초기값 박종진)",
+ "classes": {
+  "shoulder": {"joints": ["shoulder_pitch", "shoulder_roll", "shoulder_yaw"], "kp": 300.0, "dampratio": 1.0, "forcerange": 100.0, "armature": 0.0, "damping": 0.5, "frictionloss": 0.0, "source": "C4 · C5 가정 — RI85 사양(A2) 수령 시 armature = 출력축 반사관성"},
+  "elbow":    {"joints": ["elbow"], "kp": 300.0, "dampratio": 1.0, "forcerange": 100.0, "armature": 0.0, "damping": 0.5, "frictionloss": 0.0, "source": "〃 (같은 RI85)"}
+ },
+ "base": {"vx_kv": 200.0, "vy_kv": 200.0, "wz_kv": 50.0, "v_max": 1.5, "w_max": 1.5708, "lin_forcerange": 2000.0, "yaw_forcerange": 500.0, "source": "week03 계단응답 · 기획서 1.5 m/s · 90 °/s"},
+ "sensors": {"joint": ["jointpos", "jointvel", "actuatorfrc"], "imu_site": "base_imu", "ee_sites": ["left_ee", "right_ee"]}
+}

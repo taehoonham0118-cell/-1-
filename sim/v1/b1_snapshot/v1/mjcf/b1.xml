@@ -1,0 +1,176 @@
+<!-- 자동 생성: build_v1.py — b1_urdf.xml(URDF 변환본) + actuator_params.json 덧붙이기. 손으로 고치지 말고 params/json을 고친 뒤 다시 빌드 -->
+<mujoco model="b1_v1">
+  <compiler angle="radian" meshdir="../meshes/" />
+  <asset>
+    <mesh name="torso_link_visual" content_type="model/stl" file="torso_link_visual.stl" />
+    <mesh name="torso_link_collision" content_type="model/stl" file="torso_link_collision.stl" />
+    <mesh name="left_shoulder_pitch_link_visual" content_type="model/stl" file="left_shoulder_pitch_link_visual.stl" />
+    <mesh name="left_shoulder_pitch_link_collision" content_type="model/stl" file="left_shoulder_pitch_link_collision.stl" />
+    <mesh name="left_shoulder_roll_link_visual" content_type="model/stl" file="left_shoulder_roll_link_visual.stl" />
+    <mesh name="left_shoulder_roll_link_collision" content_type="model/stl" file="left_shoulder_roll_link_collision.stl" />
+    <mesh name="left_shoulder_yaw_link_visual" content_type="model/stl" file="left_shoulder_yaw_link_visual.stl" />
+    <mesh name="left_shoulder_yaw_link_collision" content_type="model/stl" file="left_shoulder_yaw_link_collision.stl" />
+    <mesh name="left_elbow_link_visual" content_type="model/stl" file="left_elbow_link_visual.stl" />
+    <mesh name="left_elbow_link_collision" content_type="model/stl" file="left_elbow_link_collision.stl" />
+    <mesh name="right_shoulder_pitch_link_visual" content_type="model/stl" file="right_shoulder_pitch_link_visual.stl" />
+    <mesh name="right_shoulder_pitch_link_collision" content_type="model/stl" file="right_shoulder_pitch_link_collision.stl" />
+    <mesh name="right_shoulder_roll_link_visual" content_type="model/stl" file="right_shoulder_roll_link_visual.stl" />
+    <mesh name="right_shoulder_roll_link_collision" content_type="model/stl" file="right_shoulder_roll_link_collision.stl" />
+    <mesh name="right_shoulder_yaw_link_visual" content_type="model/stl" file="right_shoulder_yaw_link_visual.stl" />
+    <mesh name="right_shoulder_yaw_link_collision" content_type="model/stl" file="right_shoulder_yaw_link_collision.stl" />
+    <mesh name="right_elbow_link_visual" content_type="model/stl" file="right_elbow_link_visual.stl" />
+    <mesh name="right_elbow_link_collision" content_type="model/stl" file="right_elbow_link_collision.stl" />
+  </asset>
+  <default>
+    <default class="shoulder">
+      <joint armature="0.0" damping="0.5" frictionloss="0.0" />
+      <position kp="300.0" dampratio="1.0" forcerange="-100.0 100.0" inheritrange="1" />
+    </default>
+    <default class="elbow">
+      <joint armature="0.0" damping="0.5" frictionloss="0.0" />
+      <position kp="300.0" dampratio="1.0" forcerange="-100.0 100.0" inheritrange="1" />
+    </default>
+    <default class="base">
+      <velocity kv="200.0" forcerange="-2000.0 2000.0" />
+    </default>
+  </default>
+  <worldbody>
+    <body name="odom">
+      <body name="base_link">
+        <inertial pos="0 0 0.219" quat="0 0.707107 0 0.707107" mass="30" diaginertia="1.3864 1.11505 0.84257" />
+        <joint name="base_planar_joint_TX" type="slide" axis="1 0 0" />
+        <joint name="base_planar_joint_TY" type="slide" axis="0 1 0" />
+        <joint name="base_planar_joint_RZ" />
+        <geom name="base_lower_visual" size="0.288 0.236 0.169" pos="0 0 0.219" type="box" contype="0" conaffinity="0" group="1" density="0" />
+        <geom name="base_lower_collision" size="0.288 0.236 0.169" pos="0 0 0.219" type="box" />
+        <body name="base_plate_link" pos="0 0 0.394">
+          <inertial pos="0 0 0" quat="0 0.707107 0 0.707107" mass="3.69" diaginertia="0.170527 0.102065 0.0685504" />
+          <geom name="base_plate_visual" size="0.288 0.236 0.006" type="box" contype="0" conaffinity="0" group="1" density="0" />
+          <geom name="base_plate_collision" size="0.288 0.236 0.006" type="box" />
+          <site name="base_imu" pos="0 0 0" size="0.015" rgba="0.1 0.6 1 1" group="3" />
+        </body>
+        <body name="torso_link" pos="0 0 1.2">
+          <inertial pos="5.01887e-05 -1.34735e-06 -0.248686" quat="1 7.19958e-05 8.84647e-05 -1.29628e-07" mass="12.0634" diaginertia="0.950137 0.876333 0.0991423" />
+          <geom name="torso_actuators_visual" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="torso_link_visual" />
+          <geom name="torso_actuators_collision" quat="1 0 0 0" type="mesh" mesh="torso_link_collision" />
+          <geom name="torso_box_visual" size="0.06 0.075 0.425" pos="0 0 -0.375" type="box" contype="0" conaffinity="0" group="1" density="0" />
+          <geom name="torso_box_collision" size="0.06 0.075 0.425" pos="0 0 -0.375" type="box" />
+          <body name="cad_frame" pos="0 0.11815 0" quat="0.499998 0.5 0.500002 0.5">
+            <inertial pos="0 0 0" mass="0.001" diaginertia="1e-07 1e-07 1e-07" />
+          </body>
+          <body name="left_shoulder_pitch_link" pos="0 0.16975 0">
+            <inertial pos="0.000163 0.082815 -0.011301" quat="0.795137 0.604281 0.0493191 -0.0130529" mass="4.39632" diaginertia="0.0166888 0.0150249 0.0111219" />
+            <joint name="left_shoulder_pitch_joint" range="-3 3" actuatorfrcrange="-100 100" axis="0 1 0" class="shoulder" />
+            <geom name="left_shoulder_pitch_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="left_shoulder_pitch_link_visual" />
+            <geom name="left_shoulder_pitch_collision" quat="1 0 0 0" type="mesh" mesh="left_shoulder_pitch_link_collision" />
+            <body name="left_shoulder_roll_link" pos="0 0.1079 -0.02">
+              <inertial pos="-0.000215 0.000139 -0.095874" quat="0.70626 0.0414147 0.0416413 0.705512" mass="4.1696" diaginertia="0.0247167 0.0209375 0.0121655" />
+              <joint name="left_shoulder_roll_joint" range="-0.28 1.5" actuatorfrcrange="-100 100" axis="1 0 0" class="shoulder" />
+              <geom name="left_shoulder_roll_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="left_shoulder_roll_link_visual" />
+              <geom name="left_shoulder_roll_collision" quat="1 0 0 0" type="mesh" mesh="left_shoulder_roll_link_collision" />
+              <body name="left_shoulder_yaw_link" pos="0 0 -0.1823" quat="0.707105 0 0 -0.707108">
+                <inertial pos="-0.00379999 -0.001658 -0.077168" quat="0.684404 0.019343 0.0185252 0.728611" mass="3.33643" diaginertia="0.0100499 0.00985338 0.00640774" />
+                <joint name="left_shoulder_yaw_joint" range="-2.5 2.5" actuatorfrcrange="-100 100" class="shoulder" />
+                <geom name="left_shoulder_yaw_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="left_shoulder_yaw_link_visual" />
+                <geom name="left_shoulder_yaw_collision" quat="1 0 0 0" type="mesh" mesh="left_shoulder_yaw_link_collision" />
+                <body name="left_elbow_link" pos="0 0 -0.0938">
+                  <inertial pos="-0.00366599 -0.001732 -0.079298" quat="0.705436 0.0483863 0.0490224 0.705419" mass="2.26772" diaginertia="0.0178861 0.0146141 0.00808676" />
+                  <joint name="left_elbow_joint" range="-1.83 1.83" actuatorfrcrange="-100 100" axis="1 0 0" class="elbow" />
+                  <geom name="left_elbow_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="left_elbow_link_visual" />
+                  <geom name="left_elbow_collision" quat="1 0 0 0" type="mesh" mesh="left_elbow_link_collision" />
+                  <body name="left_tool0" pos="-0.009 0 -0.1989">
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="1e-07 1e-07 1e-07" />
+                    <body name="left_gripper_link">
+                      <inertial pos="0 0 -0.05" mass="0.5" diaginertia="0.000683333 0.000683333 0.000533333" />
+                      <geom name="left_gripper_visual" size="0.04 0.04 0.05" pos="0 0 -0.05" type="box" contype="0" conaffinity="0" group="1" density="0" />
+                      <geom name="left_gripper_collision" size="0.04 0.04 0.05" pos="0 0 -0.05" type="box" />
+                      <site name="left_ee" pos="0 0 -0.1" size="0.012" rgba="1 0.3 0.1 1" group="3" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="right_shoulder_pitch_link" pos="0 -0.16975 0">
+            <inertial pos="0.000163 -0.082815 -0.011301" quat="0.604281 0.795137 0.0130529 -0.0493191" mass="4.39632" diaginertia="0.0166888 0.0150249 0.0111219" />
+            <joint name="right_shoulder_pitch_joint" range="-3 3" actuatorfrcrange="-100 100" axis="0 1 0" class="shoulder" />
+            <geom name="right_shoulder_pitch_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="right_shoulder_pitch_link_visual" />
+            <geom name="right_shoulder_pitch_collision" quat="1 0 0 0" type="mesh" mesh="right_shoulder_pitch_link_collision" />
+            <body name="right_shoulder_roll_link" pos="0 -0.1079 -0.02">
+              <inertial pos="-0.000215 -0.000139 -0.095874" quat="0.705512 0.0416413 0.0414147 0.70626" mass="4.1696" diaginertia="0.0247167 0.0209375 0.0121655" />
+              <joint name="right_shoulder_roll_joint" range="-0.28 1.5" actuatorfrcrange="-100 100" axis="-1 0 0" class="shoulder" />
+              <geom name="right_shoulder_roll_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="right_shoulder_roll_link_visual" />
+              <geom name="right_shoulder_roll_collision" quat="1 0 0 0" type="mesh" mesh="right_shoulder_roll_link_collision" />
+              <body name="right_shoulder_yaw_link" pos="0 0 -0.1823" quat="0.707105 0 0 0.707108">
+                <inertial pos="-0.00379999 0.001658 -0.077168" quat="0.728611 0.0185252 0.019343 0.684404" mass="3.33643" diaginertia="0.0100499 0.00985338 0.00640774" />
+                <joint name="right_shoulder_yaw_joint" range="-2.5 2.5" actuatorfrcrange="-100 100" axis="0 0 -1" class="shoulder" />
+                <geom name="right_shoulder_yaw_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="right_shoulder_yaw_link_visual" />
+                <geom name="right_shoulder_yaw_collision" quat="1 0 0 0" type="mesh" mesh="right_shoulder_yaw_link_collision" />
+                <body name="right_elbow_link" pos="0 0 -0.0938">
+                  <inertial pos="-0.00366599 0.001732 -0.079298" quat="0.705419 0.0490224 0.0483863 0.705436" mass="2.26772" diaginertia="0.0178861 0.0146141 0.00808676" />
+                  <joint name="right_elbow_joint" range="-1.83 1.83" actuatorfrcrange="-100 100" axis="-1 0 0" class="elbow" />
+                  <geom name="right_elbow_visual" pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="right_elbow_link_visual" />
+                  <geom name="right_elbow_collision" quat="1 0 0 0" type="mesh" mesh="right_elbow_link_collision" />
+                  <body name="right_tool0" pos="-0.009 0 -0.1989">
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="1e-07 1e-07 1e-07" />
+                    <body name="right_gripper_link">
+                      <inertial pos="0 0 -0.05" mass="0.5" diaginertia="0.000683333 0.000683333 0.000533333" />
+                      <geom name="right_gripper_visual" size="0.04 0.04 0.05" pos="0 0 -0.05" type="box" contype="0" conaffinity="0" group="1" density="0" />
+                      <geom name="right_gripper_collision" size="0.04 0.04 0.05" pos="0 0 -0.05" type="box" />
+                      <site name="right_ee" pos="0 0 -0.1" size="0.012" rgba="1 0.3 0.1 1" group="3" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <velocity class="base" name="base_vx" joint="base_planar_joint_TX" kv="200.0" ctrlrange="-1.5 1.5" forcerange="-2000.0 2000.0" />
+    <velocity class="base" name="base_vy" joint="base_planar_joint_TY" kv="200.0" ctrlrange="-1.5 1.5" forcerange="-2000.0 2000.0" />
+    <velocity class="base" name="base_wz" joint="base_planar_joint_RZ" kv="50.0" ctrlrange="-1.5708 1.5708" forcerange="-500.0 500.0" />
+    <position class="shoulder" name="left_shoulder_pitch" joint="left_shoulder_pitch_joint" />
+    <position class="shoulder" name="left_shoulder_roll" joint="left_shoulder_roll_joint" />
+    <position class="shoulder" name="left_shoulder_yaw" joint="left_shoulder_yaw_joint" />
+    <position class="elbow" name="left_elbow" joint="left_elbow_joint" />
+    <position class="shoulder" name="right_shoulder_pitch" joint="right_shoulder_pitch_joint" />
+    <position class="shoulder" name="right_shoulder_roll" joint="right_shoulder_roll_joint" />
+    <position class="shoulder" name="right_shoulder_yaw" joint="right_shoulder_yaw_joint" />
+    <position class="elbow" name="right_elbow" joint="right_elbow_joint" />
+  </actuator>
+  <sensor>
+    <jointpos name="left_shoulder_pitch_pos" joint="left_shoulder_pitch_joint" />
+    <jointvel name="left_shoulder_pitch_vel" joint="left_shoulder_pitch_joint" />
+    <actuatorfrc name="left_shoulder_pitch_frc" actuator="left_shoulder_pitch" />
+    <jointpos name="left_shoulder_roll_pos" joint="left_shoulder_roll_joint" />
+    <jointvel name="left_shoulder_roll_vel" joint="left_shoulder_roll_joint" />
+    <actuatorfrc name="left_shoulder_roll_frc" actuator="left_shoulder_roll" />
+    <jointpos name="left_shoulder_yaw_pos" joint="left_shoulder_yaw_joint" />
+    <jointvel name="left_shoulder_yaw_vel" joint="left_shoulder_yaw_joint" />
+    <actuatorfrc name="left_shoulder_yaw_frc" actuator="left_shoulder_yaw" />
+    <jointpos name="left_elbow_pos" joint="left_elbow_joint" />
+    <jointvel name="left_elbow_vel" joint="left_elbow_joint" />
+    <actuatorfrc name="left_elbow_frc" actuator="left_elbow" />
+    <jointpos name="right_shoulder_pitch_pos" joint="right_shoulder_pitch_joint" />
+    <jointvel name="right_shoulder_pitch_vel" joint="right_shoulder_pitch_joint" />
+    <actuatorfrc name="right_shoulder_pitch_frc" actuator="right_shoulder_pitch" />
+    <jointpos name="right_shoulder_roll_pos" joint="right_shoulder_roll_joint" />
+    <jointvel name="right_shoulder_roll_vel" joint="right_shoulder_roll_joint" />
+    <actuatorfrc name="right_shoulder_roll_frc" actuator="right_shoulder_roll" />
+    <jointpos name="right_shoulder_yaw_pos" joint="right_shoulder_yaw_joint" />
+    <jointvel name="right_shoulder_yaw_vel" joint="right_shoulder_yaw_joint" />
+    <actuatorfrc name="right_shoulder_yaw_frc" actuator="right_shoulder_yaw" />
+    <jointpos name="right_elbow_pos" joint="right_elbow_joint" />
+    <jointvel name="right_elbow_vel" joint="right_elbow_joint" />
+    <actuatorfrc name="right_elbow_frc" actuator="right_elbow" />
+    <gyro name="base_gyro" site="base_imu" />
+    <accelerometer name="base_acc" site="base_imu" />
+    <framepos name="left_ee_pos" objtype="site" objname="left_ee" />
+    <framequat name="left_ee_quat" objtype="site" objname="left_ee" />
+    <framepos name="right_ee_pos" objtype="site" objname="right_ee" />
+    <framequat name="right_ee_quat" objtype="site" objname="right_ee" />
+  </sensor>
+</mujoco>

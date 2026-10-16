@@ -1,0 +1,578 @@
+{
+ "model": {
+  "nq": 11,
+  "nu": 11,
+  "nbody": 18,
+  "mujoco": "3.15.0",
+  "timestep": 0.002
+ },
+ "mass": {
+  "total": 75.0965,
+  "ref_total": 75.0936,
+  "err_pct": 0.004,
+  "dummy_kg": 0.0031,
+  "robot_com_m": [
+   -0.0002,
+   0.0,
+   0.6596
+  ],
+  "cad_right_arm": 14.231,
+  "cad_left_arm": 14.1701,
+  "links": [
+   {
+    "link": "base_link",
+    "model_kg": 30.0,
+    "ref_kg": 30.0,
+    "err_pct": 0.0,
+    "src": "가정 C1"
+   },
+   {
+    "link": "base_plate_link",
+    "model_kg": 3.69,
+    "ref_kg": 3.69,
+    "err_pct": 0.0,
+    "src": "CAD BASE 3.STEP 3.6901 kg (C1)"
+   },
+   {
+    "link": "torso_link",
+    "model_kg": 12.0634,
+    "ref_kg": 12.0634,
+    "err_pct": 0.0,
+    "src": "가정 box 8.0 + CAD RI85 고정측 4.0634",
+    "I_principal_err_pct": 0.0
+   },
+   {
+    "link": "left_shoulder_pitch_link",
+    "model_kg": 4.3963,
+    "ref_kg": 4.3963,
+    "err_pct": -0.0001,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "left_shoulder_roll_link",
+    "model_kg": 4.1696,
+    "ref_kg": 4.1696,
+    "err_pct": -0.0,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "left_shoulder_yaw_link",
+    "model_kg": 3.3364,
+    "ref_kg": 3.3364,
+    "err_pct": -0.0001,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0001
+   },
+   {
+    "link": "left_elbow_link",
+    "model_kg": 2.2677,
+    "ref_kg": 2.2677,
+    "err_pct": -0.0,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "left_gripper_link",
+    "model_kg": 0.5,
+    "ref_kg": 0.5,
+    "err_pct": 0.0,
+    "src": "가정 S14 (BOM 대기)"
+   },
+   {
+    "link": "right_shoulder_pitch_link",
+    "model_kg": 4.3963,
+    "ref_kg": 4.3963,
+    "err_pct": -0.0001,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "right_shoulder_roll_link",
+    "model_kg": 4.1696,
+    "ref_kg": 4.1696,
+    "err_pct": -0.0,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "right_shoulder_yaw_link",
+    "model_kg": 3.3364,
+    "ref_kg": 3.3364,
+    "err_pct": -0.0001,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0001
+   },
+   {
+    "link": "right_elbow_link",
+    "model_kg": 2.2677,
+    "ref_kg": 2.2677,
+    "err_pct": -0.0,
+    "src": "CAD 왼팔(오른팔 = 거울, 안 A)",
+    "I_principal_err_pct": 0.0002
+   },
+   {
+    "link": "right_gripper_link",
+    "model_kg": 0.5,
+    "ref_kg": 0.5,
+    "err_pct": 0.0,
+    "src": "가정 S14 (BOM 대기)"
+   }
+  ],
+  "pass_": true
+ },
+ "gravity_check": {
+  "rne": 0.0,
+  "jac": 7.993605777301127e-15,
+  "cross": 7.993605777301127e-15
+ },
+ "hand_horizontal": {
+  "tau0": 25.3986,
+  "tau3": 42.9095,
+  "mj0": 25.4035,
+  "mj3": 42.9143,
+  "arm_reach_ee_m": 0.595
+ },
+ "bias_vs_qvel": {
+  "pose": [
+   -1.5707963267948966,
+   0.3,
+   0.4,
+   0.8
+  ],
+  "qvel": 3.0,
+  "gravity": [
+   -23.235,
+   0.0,
+   -1.033,
+   1.942
+  ],
+  "bias_qvel3": [
+   -28.542,
+   1.487,
+   -1.676,
+   4.549
+  ],
+  "coriolis": [
+   -5.307,
+   1.487,
+   -0.643,
+   2.606
+  ],
+  "passive_damping": [
+   -1.5,
+   -1.5,
+   -1.5,
+   -1.5
+  ]
+ },
+ "gravity": {
+  "rated": 46.0,
+  "peak": 100.0,
+  "sf": 1.2,
+  "results": {
+   "0kg@ee": {
+    "shoulder_pitch": {
+     "tau": 25.405,
+     "pose_deg": [
+      -90.0,
+      -0.7,
+      -11.1,
+      0.6
+     ],
+     "need_rated": 30.49,
+     "margin_rated_pct": 81.1,
+     "margin_peak_pct": 293.6,
+     "ok": true
+    },
+    "shoulder_roll": {
+     "tau": 22.863,
+     "pose_deg": [
+      -0.0,
+      85.9,
+      -35.1,
+      -1.6
+     ],
+     "need_rated": 27.44,
+     "margin_rated_pct": 101.2,
+     "margin_peak_pct": 337.4,
+     "ok": true
+    },
+    "shoulder_yaw": {
+     "tau": 3.052,
+     "pose_deg": [
+      90.0,
+      40.0,
+      94.7,
+      -89.3
+     ],
+     "need_rated": 3.66,
+     "margin_rated_pct": 1407.4,
+     "margin_peak_pct": 3176.9,
+     "ok": true
+    },
+    "elbow": {
+     "tau": 2.987,
+     "pose_deg": [
+      44.9,
+      1.4,
+      -1.4,
+      -44.4
+     ],
+     "need_rated": 3.58,
+     "margin_rated_pct": 1439.9,
+     "margin_peak_pct": 3247.7,
+     "ok": true
+    }
+   },
+   "0.5kg@ee": {
+    "shoulder_pitch": {
+     "tau": 28.324,
+     "pose_deg": [
+      -90.0,
+      -0.7,
+      -9.9,
+      0.3
+     ],
+     "need_rated": 33.99,
+     "margin_rated_pct": 62.4,
+     "margin_peak_pct": 253.1,
+     "ok": true
+    },
+    "shoulder_roll": {
+     "tau": 25.68,
+     "pose_deg": [
+      0.0,
+      85.9,
+      -42.1,
+      -2.2
+     ],
+     "need_rated": 30.82,
+     "margin_rated_pct": 79.1,
+     "margin_peak_pct": 289.4,
+     "ok": true
+    },
+    "shoulder_yaw": {
+     "tau": 4.517,
+     "pose_deg": [
+      90.0,
+      78.5,
+      -86.3,
+      -89.5
+     ],
+     "need_rated": 5.42,
+     "margin_rated_pct": 918.4,
+     "margin_peak_pct": 2113.8,
+     "ok": true
+    },
+    "elbow": {
+     "tau": 4.453,
+     "pose_deg": [
+      2.1,
+      2.2,
+      134.3,
+      87.4
+     ],
+     "need_rated": 5.34,
+     "margin_rated_pct": 933.0,
+     "margin_peak_pct": 2145.6,
+     "ok": true
+    }
+   },
+   "1kg@ee": {
+    "shoulder_pitch": {
+     "tau": 31.243,
+     "pose_deg": [
+      -90.0,
+      -0.7,
+      -8.9,
+      0.2
+     ],
+     "need_rated": 37.49,
+     "margin_rated_pct": 47.2,
+     "margin_peak_pct": 220.1,
+     "ok": true
+    },
+    "shoulder_roll": {
+     "tau": 28.497,
+     "pose_deg": [
+      0.0,
+      85.9,
+      -46.7,
+      -2.6
+     ],
+     "need_rated": 34.2,
+     "margin_rated_pct": 61.4,
+     "margin_peak_pct": 250.9,
+     "ok": true
+    },
+    "shoulder_yaw": {
+     "tau": 5.983,
+     "pose_deg": [
+      90.0,
+      82.2,
+      -86.8,
+      -89.6
+     ],
+     "need_rated": 7.18,
+     "margin_rated_pct": 668.8,
+     "margin_peak_pct": 1571.4,
+     "ok": true
+    },
+    "elbow": {
+     "tau": 5.919,
+     "pose_deg": [
+      -156.6,
+      20.6,
+      -39.2,
+      -58.9
+     ],
+     "need_rated": 7.1,
+     "margin_rated_pct": 677.1,
+     "margin_peak_pct": 1589.4,
+     "ok": true
+    }
+   },
+   "3kg@ee": {
+    "shoulder_pitch": {
+     "tau": 42.918,
+     "pose_deg": [
+      90.0,
+      -0.8,
+      -6.4,
+      0.1
+     ],
+     "need_rated": 51.5,
+     "margin_rated_pct": 7.2,
+     "margin_peak_pct": 133.0,
+     "ok": false
+    },
+    "shoulder_roll": {
+     "tau": 39.767,
+     "pose_deg": [
+      0.0,
+      85.9,
+      -55.1,
+      -3.1
+     ],
+     "need_rated": 47.72,
+     "margin_rated_pct": 15.7,
+     "margin_peak_pct": 151.5,
+     "ok": false
+    },
+    "shoulder_yaw": {
+     "tau": 11.849,
+     "pose_deg": [
+      90.0,
+      85.8,
+      -87.5,
+      -89.8
+     ],
+     "need_rated": 14.22,
+     "margin_rated_pct": 288.2,
+     "margin_peak_pct": 743.9,
+     "ok": true
+    },
+    "elbow": {
+     "tau": 11.784,
+     "pose_deg": [
+      -33.0,
+      -16.0,
+      -23.0,
+      53.9
+     ],
+     "need_rated": 14.14,
+     "margin_rated_pct": 290.4,
+     "margin_peak_pct": 748.6,
+     "ok": true
+    }
+   },
+   "3kg@tool0": {
+    "shoulder_pitch": {
+     "tau": 39.975,
+     "pose_deg": [
+      -90.0,
+      -0.8,
+      -5.9,
+      0.1
+     ],
+     "need_rated": 47.97,
+     "margin_rated_pct": 15.1,
+     "margin_peak_pct": 150.2,
+     "ok": false
+    },
+    "shoulder_roll": {
+     "tau": 36.827,
+     "pose_deg": [
+      0.0,
+      85.9,
+      -43.1,
+      -2.5
+     ],
+     "need_rated": 44.19,
+     "margin_rated_pct": 24.9,
+     "margin_peak_pct": 171.5,
+     "ok": true
+    },
+    "shoulder_yaw": {
+     "tau": 8.91,
+     "pose_deg": [
+      90.0,
+      13.8,
+      -86.7,
+      -89.8
+     ],
+     "need_rated": 10.69,
+     "margin_rated_pct": 416.3,
+     "margin_peak_pct": 1022.4,
+     "ok": true
+    },
+    "elbow": {
+     "tau": 8.841,
+     "pose_deg": [
+      0.1,
+      -0.9,
+      86.1,
+      91.2
+     ],
+     "need_rated": 10.61,
+     "margin_rated_pct": 420.3,
+     "margin_peak_pct": 1031.1,
+     "ok": true
+    }
+   }
+  },
+  "pass_3kg": false
+ },
+ "gravcomp_B": {
+  "n_bodies": 12,
+  "n_joints_actgc": 8,
+  "jnt_actfrcrange": [
+   -100.0,
+   100.0
+  ]
+ },
+ "hold": {
+  "영점|없음": {
+   "final_err_deg": 0.0454,
+   "max_err_deg": 0.0454,
+   "worst_joint": "left_shoulder_roll_joint",
+   "sag_theory_deg": 0.0489,
+   "qvel_rms_last1s": 2.223286829038332e-11,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": true
+  },
+  "영점|오프셋(A)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "worst_joint": "left_shoulder_pitch_joint",
+   "sag_theory_deg": 0.0489,
+   "qvel_rms_last1s": 0.0,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": true
+  },
+  "앞으로 수평|없음": {
+   "final_err_deg": 4.8324,
+   "max_err_deg": 5.1931,
+   "worst_joint": "left_shoulder_pitch_joint",
+   "sag_theory_deg": 4.8517,
+   "qvel_rms_last1s": 3.009008300667117e-11,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": false
+  },
+  "앞으로 수평|오프셋(A)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "worst_joint": "left_elbow_joint",
+   "sag_theory_deg": 4.8517,
+   "qvel_rms_last1s": 6.671962341611758e-16,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": true
+  },
+  "옆으로 벌림(roll 상한)|없음": {
+   "final_err_deg": 4.3339,
+   "max_err_deg": 4.3348,
+   "worst_joint": "left_shoulder_roll_joint",
+   "sag_theory_deg": 4.3661,
+   "qvel_rms_last1s": 1.3836383025773714e-12,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": false
+  },
+  "옆으로 벌림(roll 상한)|오프셋(A)": {
+   "final_err_deg": 4.3339,
+   "max_err_deg": 4.3348,
+   "worst_joint": "left_shoulder_roll_joint",
+   "sag_theory_deg": 4.3661,
+   "qvel_rms_last1s": 5.5374055247065824e-14,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": false
+  },
+  "pitch 최악(③)|없음": {
+   "final_err_deg": 4.8343,
+   "max_err_deg": 5.1941,
+   "worst_joint": "right_shoulder_pitch_joint",
+   "sag_theory_deg": 4.852,
+   "qvel_rms_last1s": 2.6292411852408102e-11,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": false
+  },
+  "pitch 최악(③)|오프셋(A)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "worst_joint": "left_shoulder_pitch_joint",
+   "sag_theory_deg": 4.852,
+   "qvel_rms_last1s": 2.087024883770286e-15,
+   "base_drift_mm": 0.0,
+   "finite": true,
+   "ncon": 0,
+   "pass_": true
+  },
+  "영점|gravcomp(B)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "finite": true,
+   "pass_": true
+  },
+  "앞으로 수평|gravcomp(B)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "finite": true,
+   "pass_": true
+  },
+  "옆으로 벌림(roll 상한)|gravcomp(B)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "finite": true,
+   "pass_": true
+  },
+  "pitch 최악(③)|gravcomp(B)": {
+   "final_err_deg": 0.0,
+   "max_err_deg": 0.0,
+   "finite": true,
+   "pass_": true
+  }
+ },
+ "hold_pass_gc_all": false,
+ "hold_pass_gcB_all": true,
+ "hold_pass_nogc": {
+  "영점|없음": true,
+  "앞으로 수평|없음": false,
+  "옆으로 벌림(roll 상한)|없음": false,
+  "pitch 최악(③)|없음": false
+ }
+}

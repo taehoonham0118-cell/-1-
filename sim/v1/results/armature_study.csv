@@ -1,0 +1,19 @@
+﻿exp,joint,armature,policy,kv,I_hold,wn,zeta_hold,overshoot_pct,rise_s,settle_s,tau_peak,max_stable_dt,dt_theory_2_over_wn,dt_pred_euler
+step,shoulder_pitch,0.0,dampratio 1,20.531,0.8466,18.82,0.644,3.62,0.116,0.316,60.1,,,
+step,shoulder_pitch,0.0,kv 고정,20.531,0.8466,18.82,0.644,3.62,0.116,0.316,60.1,,,
+step,shoulder_pitch,0.02,dampratio 1,21.116,0.8666,18.61,0.655,3.36,0.118,0.318,60.1,,,
+step,shoulder_pitch,0.02,kv 고정,20.531,0.8666,18.61,0.637,3.93,0.116,0.32,60.1,,,
+step,shoulder_pitch,0.05,dampratio 1,21.957,0.8966,18.29,0.669,3.03,0.122,0.322,60.1,,,
+step,shoulder_pitch,0.05,kv 고정,20.531,0.8966,18.29,0.626,4.4,0.114,0.328,60.1,,,
+step,shoulder_pitch,0.1,dampratio 1,23.289,0.9466,17.8,0.691,2.58,0.13,0.324,60.1,,,
+step,shoulder_pitch,0.1,kv 고정,20.531,0.9466,17.8,0.609,5.19,0.114,0.336,60.1,,,
+step,shoulder_pitch,0.2,dampratio 1,25.743,1.0466,16.93,0.726,1.96,0.142,0.21,60.1,,,
+step,shoulder_pitch,0.2,kv 고정,20.531,1.0466,16.93,0.579,6.81,0.114,0.352,60.1,,,
+step,shoulder_pitch,0.5,dampratio 1,31.987,1.3466,14.93,0.796,1.03,0.176,0.27,60.1,,,
+step,shoulder_pitch,0.5,kv 고정,20.531,1.3466,14.93,0.511,11.48,0.116,0.388,60.1,,,
+stability,shoulder_yaw,0.0,Euler,4.251,0.0153,140.0,0.992,,,,,0.006,0.0143,0.0054 (shoulder_yaw)
+stability,shoulder_yaw,0.0,implicitfast,4.251,0.0153,140.0,0.992,,,,,0.03,0.0143,0.0054 (shoulder_yaw)
+stability,shoulder_yaw,0.01,Euler,5.484,0.0253,108.9,0.995,,,,,0.007,0.0184,0.0071 (shoulder_yaw)
+stability,shoulder_yaw,0.01,implicitfast,5.484,0.0253,108.9,0.995,,,,,0.04,0.0184,0.0071 (shoulder_yaw)
+stability,shoulder_yaw,0.05,Euler,8.837,0.0653,67.8,0.998,,,,,0.012,0.0295,0.0117 (shoulder_yaw)
+stability,shoulder_yaw,0.05,implicitfast,8.837,0.0653,67.8,0.998,,,,,0.05,0.0295,0.0117 (shoulder_yaw)

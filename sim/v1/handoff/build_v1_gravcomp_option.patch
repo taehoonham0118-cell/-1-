@@ -1,0 +1,26 @@
+diff --git a/b1/models/v1/scripts/build_v1.py b/b1/models/v1/scripts/build_v1.py
+index 4e3379a..a8c4898 100644
+--- a/b1/models/v1/scripts/build_v1.py
++++ b/b1/models/v1/scripts/build_v1.py
+@@ -157,6 +157,13 @@ def build_mjcf():
+             if n.endswith(f"_{a}_joint"):
+                 j.set("class",c)
+                 for k in ("damping","armature","frictionloss"): j.attrib.pop(k,None)   # 값은 class(=params)에서
++    # (함태훈 제안 10/17) 중력보상 B: 팔 body gravcomp + joint actuatorgravcomp — 보상 토크가 qfrc_actuator 로 들어가 ctrlrange 클리핑과 무관, 합계는 actuatorfrcrange 로 제한
++    if P.get("gravcomp",{}).get("enable",False):
++        for b in root.iter("body"):
++            if b.get("name","").startswith(("left_","right_")): b.set("gravcomp","1")
++        for d_ in dflt.iter("default"):
++            j_=d_.find("joint")
++            if d_.get("class") in P["classes"] and j_ is not None: j_.set("actuatorgravcomp","true")
+     # site: 끝점 ee (그리퍼 끝단) · 베이스 IMU (상판 중심)
+     for b in root.iter("body"):
+         if b.get("name","").endswith("_gripper_link"):
+@@ -175,6 +182,7 @@ def build_mjcf():
+             jn=f"{side}_{a}_joint"
+             ET.SubElement(sen,"jointpos",{"name":f"{side}_{a}_pos","joint":jn}); ET.SubElement(sen,"jointvel",{"name":f"{side}_{a}_vel","joint":jn})
+             ET.SubElement(sen,"actuatorfrc",{"name":f"{side}_{a}_frc","actuator":f"{side}_{a}"})
++            if P.get("gravcomp",{}).get("enable",False): ET.SubElement(sen,"jointactuatorfrc",{"name":f"{side}_{a}_jfrc","joint":jn})   # 보상분 포함 관절 토크
+     ET.SubElement(sen,"gyro",{"name":"base_gyro","site":"base_imu"}); ET.SubElement(sen,"accelerometer",{"name":"base_acc","site":"base_imu"})
+     for s in P["sensors"]["ee_sites"]:
+         ET.SubElement(sen,"framepos",{"name":f"{s}_pos","objtype":"site","objname":s}); ET.SubElement(sen,"framequat",{"name":f"{s}_quat","objtype":"site","objname":s})
