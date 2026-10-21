@@ -12,6 +12,15 @@
 | `laptop_check.py` | 노트북 재현: 검증 · 액추에이터표 · 미러 점검을 `results_laptop/` 에 다시 계산해 클라우드 값과 비교 | `results_laptop/laptop_compare.md` |
 | `v1_mirror_actuator_check.py` | 팀 연계: 미러 규칙표로 생성 팔 액추에이터 부호 · 범위 · B2 부호표 교차 | `results/mirror_actuator_check.md` · .csv |
 
+## 노션 커리큘럼 ↔ 이 저장소 대응 (week05)
+
+| 노션 | 여기 | 비고 |
+|---|---|---|
+| 검증 5종 `scripts/validate_model.py` | ①②③ = 함태훈 `sim/v1/v1_validate_123.py` (B1 공용 `validate_model.py` 와 대조 일치) / ④⑤ = 박종진 `b1/models/v1/scripts/validate_model.py` (결과 `b1/models/v1/results/validate_model.md`) | 박종진 확인 10/22 |
+| `robot_b1/{urdf,meshes,mjcf}` | 공용 = 박종진 `b1/models/v1/` (사본 `b1_snapshot/v1/`) | 빌드 · URDF 원본은 박종진 저장소 |
+| `robot_b1/scripts` · `docs` | `sim/v1/*.py` · `sim/v1/results/` · `notes/10` | 함태훈 몫 |
+| 액추에이터 파라미터표 | `results/actuator_table.md` + `handoff/actuator_params.json` | armature · forcerange(A2 피크) 반영은 6주차 |
+
 - `handoff/` — 박종진에게 넘기는 것: 근거를 채운 `actuator_params.json`(값 동일, 빌드 결과 동일), `build_v1_gravcomp_option.patch`(기본 꺼짐)
 - `b1_snapshot/` — 박종진 652b89e 의 mjcf · meshes · actuator_params · assumptions 사본 (읽기 전용)
 - 실행: 저장소 루트에서 `python sim/v1/<스크립트>.py` (Windows 노트북은 `py`). 실행 로그 = `results/*_run_log.txt`

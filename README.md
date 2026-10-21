@@ -20,7 +20,7 @@
 | 2주 | **SRR (×2)** | MuJoCo 설치 · G1 joint 표 · 2링크 팔 URDF/MJCF 비교 · 관성 실험 · 하체 실측표 | [week02](logs/week02.md) | `week02` |
 | 3주 | – | MJCF 심화(default·include·mjSpec attach) · position 액추에이터 계단 응답(kp·kv·armature) · URDF↔MJCF 대응표 · URDF 로딩 옵션 · 파이프라인 그림 | [week03](logs/week03.md) | `week03` |
 | 4주 | – | 우리 로봇 STEP → 링크 분할표(9링크, 팔 4-DOF) · 링크별 STL · 질량/관성 표(FreeCAD 1.0.2 일치) · inertial 블록 · v0 URDF(planar 베이스 + 양팔) MuJoCo 로드 · 박종진 관절 표 대조 (STEP·BOM 원본 커밋 금지) | [week04](logs/week04.md) | `week04` |
-| 5주 | – | v1(양팔 + 평면 베이스, 박종진 빌드) MJCF 덧붙이기 값 · 근거: 액추에이터 파라미터표(컴파일 kv · 실효 감쇠비), 검증 ① 질량 · ② 정지 유지(중력보상 2방식) · ③ 중력 토크 vs 정격 46 N·m, armature 실험, 미러 점검 17항목, 링크 원점 = 관절점, 노트북 재현 · 뷰어 캡처 | [week05](logs/week05.md) | `week05` |
+| 5주 | – | v1(양팔 + 평면 베이스, 박종진 빌드) MJCF 덧붙이기 값 · 근거: 액추에이터 파라미터표(컴파일 kv · 실효 감쇠비), 검증 ① 질량 · ② 정지 유지(중력보상 2방식) · ③ 중력 토크 vs 정격 52 N·m(10/19, 통과) — 검증 5종 통과(④⑤ 박종진), A2 사양 영향 분석, armature 실험, 미러 점검 17항목, 링크 원점 = 관절점, 노트북 재현 · 뷰어 캡처 | [week05](logs/week05.md) | `week05` |
 
 전체 누적표는 [`logs/contribution_log.md`](logs/contribution_log.md) 참고.
 
