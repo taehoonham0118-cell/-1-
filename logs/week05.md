@@ -4,7 +4,7 @@
 - 게이트: 해당 없음 (가중 1). 다음 주 6주차 = **PDR (가중 2배)**
 - 저장소 태그: `week05` — **10/22 최종 제출 커밋에** 찍음. 제출 후 수정하면 릴리스를 다시 만들고 §7 에 기록
 - 기준 커리큘럼: 노션 「B1 5·6주차 학습 커리큘럼 — 우리 로봇 MJCF 완성 · 검증 · 기구학 · 제어 (GPU 없이)」 §1 (5주차)
-- 공용 모델: 박종진 v1 (`b1/models/v1`, 커밋 347a0ca) — 양팔 + 평면 3-DOF 베이스 + 그리퍼 임시 box, URDF → MJCF → 덧붙이기 빌드. 함태훈은 그 위에 「MJCF 덧붙이기 값 · 근거」와 검증 ① · ② · ③ 담당 (사용자 결정 10/17: 박종진 v1 위에 내 몫)
+- 공용 모델: 박종진 v1 (`b1/models/v1`, 커밋 347a0ca → 10/21 652b89e: 함태훈 링크 관성 입력 채택 · PDR 기준 52) — 양팔 + 평면 3-DOF 베이스 + 그리퍼 임시 box, URDF → MJCF → 덧붙이기 빌드. 함태훈은 그 위에 「MJCF 덧붙이기 값 · 근거」와 검증 ① · ② · ③ 담당 (사용자 결정 10/17: 박종진 v1 위에 내 몫)
 - 학습 노트: [notes/10](../notes/10_v1_mjcf_actuator_sensor_validation.md) · 주간 보고서: [reports/학부생_주간활동보고서_5주차_함태훈_22212334_261022.docx](../reports/학부생_주간활동보고서_5주차_함태훈_22212334_261022.docx)
 
 ## 1. 이번 주 계획 (커리큘럼 5주차 + 4주차 평가표 합의)
@@ -29,20 +29,20 @@
 | 5 | **armature 실험 (구술 Q2)**: armature 0 ~ 0.5 × kv 정책 2종 계단 응답, integrator × timestep 안정 한계 (예측식 = 시뮬) | 100 % | [sim/v1/v1_armature_study.py](../sim/v1/v1_armature_study.py), [results/armature_study.md](../sim/v1/results/armature_study.md), [week05_armature_step.png](../assets/screenshots/week05/week05_armature_step.png) |
 | 6 | **팀 연계**: 미러 규칙표로 생성 팔(right) 액추에이터 점검 17항목 OK — 값 · 축 규칙, 중력 토크 부호, +명령 동작 의미, B2 부호표(함태훈 CAD 축으로 교차) 8/8 일치 | 100 % | [sim/v1/v1_mirror_actuator_check.py](../sim/v1/v1_mirror_actuator_check.py), [results/mirror_actuator_check.md](../sim/v1/results/mirror_actuator_check.md) |
 | 7 | 학습 정리: default class, position 힘 식 · dampratio, armature · damping · frictionloss 위치, 센서(가속도계 +g), qfrc_bias 구성, 중력보상 2방식, 적분 안정성 | 100 % | [notes/10](../notes/10_v1_mjcf_actuator_sensor_validation.md) |
-| 8 | 재현용 공용 모델 사본(박종진 347a0ca) → 이 저장소만으로 sim/v1 스크립트 실행 | 100 % | [sim/v1/b1_snapshot/](../sim/v1/b1_snapshot/) |
+| 8 | 재현용 공용 모델 사본(박종진 347a0ca → 10/21 652b89e 로 갱신, 결과 수치 변화 없음 — 몸통 COM 0.003 mm 만) → 이 저장소만으로 sim/v1 스크립트 실행 | 100 % | [sim/v1/b1_snapshot/](../sim/v1/b1_snapshot/) |
 | 8-1 | **노트북 재현 (10/17)**: Windows 11 · Python 3.14.7 · MuJoCo 3.15.0 에서 검증 · 액추에이터표 · 미러 점검 재실행 → 핵심 수치 14개 클라우드와 차 0, 미러 17/17 | 100 % | [sim/v1/laptop_check.py](../sim/v1/laptop_check.py), [results_laptop/laptop_compare.md](../sim/v1/results_laptop/laptop_compare.md) |
 | 8-2 | **(커리큘럼 수) 노트북 뷰어 캡처 (10/17)**: Control 슬라이더 11개 동작(left_shoulder_pitch 1.32 · right_elbow 1.04 → 목표 자세 유지, 중력보상 B) / 양팔 앞 수평 보상 없음 4.832° 처짐(ee z 1.1469 m) / 중력보상 B 0.000°(ee z 1.200 m) — 좌우 ee y ±0.2866 대칭 | 100 % | [sim/v1/view_v1.py](../sim/v1/view_v1.py), [sliders](../assets/screenshots/week05/week05_laptop_sliders.png) · [sag](../assets/screenshots/week05/week05_laptop_sag.png) · [gravcomp](../assets/screenshots/week05/week05_laptop_gravcomp.png) |
 | 8-3 | **(커리큘럼 화, 공통 실습) 베이스 속도 명령 vs qvel (10/17)**: x · y 시정수 0.380 s(이론 M/kv = 75.10/200 = 0.3755), yaw 0.082 s(3.915/50 = 0.0783), 축 섞임 ≤ 2e-4. 로봇 기준 전진 + 회전(R(yaw) 변환): 전진 0.482 · 옆 0.091 m/s = 이론 v/(1+(ωτ)²) 0.483 · v·ωτ/(1+(ωτ)²) 0.091 | 100 % | [sim/v1/v1_base_velocity.py](../sim/v1/v1_base_velocity.py), [results/base_velocity.md](../sim/v1/results/base_velocity.md), [week05_base_velocity.png](../assets/screenshots/week05/week05_base_velocity.png) |
 | 9 | (4주차 합의 2) 가정값 통일 | 100 % | 박종진 0653da5 에서 공용값 적용 시 74.093 = 74.096 kg 확인 → v1 부터 **한 벌**(공용 빌드 + 함태훈 link_inertials) |
 | 10 | (4주차 합의 3) 관절 범위 · 자기 충돌 / convex 분해 비교 | 50 % | 범위 = 박종진 충돌 스윕(공용 C3, 검증 ④ 3,770자세 0건) 채택. convex 분해 비교는 6주차로 |
-| 11 | (4주차 합의 1) BOM · RI85 사양 반영 | 0 % (미수령) | armature 0 · 정격 46 판정 기준 유지 |
+| 11 | (4주차 합의 1) BOM · RI85 사양 반영 | 50 % | **A2 사양서 10/21 수령**(팀장 단톡): 어깨 = TQ ILM-E85x30(정격 118.8 · 피크 381.7 N·m, armature 0.219), 팔꿈치 = RI85(72.6 · 181.5, 0.098). 영향 분석 완료 — ③ 실제 정격 대비 여유 pitch 177 %, armature 넣으면 yaw ω_n 140 → 35.8 rad/s. 공용 모델 반영은 박종진 합의 후 6주차 (로터만 값 · CAD 는 8개 모두 RI85 로 그려짐 → 확인 필요). BOM(그리퍼)은 팀장도 없음 → box 가정 유지 — [v1_a2_spec_impact.py](../sim/v1/v1_a2_spec_impact.py), [results/a2_spec_impact.md](../sim/v1/results/a2_spec_impact.md) |
 
 ### 실행 환경 · 명령 (재현용)
 
 | 항목 | 값 |
 |---|---|
 | 계산 | 클라우드 Linux, Python 3.13, mujoco 3.15.0, scipy 1.18.1, matplotlib 3.11.2, trimesh |
-| 모델 | 박종진 `build_v1.py` 빌드 (커밋 347a0ca) — 사본 `sim/v1/b1_snapshot/`, scene.xml timestep 0.002 s · implicitfast |
+| 모델 | 박종진 `build_v1.py` 빌드 (커밋 652b89e, 10/17 노트북 재현 시점은 347a0ca — 수치 동일) — 사본 `sim/v1/b1_snapshot/`, scene.xml timestep 0.002 s · implicitfast |
 | 노트북 | Windows 11 · Python 3.14.7 · MuJoCo 3.15.0 (10/17 3.14.0 → 3.15.0 업그레이드), `py` 로 실행, 한글 경로는 `v1_common.load()` 가 메모리 로드 — `py sim/v1/laptop_check.py` · `py sim/v1/view_v1.py sliders|sag|gravcomp` |
 
 ```bash
@@ -69,8 +69,10 @@ python sim/v1/v1_mirror_actuator_check.py
 | qfrc_bias 검산 | mj_rne 0 · 자코비안 전치합 8e-15 · 외적 합 8e-15 N·m | 무작위 200 자세, qvel = 0 |
 | 손계산 (앞 수평) | 0 kg **25.399** vs 25.4035 · 3 kg 42.910 vs 42.914 N·m | Σ mᵢ g × 어깨축 아래 깊이, 차 = 더미 1 g. ee 수평 도달 0.595 m |
 | qvel ≠ 0 | pitch 중력 −23.24 vs bias −28.54 N·m (코리올리 · 원심 −5.31) | 자세 (−90°, 0.3, 0.4, 0.8 rad), 4관절 3 rad/s. 감쇠 1.5 N·m 은 qfrc_passive |
-| ③ 최악 중력 토크 (3 kg, ee) | pitch **42.92** · roll **39.77** · yaw 11.85 · elbow 11.78 N·m → 필요 정격 51.5 · 47.7 N·m | 관절 범위 안 differential_evolution × 시드 3. 정격 46 기준 여유 7.2 · 15.7 % → 어깨 2관절 미통과 |
-| ③ 페이로드별 pitch | 0 · 0.5 · 1 · 3 kg = 25.41 · 28.32 · 31.24 · 42.92 N·m | 1 kg 까지 × 1.2 ≤ 46 통과. 작용점 플랜지면 3 kg 39.98 (−2.94) |
+| ③ 최악 중력 토크 (3 kg, ee) | pitch **42.92** · roll **39.77** · yaw 11.85 · elbow 11.78 N·m → 필요 정격 51.5 · 47.7 N·m | 관절 범위 안 differential_evolution × 시드 3. **PDR 기준 52 N·m(팀장 10/19) 통과**, 여유 21.2 · 30.8 % (10/16 기준 46 이었을 때는 7.2 · 15.7 % 미통과) |
+| ③ 실제 구동기 정격 (A2 10/21) | 어깨 TQ 118.8 · 팔꿈치 RI85 72.6 N·m → 3 kg 대비 여유 pitch 177 % · roll 199 % · elbow 516 % | 사양서 §1 · §2. CAD 는 어깨도 RI85 로 그려져 있어 확인 필요 |
+| A2 armature 적용 시 | ω_n pitch 18.8 → 16.8 · yaw 140 → 35.8 · elbow 70.4 → 43.5 rad/s, ζ_hold pitch 0.64 → 0.83 | 어깨 0.219 · 팔꿈치 0.098 (로터만), dampratio 1 재계산 kv 20.5 → 29.8 |
+| ③ 페이로드별 pitch | 0 · 0.5 · 1 · 3 kg = 25.41 · 28.32 · 31.24 · 42.92 N·m | 3 kg 까지 × 1.2 ≤ 52 통과. 작용점 플랜지면 3 kg 39.98 (−2.94) |
 | armature (kv 고정 20.53) | 0 → 0.1 → 0.5 kg·m²: OS 3.6 → 5.2 → **11.5 %**, ω_n 18.8 → 17.8 → 14.9 rad/s | shoulder_pitch 계단. dampratio 1 이면 OS 3.6 → 2.6 → 1.0 % (kv 20.5 → 32.0 자동) |
 | 적분 안정 한계 (Euler) | armature 0 · 0.01 · 0.05 → 0.006 · 0.007 · 0.012 s (예측 0.0054 · 0.0071 · 0.0117) | shoulder_yaw 계단, implicitfast 는 0.03 · 0.04 · 0.05 s. 현재 dt 0.002 |
 | 베이스 속도 응답 | x · y τ 0.380 s (이론 0.3755) · yaw 0.082 s (0.0783), 회전하며 전진 시 옆 미끄러짐 0.091 m/s (이론 0.091) | kv 200 / 50, 0.5 m/s · 0.5 rad/s 계단, 팔 영점 + 중력보상 B |
@@ -94,7 +96,7 @@ python sim/v1/v1_mirror_actuator_check.py
 ## 4. B1 업무와의 연결
 
 - 액추에이터 파라미터표의 **컴파일 kv 숫자**가 6주차 Isaac Lab `ImplicitActuatorCfg`(stiffness · damping · effort_limit · armature) 로 옮길 값 — Isaac 에는 dampratio 가 없음
-- ③ 표 = 6주차 토크 예산표 「정적 최악 자세」 열, PDR A팀 피드백: 3 kg 이면 어깨 정격 ≥ 51.5 N·m 필요(또는 그리퍼 · 페이로드 조건 재검토). 1 kg 까지는 46 N·m 로 통과
+- ③ 표 = 6주차 토크 예산표 「정적 최악 자세」 열, PDR A팀 피드백: 3 kg 이면 어깨 정격 ≥ 51.5 N·m 필요 → 팀장 10/19 기준 52 로 확정, A2 사양 어깨 정격 118.8 N·m 로 충족
 - gravcomp 방식 B · jointactuatorfrc 센서 = 6주차 궤적 추종 · 페이로드별 토크 기록의 전제
 - B2 부호표 「반대」 4관절을 CAD 에서 독립 확인 → 드라이버 계층 반전 대상 확정 자료
 
@@ -116,9 +118,11 @@ python sim/v1/v1_mirror_actuator_check.py
 | 손목 | A1: 손목 없음, 4-DOF 확정 (상위 보고 · 최종 사양 확인 중) | class = shoulder · elbow 2개 |
 | 베이스 | C3 평면 3-DOF, URDF planar 1개 | 공용 v1 (박종진) |
 | 축 부호 | 안 A(거울) 승인, 반전은 드라이버 한 곳 | gear +1 확인 (팀 연계 점검 4) |
-| 토크 여유 | 정격 ≥ 46 (정격 기준), effort = 피크 | ③ 판정 기준 |
+| 토크 여유 | 정격 ≥ 46 (정격 기준), effort = 피크 → **10/19 52 N·m** (그리퍼 box 가정 유지, 박종진 652b89e assumptions v0.3) | ③ 판정 기준 → 통과 |
+| 그리퍼 (10/19) | BOM 정보 없음 → 0.5 kg · 80×80×100 mm · TCP +0.10 m box 가정 유지 | 변경 없음 |
+| A2 사양 (10/21) | 팀장 단톡 `A2_Actuator_Specs_for_B1.pdf` | 영향 분석만 (§2 #11), 공용 모델 반영은 6주차 |
 | 공용 가정값 | assumptions v0.1 (C1~C8) | 검증 ① 기준 |
-| 대기 | A1 편차(1.37° · 7 mm), A2 RI85 사양, +z 정면 | 가정값 유지 |
+| 대기 | A1 편차(1.37° · 7 mm), +z 정면, 어깨 구동기 TQ ↔ CAD RI85 불일치 | 가정값 유지 |
 
 ## 7. 제출 · 릴리스 기록
 

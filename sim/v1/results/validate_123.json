@@ -124,8 +124,8 @@
  },
  "gravity_check": {
   "rne": 0.0,
-  "jac": 7.993605777301127e-15,
-  "cross": 7.993605777301127e-15
+  "jac": 1.0658141036401503e-14,
+  "cross": 1.0658141036401503e-14
  },
  "hand_horizontal": {
   "tau0": 25.3986,
@@ -168,7 +168,7 @@
   ]
  },
  "gravity": {
-  "rated": 46.0,
+  "rated": 52.0,
   "peak": 100.0,
   "sf": 1.2,
   "results": {
@@ -182,20 +182,20 @@
       0.6
      ],
      "need_rated": 30.49,
-     "margin_rated_pct": 81.1,
+     "margin_rated_pct": 104.7,
      "margin_peak_pct": 293.6,
      "ok": true
     },
     "shoulder_roll": {
      "tau": 22.863,
      "pose_deg": [
-      -0.0,
+      0.0,
       85.9,
       -35.1,
       -1.6
      ],
      "need_rated": 27.44,
-     "margin_rated_pct": 101.2,
+     "margin_rated_pct": 127.4,
      "margin_peak_pct": 337.4,
      "ok": true
     },
@@ -208,7 +208,7 @@
       -89.3
      ],
      "need_rated": 3.66,
-     "margin_rated_pct": 1407.4,
+     "margin_rated_pct": 1604.0,
      "margin_peak_pct": 3176.9,
      "ok": true
     },
@@ -221,7 +221,7 @@
       -44.4
      ],
      "need_rated": 3.58,
-     "margin_rated_pct": 1439.9,
+     "margin_rated_pct": 1640.8,
      "margin_peak_pct": 3247.7,
      "ok": true
     }
@@ -236,7 +236,7 @@
       0.3
      ],
      "need_rated": 33.99,
-     "margin_rated_pct": 62.4,
+     "margin_rated_pct": 83.6,
      "margin_peak_pct": 253.1,
      "ok": true
     },
@@ -249,7 +249,7 @@
       -2.2
      ],
      "need_rated": 30.82,
-     "margin_rated_pct": 79.1,
+     "margin_rated_pct": 102.5,
      "margin_peak_pct": 289.4,
      "ok": true
     },
@@ -262,7 +262,7 @@
       -89.5
      ],
      "need_rated": 5.42,
-     "margin_rated_pct": 918.4,
+     "margin_rated_pct": 1051.2,
      "margin_peak_pct": 2113.8,
      "ok": true
     },
@@ -275,7 +275,7 @@
       87.4
      ],
      "need_rated": 5.34,
-     "margin_rated_pct": 933.0,
+     "margin_rated_pct": 1067.7,
      "margin_peak_pct": 2145.6,
      "ok": true
     }
@@ -290,7 +290,7 @@
       0.2
      ],
      "need_rated": 37.49,
-     "margin_rated_pct": 47.2,
+     "margin_rated_pct": 66.4,
      "margin_peak_pct": 220.1,
      "ok": true
     },
@@ -303,7 +303,7 @@
       -2.6
      ],
      "need_rated": 34.2,
-     "margin_rated_pct": 61.4,
+     "margin_rated_pct": 82.5,
      "margin_peak_pct": 250.9,
      "ok": true
     },
@@ -316,7 +316,7 @@
       -89.6
      ],
      "need_rated": 7.18,
-     "margin_rated_pct": 668.8,
+     "margin_rated_pct": 769.1,
      "margin_peak_pct": 1571.4,
      "ok": true
     },
@@ -329,7 +329,7 @@
       -58.9
      ],
      "need_rated": 7.1,
-     "margin_rated_pct": 677.1,
+     "margin_rated_pct": 778.5,
      "margin_peak_pct": 1589.4,
      "ok": true
     }
@@ -344,9 +344,9 @@
       0.1
      ],
      "need_rated": 51.5,
-     "margin_rated_pct": 7.2,
+     "margin_rated_pct": 21.2,
      "margin_peak_pct": 133.0,
-     "ok": false
+     "ok": true
     },
     "shoulder_roll": {
      "tau": 39.767,
@@ -357,9 +357,9 @@
       -3.1
      ],
      "need_rated": 47.72,
-     "margin_rated_pct": 15.7,
+     "margin_rated_pct": 30.8,
      "margin_peak_pct": 151.5,
-     "ok": false
+     "ok": true
     },
     "shoulder_yaw": {
      "tau": 11.849,
@@ -370,7 +370,7 @@
       -89.8
      ],
      "need_rated": 14.22,
-     "margin_rated_pct": 288.2,
+     "margin_rated_pct": 338.9,
      "margin_peak_pct": 743.9,
      "ok": true
     },
@@ -383,7 +383,7 @@
       53.9
      ],
      "need_rated": 14.14,
-     "margin_rated_pct": 290.4,
+     "margin_rated_pct": 341.3,
      "margin_peak_pct": 748.6,
      "ok": true
     }
@@ -398,9 +398,9 @@
       0.1
      ],
      "need_rated": 47.97,
-     "margin_rated_pct": 15.1,
+     "margin_rated_pct": 30.1,
      "margin_peak_pct": 150.2,
-     "ok": false
+     "ok": true
     },
     "shoulder_roll": {
      "tau": 36.827,
@@ -411,7 +411,7 @@
       -2.5
      ],
      "need_rated": 44.19,
-     "margin_rated_pct": 24.9,
+     "margin_rated_pct": 41.2,
      "margin_peak_pct": 171.5,
      "ok": true
     },
@@ -424,7 +424,7 @@
       -89.8
      ],
      "need_rated": 10.69,
-     "margin_rated_pct": 416.3,
+     "margin_rated_pct": 483.6,
      "margin_peak_pct": 1022.4,
      "ok": true
     },
@@ -437,13 +437,13 @@
       91.2
      ],
      "need_rated": 10.61,
-     "margin_rated_pct": 420.3,
+     "margin_rated_pct": 488.2,
      "margin_peak_pct": 1031.1,
      "ok": true
     }
    }
   },
-  "pass_3kg": false
+  "pass_3kg": true
  },
  "gravcomp_B": {
   "n_bodies": 12,
@@ -457,9 +457,9 @@
   "영점|없음": {
    "final_err_deg": 0.0454,
    "max_err_deg": 0.0454,
-   "worst_joint": "left_shoulder_roll_joint",
+   "worst_joint": "right_shoulder_roll_joint",
    "sag_theory_deg": 0.0489,
-   "qvel_rms_last1s": 2.223286829038332e-11,
+   "qvel_rms_last1s": 2.223286833787227e-11,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -481,7 +481,7 @@
    "max_err_deg": 5.1931,
    "worst_joint": "left_shoulder_pitch_joint",
    "sag_theory_deg": 4.8517,
-   "qvel_rms_last1s": 3.009008300667117e-11,
+   "qvel_rms_last1s": 3.009023950941264e-11,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -492,7 +492,7 @@
    "max_err_deg": 0.0,
    "worst_joint": "left_elbow_joint",
    "sag_theory_deg": 4.8517,
-   "qvel_rms_last1s": 6.671962341611758e-16,
+   "qvel_rms_last1s": 6.671962324196065e-16,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -503,7 +503,7 @@
    "max_err_deg": 4.3348,
    "worst_joint": "left_shoulder_roll_joint",
    "sag_theory_deg": 4.3661,
-   "qvel_rms_last1s": 1.3836383025773714e-12,
+   "qvel_rms_last1s": 1.3836373620121929e-12,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -514,7 +514,7 @@
    "max_err_deg": 4.3348,
    "worst_joint": "left_shoulder_roll_joint",
    "sag_theory_deg": 4.3661,
-   "qvel_rms_last1s": 5.5374055247065824e-14,
+   "qvel_rms_last1s": 5.5257374860089493e-14,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -523,9 +523,9 @@
   "pitch 최악(③)|없음": {
    "final_err_deg": 4.8343,
    "max_err_deg": 5.1941,
-   "worst_joint": "right_shoulder_pitch_joint",
+   "worst_joint": "left_shoulder_pitch_joint",
    "sag_theory_deg": 4.852,
-   "qvel_rms_last1s": 2.6292411852408102e-11,
+   "qvel_rms_last1s": 2.6292300266657345e-11,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,
@@ -536,7 +536,7 @@
    "max_err_deg": 0.0,
    "worst_joint": "left_shoulder_pitch_joint",
    "sag_theory_deg": 4.852,
-   "qvel_rms_last1s": 2.087024883770286e-15,
+   "qvel_rms_last1s": 7.200956188505762e-16,
    "base_drift_mm": 0.0,
    "finite": true,
    "ncon": 0,

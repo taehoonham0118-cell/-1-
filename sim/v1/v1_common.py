@@ -1,12 +1,12 @@
 # week05 | v1 공용 모델(B1, 박종진 build_v1.py 빌드) 로더 + 공통 도우미 (함태훈, B1)
-#  모델 위치: 기본 = sim/v1/b1_snapshot/v1 (박종진 347a0ca 사본). 환경변수 B1_V1 로 박종진 저장소 원본을 가리킬 수 있다.
+#  모델 위치: 기본 = sim/v1/b1_snapshot/v1 (박종진 652b89e 사본). 환경변수 B1_V1 로 박종진 저장소 원본을 가리킬 수 있다.
 #    예) set B1_V1=C:\...\PJJ0337-1-\b1\models\v1     (Windows)   /  export B1_V1=~/pjj/b1/models/v1
 #  Windows 한글 경로 대응: xml · STL 을 파이썬이 읽어 메모리 assets 로 넘긴다 (4주차 mj_load.py 와 같은 방식)
 import glob, json, os
 import numpy as np, mujoco
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-V1 = os.environ.get("B1_V1", os.path.join(HERE, "b1_snapshot", "v1"))     # 기본 = 저장소 안 스냅샷 (박종진 347a0ca)
+V1 = os.environ.get("B1_V1", os.path.join(HERE, "b1_snapshot", "v1"))     # 기본 = 저장소 안 스냅샷 (박종진 652b89e)
 V1 = os.path.abspath(V1)
 OUT = os.environ.get("V1_OUT", os.path.join(HERE, "results")); os.makedirs(OUT, exist_ok=True)          # V1_OUT: 노트북 재현 시 다른 폴더로
 IMG = os.environ.get("V1_IMG", os.path.join(HERE, "..", "..", "assets", "screenshots", "week05")); os.makedirs(IMG, exist_ok=True)

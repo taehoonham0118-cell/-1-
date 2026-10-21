@@ -1,0 +1,126 @@
+{
+ "torque": {
+  "shoulder_pitch": {
+   "actuator": "TQ ILM-E85x30 + Wolfrom 38.5:1",
+   "tau3": 42.918,
+   "need": 51.5,
+   "crit": 52.0,
+   "rated": 118.8,
+   "peak": 381.7,
+   "margin_rated_pct": 176.8,
+   "crit_ok": true,
+   "rated_ok": true
+  },
+  "shoulder_roll": {
+   "actuator": "TQ ILM-E85x30 + Wolfrom 38.5:1",
+   "tau3": 39.767,
+   "need": 47.72,
+   "crit": 52.0,
+   "rated": 118.8,
+   "peak": 381.7,
+   "margin_rated_pct": 198.7,
+   "crit_ok": true,
+   "rated_ok": true
+  },
+  "shoulder_yaw": {
+   "actuator": "TQ ILM-E85x30 + Wolfrom 38.5:1",
+   "tau3": 11.849,
+   "need": 14.22,
+   "crit": 52.0,
+   "rated": 118.8,
+   "peak": 381.7,
+   "margin_rated_pct": 902.6,
+   "crit_ok": true,
+   "rated_ok": true
+  },
+  "elbow": {
+   "actuator": "CubeMars RI85-PH KV85 + Wolfrom 38.79:1",
+   "tau3": 11.784,
+   "need": 14.14,
+   "crit": 52.0,
+   "rated": 72.6,
+   "peak": 181.5,
+   "margin_rated_pct": 516.1,
+   "crit_ok": true,
+   "rated_ok": true
+  }
+ },
+ "dyn": {
+  "armature 0 (현재 모델)": {
+   "shoulder_pitch": {
+    "armature": 0.0,
+    "I": 0.8466,
+    "kv": 20.53,
+    "wn": 18.8,
+    "zeta": 0.644,
+    "os": 3.6,
+    "settle": 0.316
+   },
+   "shoulder_roll": {
+    "armature": 0.0,
+    "I": 0.737,
+    "kv": 28.06,
+    "wn": 20.2,
+    "zeta": 0.944,
+    "os": 0.1,
+    "settle": 0.274
+   },
+   "shoulder_yaw": {
+    "armature": 0.0,
+    "I": 0.0153,
+    "kv": 4.25,
+    "wn": 140.0,
+    "zeta": 0.992,
+    "os": 0.0,
+    "settle": 0.044
+   },
+   "elbow": {
+    "armature": 0.0,
+    "I": 0.0605,
+    "kv": 6.24,
+    "wn": 70.4,
+    "zeta": 0.733,
+    "os": 1.6,
+    "settle": 0.062
+   }
+  },
+  "A2 armature": {
+   "shoulder_pitch": {
+    "armature": 0.219,
+    "I": 1.0656,
+    "kv": 29.79,
+    "wn": 16.8,
+    "zeta": 0.833,
+    "os": 0.6,
+    "settle": 0.266
+   },
+   "shoulder_roll": {
+    "armature": 0.219,
+    "I": 0.956,
+    "kv": 32.45,
+    "wn": 17.7,
+    "zeta": 0.958,
+    "os": 0.0,
+    "settle": 0.318
+   },
+   "shoulder_yaw": {
+    "armature": 0.219,
+    "I": 0.2343,
+    "kv": 16.76,
+    "wn": 35.8,
+    "zeta": 1.0,
+    "os": 0.0,
+    "settle": 0.164
+   },
+   "elbow": {
+    "armature": 0.098,
+    "I": 0.1585,
+    "kv": 12.82,
+    "wn": 43.5,
+    "zeta": 0.93,
+    "os": 0.3,
+    "settle": 0.122
+   }
+  }
+ }
+}

@@ -7,11 +7,12 @@
 | `v1_validate_123.py` | 검증 ① 질량 · ② 정지 유지(보상 3방식) · ③ 중력 토크(4방법 검산, 전역 최적화, 페이로드별) | `results/validate_123.md` · .json |
 | `v1_armature_study.py` | armature 유무 계단 응답 · 적분 안정 한계 (구술 Q2) | `results/armature_study.md` · .csv |
 | `v1_base_velocity.py` | 공통 실습(화): 베이스 x · y · yaw 속도 명령 vs qvel, 시정수 이론 대조, 로봇 기준 명령 R(yaw) 변환 | `results/base_velocity.md` · .csv |
+| `v1_a2_spec_impact.py` | A2 구동기 사양서(10/21) 영향: ③ 실제 정격 대비 여유, armature 적용 시 kv · 감쇠비 · 계단 응답 (공용 모델은 그대로) | `results/a2_spec_impact.md` · .json |
 | `view_v1.py` | 노트북 뷰어: `sliders`(Control 슬라이더, 중력보상 B) · `sag`(수평 처짐 4.8°) · `gravcomp`(0°) · `mirror`(양팔 대칭) | 화면 캡처 → `assets/screenshots/week05/week05_laptop_*.png` |
 | `laptop_check.py` | 노트북 재현: 검증 · 액추에이터표 · 미러 점검을 `results_laptop/` 에 다시 계산해 클라우드 값과 비교 | `results_laptop/laptop_compare.md` |
 | `v1_mirror_actuator_check.py` | 팀 연계: 미러 규칙표로 생성 팔 액추에이터 부호 · 범위 · B2 부호표 교차 | `results/mirror_actuator_check.md` · .csv |
 
 - `handoff/` — 박종진에게 넘기는 것: 근거를 채운 `actuator_params.json`(값 동일, 빌드 결과 동일), `build_v1_gravcomp_option.patch`(기본 꺼짐)
-- `b1_snapshot/` — 박종진 347a0ca 의 mjcf · meshes · actuator_params · assumptions 사본 (읽기 전용)
+- `b1_snapshot/` — 박종진 652b89e 의 mjcf · meshes · actuator_params · assumptions 사본 (읽기 전용)
 - 실행: 저장소 루트에서 `python sim/v1/<스크립트>.py` (Windows 노트북은 `py`). 실행 로그 = `results/*_run_log.txt`
 - 설명: [../../notes/10_v1_mjcf_actuator_sensor_validation.md](../../notes/10_v1_mjcf_actuator_sensor_validation.md)

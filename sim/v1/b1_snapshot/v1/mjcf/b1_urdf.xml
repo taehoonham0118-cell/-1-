@@ -37,7 +37,7 @@
           <geom name="base_plate_collision" size="0.288 0.236 0.006" type="box"/>
         </body>
         <body name="torso_link" pos="0 0 1.2">
-          <inertial pos="5.01887e-05 -1.34735e-06 -0.248686" quat="1 7.19958e-05 8.84647e-05 -1.29628e-07" mass="12.0634" diaginertia="0.950137 0.876333 0.0991423"/>
+          <inertial pos="4.68203e-05 2.02102e-06 -0.248686" quat="1 6.54948e-05 8.25275e-05 -1.34468e-07" mass="12.0634" diaginertia="0.950137 0.876333 0.0991423"/>
           <geom name="torso_actuators_visual" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="torso_link_visual"/>
           <geom name="torso_actuators_collision" quat="1 0 0 0" type="mesh" mesh="torso_link_collision"/>
           <geom name="torso_box_visual" size="0.06 0.075 0.425" pos="0 0 -0.375" type="box" contype="0" conaffinity="0" group="1" density="0"/>

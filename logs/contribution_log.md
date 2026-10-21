@@ -11,7 +11,7 @@
 | 2 | ★ SRR | MuJoCo 설치·G1 관절 표, 2링크 팔 URDF·MJCF 작성·비교, 관성 실험, 하체 실측표 양식 | [week02](week02.md), `sim/`, `notes/04`, [보고서](../reports/학부생_주간활동보고서_2주차_함태훈_22212334_261001.docx) | `week02` |
 | 3 | – | MJCF default·include 정리, position 액추에이터 계단 응답(kp·kv·armature) 9조건, URDF↔MJCF 대응표, URDF 로딩 옵션 실험, mjSpec attach, 파이프라인 그림 | [week03](week03.md), `sim/mjcf/*_v2·scene·arm_on_base`, `notes/05~07`, [보고서](../reports/학부생_주간활동보고서_3주차_함태훈_22212334_261008.docx) | `week03` |
 | 4 | – | 팔 · 상판 STEP → 링크 분할표(389부품 → 9링크, 팔 4-DOF), 링크별 STL 20개, 질량 · COM · 관성 표(FreeCAD 1.0.2 · trimesh 비교) · inertial 블록, v0 URDF(planar + 양팔) MuJoCo 로드 · 캡처, 박종진 관절 표 대조(≤0.064 mm) | [week04](week04.md), `sim/robot/`, `notes/08~09`, [보고서](../reports/학부생_주간활동보고서_4주차_함태훈_22212334_261015.docx) | `week04` |
-| 5 | – | v1 MJCF 덧붙이기 값 · 근거(액추에이터 파라미터표: 컴파일 kv · ζ_hold), 검증 ① 질량(+0.004 %) · ② 정지 유지(중력보상 클리핑 문제 발견 → gravcomp) · ③ 중력 토크(3 kg pitch 42.92 N·m → 필요 정격 51.5), armature 계단 · 안정성, 미러 점검 17/17, 링크 원점 = 관절점 | [week05](week05.md), `sim/v1/`, `sim/robot_v1/`, `notes/10`, [보고서](../reports/학부생_주간활동보고서_5주차_함태훈_22212334_261022.docx) | `week05` |
+| 5 | – | v1 MJCF 덧붙이기 값 · 근거(액추에이터 파라미터표: 컴파일 kv · ζ_hold), 검증 ① 질량(+0.004 %) · ② 정지 유지(중력보상 클리핑 문제 발견 → gravcomp) · ③ 중력 토크(3 kg pitch 42.92 N·m, 기준 52 통과 · A2 실제 정격 118.8), armature 계단 · 안정성, 미러 점검 17/17, 링크 원점 = 관절점 | [week05](week05.md), `sim/v1/`, `sim/robot_v1/`, `notes/10`, [보고서](../reports/학부생_주간활동보고서_5주차_함태훈_22212334_261022.docx) | `week05` |
 | 6 | ★ PDR | | | `week06` |
 | 7 | – | | | `week07` |
 | 8 | – | | | `week08` |

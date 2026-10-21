@@ -4,7 +4,7 @@
 #   ② 4 자세(영점 · 앞으로 수평 · 옆으로 수평 · ③의 pitch 최악 자세) × 중력보상 유/무, 5 s. 처짐 이론값 τg/kp 와 비교, 베이스 밀림 · 떨림 기록
 #   ③ qfrc_bias(qvel = 0) 를 4가지로 검산: mj_rne(가속 0) · 자코비안 전치합 −Σ J_comᵀ m g · 외적 합 Σ aⱼ·((cᵢ − pⱼ) × mᵢ g) · 손계산(수평 자세, FK 없이)
 #      최악 자세 = 관절 범위 안 전역 최적화(scipy differential_evolution) — 15° 격자(박종진)보다 촘촘한지 확인
-#      페이로드 0 / 0.5 / 1.0 / 3.0 kg (ee site), 3 kg 은 플랜지(tool0) 작용도 같이 → 정격 46 N·m(팀장 10/16 PDR 기준) 대비 여유율
+#      페이로드 0 / 0.5 / 1.0 / 3.0 kg (ee site), 3 kg 은 플랜지(tool0) 작용도 같이 → PDR 기준 정격(assumptions_b1.json pdr_torque, 팀장 10/19: 52 N·m) 대비 여유율
 #  출력: results/validate_123.json · validate_123.md, assets/screenshots/week05/week05_hold.png · week05_gravity_torque.png
 #  실행: python sim/v1/v1_validate_123.py
 import ast, csv, json, os
@@ -14,7 +14,8 @@ import v1_common as c
 
 m = c.load(); d = mujoco.MjData(m); A = c.assumptions(); P = c.params()
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))           # sim/
-RATED = 46.0; PEAK = A["actuator"]["effort_peak"]; SF = 1.2                  # 정격 ≥ 정적 필요 토크 × 1.2 (팀장 10/16)
+PT = A.get("pdr_torque", {})                                                 # 팀장 10/19: 그리퍼 box 가정 유지 → 기준 46 → 52 N·m (박종진 652b89e, assumptions v0.3)
+RATED = float(PT.get("rated_criterion_Nm", 46.0)); PREV = PT.get("previous_Nm"); PEAK = A["actuator"]["effort_peak"]; SF = 1.0 + float(PT.get("margin", 0.2))   # 정격 ≥ 최악 정적 토크 × 1.2
 R = {"model": dict(nq=m.nq, nu=m.nu, nbody=m.nbody, mujoco=mujoco.__version__, timestep=m.opt.timestep)}
 
 # ================================================================ ① 질량 합계
@@ -197,7 +198,7 @@ fig, ax = plt.subplots(figsize=(6.4, 3.4)); keys = ["0kg@ee", "0.5kg@ee", "1kg@e
 for k_, (key, col) in enumerate(zip(keys, c.SERIES)):
     vals = [grav[key][a]["tau"] for a in c.ARM]
     ax.bar(np.arange(4) + (k_ - 1.5) * w, vals, w * 0.92, color=col, label=f"페이로드 {key.split('kg')[0]} kg")
-ax.set_ylim(0, 54); ax.axhline(RATED / SF, color="#52514e", lw=1, ls="--"); ax.text(2.5, RATED / SF + 0.8, f"정격 46 ÷ 1.2 = {RATED / SF:.1f}", ha="left", fontsize=8, color="#52514e")
+ax.set_ylim(0, 54); ax.axhline(RATED / SF, color="#52514e", lw=1, ls="--"); ax.text(2.5, RATED / SF + 0.8, f"기준 정격 {RATED:g} ÷ {SF:g} = {RATED / SF:.1f}", ha="left", fontsize=8, color="#52514e")
 ax.set_xticks(range(4)); ax.set_xticklabels(c.ARM); ax.set(ylabel="최악 자세 |τg| [N·m]", title="③ 관절별 최악 중력 토크 (전역 최적화, 페이로드 = ee site)")
 ax.legend(loc="upper center", ncol=4, bbox_to_anchor=(0.5, 1.0)); ax.grid(axis="x", visible=False); fig.tight_layout(); fig.savefig(os.path.join(c.IMG, "week05_gravity_torque.png"), dpi=150)
 
@@ -205,11 +206,11 @@ json.dump(R, open(os.path.join(c.OUT, "validate_123.json"), "w", encoding="utf-8
 ok = lambda b_: "**통과**" if b_ else "**미통과**"
 mres = R["mass"]; hh = R["hand_horizontal"]; gr = R["gravity"]["results"]
 L = ["# v1 검증 ① · ② · ③ — 함태훈 독립 계산 (자동 생성 — sim/v1/v1_validate_123.py)", "",
-     f'모델: 박종진 build_v1.py 빌드 `scene.xml`(B1 공용, nq {m.nq} · nu {m.nu}), MuJoCo {mujoco.__version__}, timestep {m.opt.timestep} s. 기준 = 함태훈 CAD 질량표 + B1 공용 가정값 v0.2. 정격 판정 = 최악 |τg| × {SF} ≤ {RATED:g} N·m (팀장 10/16), 피크 {PEAK:g} N·m', "",
+     f'모델: 박종진 build_v1.py 빌드 `scene.xml`(B1 공용, nq {m.nq} · nu {m.nu}), MuJoCo {mujoco.__version__}, timestep {m.opt.timestep} s. 기준 = 함태훈 CAD 질량표 + B1 공용 가정값 {A.get("version")}. 정격 판정 = 최악 |τg| × {SF:g} ≤ {RATED:g} N·m (팀장 10/19, 이전 {PREV} N·m), 피크 {PEAK:g} N·m', "",
      "| 검증 | 통과 기준 | 결과 | 판정 |", "|---|---|---|---|",
      f'| ① 질량 합계 | 전체 · 링크별 ±5 % | {mres["total"]} vs 기준 {mres["ref_total"]} kg ({mres["err_pct"]:+.3f} %, 차 = 더미 프레임 {mres["dummy_kg"]} kg), 링크 13개 최대 {max(abs(r["err_pct"]) for r in rows):.4f} %, 주관성 모멘트 최대 {max(r.get("I_principal_err_pct", 0) for r in rows):.4f} % | {ok(mres["pass_"])} |',
      f'| ② 정지 유지 | 5 s, 오차 ≤ 0.5°, 발산 · 떨림 없음 | 보상 없음: 영점 {R["hold"]["영점|없음"]["final_err_deg"]}° · 앞 수평 {R["hold"]["앞으로 수평|없음"]["final_err_deg"]}° (이론 τg/kp {R["hold"]["앞으로 수평|없음"]["sag_theory_deg"]}°) / 목표 오프셋(A): roll 상한 자세 {R["hold"]["옆으로 벌림(roll 상한)|오프셋(A)"]["final_err_deg"]}° 남음 / gravcomp(B): 4자세 최대 {max(v["final_err_deg"] for k, v in R["hold"].items() if k.endswith("(B)"))}° | 보상 없음 {ok(all(R["hold_pass_nogc"].values()))} · A {ok(R["hold_pass_gc_all"])} · B {ok(R["hold_pass_gcB_all"])} |',
-     f'| ③ 중력 토크 vs 구동기 | 최악 |τg| × 1.2 ≤ 46 N·m | 3 kg(ee): pitch {gr["3kg@ee"]["shoulder_pitch"]["tau"]} · roll {gr["3kg@ee"]["shoulder_roll"]["tau"]} · yaw {gr["3kg@ee"]["shoulder_yaw"]["tau"]} · elbow {gr["3kg@ee"]["elbow"]["tau"]} N·m → 필요 정격 pitch {gr["3kg@ee"]["shoulder_pitch"]["need_rated"]} · roll {gr["3kg@ee"]["shoulder_roll"]["need_rated"]} N·m | {ok(R["gravity"]["pass_3kg"])} (어깨 2관절) |', "",
+     f'| ③ 중력 토크 vs 구동기 | 최악 |τg| × {SF:g} ≤ {RATED:g} N·m | 3 kg(ee): pitch {gr["3kg@ee"]["shoulder_pitch"]["tau"]} · roll {gr["3kg@ee"]["shoulder_roll"]["tau"]} · yaw {gr["3kg@ee"]["shoulder_yaw"]["tau"]} · elbow {gr["3kg@ee"]["elbow"]["tau"]} N·m → 필요 정격 pitch {gr["3kg@ee"]["shoulder_pitch"]["need_rated"]} · roll {gr["3kg@ee"]["shoulder_roll"]["need_rated"]} N·m | {ok(R["gravity"]["pass_3kg"])} (pitch 여유 {gr["3kg@ee"]["shoulder_pitch"]["margin_rated_pct"]} % · roll {gr["3kg@ee"]["shoulder_roll"]["margin_rated_pct"]} %) |', "",
      "## ① 질량 · COM · 관성", "", "| 링크 | 모델 kg | 기준 kg | 오차 % | 주관성 모멘트 오차 % | 기준 출처 |", "|---|---|---|---|---|---|"]
 L += [f'| {r["link"]} | {r["model_kg"]} | {r["ref_kg"]} | {r["err_pct"]} | {r.get("I_principal_err_pct", "–")} | {r["src"]} |' for r in rows]
 L += ["", f'- 로봇 전체 COM (영점, odom 기준) = {mres["robot_com_m"]} m. 함태훈 CAD 실제 오른팔 {mres["cad_right_arm"]} kg vs 왼팔 {mres["cad_left_arm"]} kg (차 {mres["cad_right_arm"] - mres["cad_left_arm"]:+.4f} kg, {(mres["cad_right_arm"] / mres["cad_left_arm"] - 1) * 100:+.2f} %) — 공칭 거울로 버린 차이, ±5 % 안',
@@ -227,12 +228,13 @@ L += ["", "- **보상 A**(박종진 방식) = position 목표에 τg/kp 를 더�
       f'- 손계산(앞으로 수평, FK 없이 각 COM 의 어깨축 아래 깊이 × 질량 × g): 0 kg {hh["tau0"]} vs MuJoCo {hh["mj0"]} N·m · 3 kg {hh["tau3"]} vs {hh["mj3"]} N·m (차 0.005 N·m = 더미 프레임 1 g 질량), ee 수평 도달 {hh["arm_reach_ee_m"]} m',
       f'- qvel ≠ 0 이면 qfrc_bias 에 코리올리 · 원심이 더해짐: 자세 {[round(x, 2) for x in R["bias_vs_qvel"]["pose"]]} rad, 팔 4관절 3 rad/s → 중력 {R["bias_vs_qvel"]["gravity"]} vs bias {R["bias_vs_qvel"]["bias_qvel3"]} N·m (차 {R["bias_vs_qvel"]["coriolis"]}). 관절 감쇠 0.5 × 3 = 1.5 N·m 은 qfrc_bias 가 아니라 qfrc_passive {R["bias_vs_qvel"]["passive_damping"]}',
       "", "### 관절별 최악 자세 토크 (전역 최적화 differential_evolution × 시드 3, 관절 범위 안)", "",
-      "| 관절 | 0 kg | 0.5 kg | 1.0 kg | 3 kg (ee) [자세 °] | 3 kg (플랜지) | 필요 정격 (3 kg × 1.2) | 정격 46 여유 % | 피크 100 여유 % | 판정 |", "|---|---|---|---|---|---|---|---|---|---|"]
+      f"| 관절 | 0 kg | 0.5 kg | 1.0 kg | 3 kg (ee) [자세 °] | 3 kg (플랜지) | 필요 정격 (3 kg × {SF:g}) | 기준 정격 {RATED:g} 여유 % | 피크 {PEAK:g} 여유 % | 판정 |", "|---|---|---|---|---|---|---|---|---|---|"]
 for a in c.ARM:
     x3 = gr["3kg@ee"][a]
     L.append(f'| {a} | {gr["0kg@ee"][a]["tau"]} | {gr["0.5kg@ee"][a]["tau"]} | {gr["1kg@ee"][a]["tau"]} | {x3["tau"]} {x3["pose_deg"]} | {gr["3kg@tool0"][a]["tau"]} | {x3["need_rated"]} | {x3["margin_rated_pct"]} | {x3["margin_peak_pct"]} | {"OK" if x3["ok"] else ("미통과 (여유 < 20 %)" if x3["tau"] <= RATED else "초과")} |')
 L += ["", "- 여유율 = (정격 − τ) / τ × 100 (박종진 validate_model.md 와 같은 정의). 자세 = (pitch, roll, yaw, elbow) °",
       "- 페이로드 작용점 영향: 3 kg 을 플랜지(tool0) → ee(+0.10 m) 로 옮기면 pitch +2.94 N·m (= 3 × 9.81 × 0.10)",
-      "- 박종진 15° 격자 대비: pitch 42.91 → 42.92 (같음), roll 38.89 → 39.77 N·m (+2.3 %, 격자 사이 yaw ≈ −55° 자세) — 판정은 같음"]
+      "- 박종진 15° 격자 대비: pitch 42.91 → 42.92 (같음), roll 38.89 → 39.77 N·m (+2.3 %, 격자 사이 yaw ≈ −55° 자세) — 박종진 13ca395 에서 국소 최적화로 반영해 39.77 일치",
+      f"- 기준 변경 이력: 46 N·m (10/16, 그리퍼 없음 · 강 상한 38.4 × 1.2) → {RATED:g} N·m (팀장 10/19, 그리퍼 box 가정 유지, pitch 42.92 × 1.2 = 51.5 올림). 실제 구동기 정격(A2 10/21 수령)과의 비교는 [a2_spec_impact.md](a2_spec_impact.md)"]
 open(os.path.join(c.OUT, "validate_123.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 print("\n".join(L))
