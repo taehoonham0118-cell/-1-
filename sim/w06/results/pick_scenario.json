@@ -1,0 +1,2712 @@
+{
+ "sens": [
+  {
+   "T": 2.0,
+   "tau_pitch": 43.35098492533382,
+   "static": 42.918,
+   "qd_ref_max": 1.4730937499999999,
+   "within_vel_limit": true,
+   "err_deg_max": 8.130209697030667
+  },
+  {
+   "T": 1.5,
+   "tau_pitch": 43.952506764302704,
+   "static": 42.918,
+   "qd_ref_max": 1.964125,
+   "within_vel_limit": true,
+   "err_deg_max": 10.33953681496295
+  },
+  {
+   "T": 1.0,
+   "tau_pitch": 46.13978017111526,
+   "static": 42.918,
+   "qd_ref_max": 2.9461874999999997,
+   "within_vel_limit": true,
+   "err_deg_max": 15.078429314083973
+  },
+  {
+   "T": 0.75,
+   "tau_pitch": 49.494191569746185,
+   "static": 42.918,
+   "qd_ref_max": 3.9281941317542,
+   "within_vel_limit": false,
+   "err_deg_max": 20.096780750445152
+  },
+  {
+   "T": 0.6,
+   "tau_pitch": 57.188243709895794,
+   "static": 42.918,
+   "qd_ref_max": 4.9103125,
+   "within_vel_limit": false,
+   "err_deg_max": 25.038567957235077
+  }
+ ],
+ "reach": {
+  "shoulder_pitch|0kg|a2_doc": {
+   "name": "reach_shoulder_pitch_0kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -25.405236258863056,
+    "shoulder_roll": 0.00043497079506021386,
+    "shoulder_yaw": -0.2575380024886348,
+    "elbow": 2.9313736597931626
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 8.700763811019462,
+    "shoulder_roll": 0.08908712475454406,
+    "shoulder_yaw": 0.6903857498114864,
+    "elbow": 0.1305327953455311
+   },
+   "ee_mm_max": 93.01805193836546,
+   "ee_mm_hold": 0.002567083801039044,
+   "err_deg_hold": {
+    "shoulder_pitch": 1.8047573356492234e-06,
+    "shoulder_roll": -8.945927437086504e-05,
+    "shoulder_yaw": 8.80032179910819e-08,
+    "elbow": 1.6161928004868915e-06
+   },
+   "tau_max": {
+    "shoulder_pitch": 25.48855971010207,
+    "shoulder_roll": 0.3400068461833078,
+    "shoulder_yaw": 0.3181308123432768,
+    "elbow": 2.9483223122313005
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9576566485413234,
+    "shoulder_roll": 0.013761373180875612,
+    "shoulder_yaw": 0.24149623495582612,
+    "elbow": 0.019438906042916083
+   },
+   "base_v_max": 0.029357091485488304,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.700763811019462,
+     "ee_mm_max": 93.01805193836546
+    },
+    "유지": {
+     "err_deg_max": 0.1055140072655985,
+     "ee_mm_max": 0.8549078392558671
+    },
+    "복귀": {
+     "err_deg_max": 8.637203899974338,
+     "ee_mm_max": 92.2674602404859
+    }
+   },
+   "static_wmt": 25.405
+  },
+  "shoulder_pitch|0kg|cad_ri85": {
+   "name": "reach_shoulder_pitch_0kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -25.405236092832546,
+    "shoulder_roll": 0.00043622740832556094,
+    "shoulder_yaw": -0.2575380295304588,
+    "elbow": 2.931373831059724
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 8.674682388647634,
+    "shoulder_roll": 0.08878635408559006,
+    "shoulder_yaw": 0.6877009196457546,
+    "elbow": 0.1298304612970805
+   },
+   "ee_mm_max": 92.73842506279482,
+   "ee_mm_hold": 0.0025674563561544164,
+   "err_deg_hold": {
+    "shoulder_pitch": 1.0186221647178575e-06,
+    "shoulder_roll": -8.977921051822023e-05,
+    "shoulder_yaw": 7.190059382604916e-08,
+    "elbow": 1.744181907201813e-06
+   },
+   "tau_max": {
+    "shoulder_pitch": 25.449187084818853,
+    "shoulder_roll": 0.3370450926123159,
+    "shoulder_yaw": 0.3018888297314189,
+    "elbow": 2.942749821632063
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.953663620197555,
+    "shoulder_roll": 0.013730214022278397,
+    "shoulder_yaw": 0.24081896587704243,
+    "elbow": 0.01941881024328361
+   },
+   "base_v_max": 0.029250159547378134,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.674682388647634,
+     "ee_mm_max": 92.73842506279482
+    },
+    "유지": {
+     "err_deg_max": 0.157237020475514,
+     "ee_mm_max": 1.393679461049523
+    },
+    "복귀": {
+     "err_deg_max": 8.61192964654624,
+     "ee_mm_max": 91.99428001418035
+    }
+   },
+   "static_wmt": 25.405
+  },
+  "shoulder_pitch|0.5kg|a2_doc": {
+   "name": "reach_shoulder_pitch_0.5kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -28.322863383875664,
+    "shoulder_roll": 0.0006412162879300687,
+    "shoulder_yaw": -0.3050509402922836,
+    "elbow": 4.384439898466244
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 8.975578388055478,
+    "shoulder_roll": 0.10438836330349667,
+    "shoulder_yaw": 0.6322377130207136,
+    "elbow": 0.28188249756827594
+   },
+   "ee_mm_max": 96.76881586733307,
+   "ee_mm_hold": 5.764967120900146,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.4180771876211462,
+    "shoulder_roll": -0.00013519818471128845,
+    "shoulder_yaw": 0.00824376423531429,
+    "elbow": -0.27570325040114274
+   },
+   "tau_max": {
+    "shoulder_pitch": 28.502152025739584,
+    "shoulder_roll": 0.4303529801023789,
+    "shoulder_yaw": 0.3303956900522251,
+    "elbow": 4.430801570288567
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9537300388464147,
+    "shoulder_roll": 0.014540235916181242,
+    "shoulder_yaw": 0.21896781375733398,
+    "elbow": 0.015219457107082786
+   },
+   "base_v_max": 0.03244134502079149,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.975578388055478,
+     "ee_mm_max": 96.76881586733307
+    },
+    "유지": {
+     "err_deg_max": 0.4448544317725552,
+     "ee_mm_max": 5.852331404131977
+    },
+    "복귀": {
+     "err_deg_max": 8.320068672568858,
+     "ee_mm_max": 87.82955200488632
+    }
+   },
+   "static_wmt": 28.324
+  },
+  "shoulder_pitch|0.5kg|cad_ri85": {
+   "name": "reach_shoulder_pitch_0.5kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -28.322872925855574,
+    "shoulder_roll": 0.000642075821501051,
+    "shoulder_yaw": -0.3050512349996675,
+    "elbow": 4.384443156297707
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 8.950600540685285,
+    "shoulder_roll": 0.10393685514806332,
+    "shoulder_yaw": 0.6298228663022014,
+    "elbow": 0.28033616142518186
+   },
+   "ee_mm_max": 96.50429666763365,
+   "ee_mm_hold": 5.764908486027761,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.41807206538857006,
+    "shoulder_roll": -0.00013566176887070376,
+    "shoulder_yaw": 0.008243692029389488,
+    "elbow": -0.2757026411884762
+   },
+   "tau_max": {
+    "shoulder_pitch": 28.445900208548206,
+    "shoulder_roll": 0.4260038550863948,
+    "shoulder_yaw": 0.32230317712404466,
+    "elbow": 4.421613414181421
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.94961517547267,
+    "shoulder_roll": 0.01449090425412306,
+    "shoulder_yaw": 0.21835438264561646,
+    "elbow": 0.015151980048734066
+   },
+   "base_v_max": 0.032322083398972475,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.950600540685285,
+     "ee_mm_max": 96.50429666763365
+    },
+    "유지": {
+     "err_deg_max": 0.49768385976440477,
+     "ee_mm_max": 6.103101287519404
+    },
+    "복귀": {
+     "err_deg_max": 8.295540059363848,
+     "ee_mm_max": 87.5656066579344
+    }
+   },
+   "static_wmt": 28.324
+  },
+  "shoulder_pitch|1kg|a2_doc": {
+   "name": "reach_shoulder_pitch_1kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -31.237957276975184,
+    "shoulder_roll": 0.0009566589435457041,
+    "shoulder_yaw": -0.35436220781211814,
+    "elbow": 5.8392589085678965
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 9.250018528545981,
+    "shoulder_roll": 0.12108710394735103,
+    "shoulder_yaw": 0.5929379571876393,
+    "elbow": 0.5656561600857316
+   },
+   "ee_mm_max": 100.54817607630548,
+   "ee_mm_hold": 11.539698352068553,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.8360835408255914,
+    "shoulder_roll": -0.00021427528612717078,
+    "shoulder_yaw": 0.01714994947126426,
+    "elbow": -0.5525253141044598
+   },
+   "tau_max": {
+    "shoulder_pitch": 31.546608695986652,
+    "shoulder_roll": 0.5288333890209777,
+    "shoulder_yaw": 0.35992068337816113,
+    "elbow": 5.930400531472499
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9509725985418573,
+    "shoulder_roll": 0.01556945974101885,
+    "shoulder_yaw": 0.2030975694759838,
+    "elbow": 0.021097196276161995
+   },
+   "base_v_max": 0.035469331535946474,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 9.250018528545981,
+     "ee_mm_max": 100.54817607630548
+    },
+    "유지": {
+     "err_deg_max": 0.8509725549486379,
+     "ee_mm_max": 11.74210439059759
+    },
+    "복귀": {
+     "err_deg_max": 8.005615117650295,
+     "ee_mm_max": 83.4623900399857
+    }
+   },
+   "static_wmt": 31.243
+  },
+  "shoulder_pitch|1kg|cad_ri85": {
+   "name": "reach_shoulder_pitch_1kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -31.237978046136856,
+    "shoulder_roll": 0.0009570937674605665,
+    "shoulder_yaw": -0.3543630585781626,
+    "elbow": 5.839268001312772
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 9.226175418738244,
+    "shoulder_roll": 0.12045681857984637,
+    "shoulder_yaw": 0.59072951938901,
+    "elbow": 0.5634596002113332
+   },
+   "ee_mm_max": 100.29850467369953,
+   "ee_mm_hold": 11.539433406447854,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.8360609849108401,
+    "shoulder_roll": -0.0002153007635913315,
+    "shoulder_yaw": 0.01714959211238775,
+    "elbow": -0.5525211271908654
+   },
+   "tau_max": {
+    "shoulder_pitch": 31.475972751121173,
+    "shoulder_roll": 0.5230056885001872,
+    "shoulder_yaw": 0.3581428919223816,
+    "elbow": 5.918032802440809
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9468197020281903,
+    "shoulder_roll": 0.015484307820802417,
+    "shoulder_yaw": 0.20252384412393534,
+    "elbow": 0.02100511991261676
+   },
+   "base_v_max": 0.0353370310848594,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 9.226175418738244,
+     "ee_mm_max": 100.29850467369953
+    },
+    "유지": {
+     "err_deg_max": 0.8463327585561702,
+     "ee_mm_max": 11.68475539477381
+    },
+    "복귀": {
+     "err_deg_max": 7.9819612955173005,
+     "ee_mm_max": 83.2097082226532
+    }
+   },
+   "static_wmt": 31.243
+  },
+  "shoulder_pitch|3kg|a2_doc": {
+   "name": "reach_shoulder_pitch_3kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -42.86648403945128,
+    "shoulder_roll": 0.0036313796283454526,
+    "shoulder_yaw": -0.556756757117276,
+    "elbow": 11.686388264968876
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 10.33953681496295,
+    "shoulder_roll": 0.19578418636012795,
+    "shoulder_yaw": 0.4246555414495008,
+    "elbow": 1.7331334277132273
+   },
+   "ee_mm_max": 115.65465251271422,
+   "ee_mm_hold": 34.69445721336551,
+   "err_deg_hold": {
+    "shoulder_pitch": 2.5065462077759797,
+    "shoulder_roll": -0.0008901423680027722,
+    "shoulder_yaw": 0.05530578435584837,
+    "elbow": -1.6672065850520479
+   },
+   "tau_max": {
+    "shoulder_pitch": 43.952506764302704,
+    "shoulder_roll": 0.997423309949878,
+    "shoulder_yaw": 0.5764456255835406,
+    "elbow": 12.09004540554173
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9397097384417137,
+    "shoulder_roll": 0.021012384811289014,
+    "shoulder_yaw": 0.13575863512796313,
+    "elbow": 0.04533685737726107
+   },
+   "base_v_max": 0.0470263099147667,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 10.33953681496295,
+     "ee_mm_max": 115.65465251271422
+    },
+    "유지": {
+     "err_deg_max": 2.591020084325707,
+     "ee_mm_max": 35.86303504960075
+    },
+    "복귀": {
+     "err_deg_max": 6.764112551234259,
+     "ee_mm_max": 66.33232110892514
+    }
+   },
+   "static_wmt": 42.918
+  },
+  "shoulder_pitch|3kg|cad_ri85": {
+   "name": "reach_shoulder_pitch_3kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -42.861753297237726,
+    "shoulder_roll": 0.003696765800990554,
+    "shoulder_yaw": -0.5566762514919545,
+    "elbow": 11.684854675811437
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 10.320166069030092,
+    "shoulder_roll": 0.19423879515782289,
+    "shoulder_yaw": 0.4233208679323129,
+    "elbow": 1.7288732984501776
+   },
+   "ee_mm_max": 115.46365909112427,
+   "ee_mm_hold": 34.68663327777336,
+   "err_deg_hold": {
+    "shoulder_pitch": 2.5059598955278894,
+    "shoulder_roll": -0.0008912701410555211,
+    "shoulder_yaw": 0.055287456486568874,
+    "elbow": -1.6668708633271017
+   },
+   "tau_max": {
+    "shoulder_pitch": 43.83446651767383,
+    "shoulder_roll": 0.9849058012560625,
+    "shoulder_yaw": 0.5736586650117675,
+    "elbow": 12.067434792120693
+   },
+   "vel_max": {
+    "shoulder_pitch": 1.9352314192046298,
+    "shoulder_roll": 0.020801207457224725,
+    "shoulder_yaw": 0.13536454054408173,
+    "elbow": 0.045136355777618604
+   },
+   "base_v_max": 0.0468329830177282,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 10.320166069030092,
+     "ee_mm_max": 115.46365909112427
+    },
+    "유지": {
+     "err_deg_max": 2.5794611537033565,
+     "ee_mm_max": 35.723253609861345
+    },
+    "복귀": {
+     "err_deg_max": 6.745941471127423,
+     "ee_mm_max": 66.15690590688612
+    }
+   },
+   "static_wmt": 42.918
+  },
+  "shoulder_roll|0kg|a2_doc": {
+   "name": "reach_shoulder_roll_0kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": 0.0017995947695468265,
+    "shoulder_roll": 22.862621711305877,
+    "shoulder_yaw": -2.2726442958853078e-05,
+    "elbow": -1.7222124743932121
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.004140134816706985,
+    "shoulder_roll": 8.41353593675729,
+    "shoulder_yaw": 2.17693402582853,
+    "elbow": 0.10467741049836041
+   },
+   "ee_mm_max": 86.67857019100451,
+   "ee_mm_hold": 0.002280544941667315,
+   "err_deg_hold": {
+    "shoulder_pitch": -2.193272203805946e-06,
+    "shoulder_roll": 1.2158028264223687e-06,
+    "shoulder_yaw": -2.219227285511917e-07,
+    "elbow": 2.0592315525833294e-06
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.10324377852914347,
+    "shoulder_roll": 22.93065605562411,
+    "shoulder_yaw": 0.6569954460930844,
+    "elbow": 1.7511622737707655
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.00034481016026153324,
+    "shoulder_roll": 1.8684111352550852,
+    "shoulder_yaw": 0.7639360622302029,
+    "elbow": 0.03734237157818223
+   },
+   "base_v_max": 0.025250002201989113,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.41353593675729,
+     "ee_mm_max": 86.67857019100451
+    },
+    "유지": {
+     "err_deg_max": 0.11037810679086303,
+     "ee_mm_max": 1.1109617323687115
+    },
+    "복귀": {
+     "err_deg_max": 8.382231014627267,
+     "ee_mm_max": 86.32246312503949
+    }
+   },
+   "static_wmt": 22.863
+  },
+  "shoulder_roll|0kg|cad_ri85": {
+   "name": "reach_shoulder_roll_0kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": 0.0017997449874740997,
+    "shoulder_roll": 22.862620785875638,
+    "shoulder_yaw": -2.271127330781624e-05,
+    "elbow": -1.722212542440546
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.004091528606654636,
+    "shoulder_roll": 8.385165118949791,
+    "shoulder_yaw": 2.1692470053255,
+    "elbow": 0.10431236490432899
+   },
+   "ee_mm_max": 86.39328209866304,
+   "ee_mm_hold": 0.0022805734492360235,
+   "err_deg_hold": {
+    "shoulder_pitch": -2.2204061113607486e-06,
+    "shoulder_roll": 1.4079909724611637e-06,
+    "shoulder_yaw": -2.2577990737475835e-07,
+    "elbow": 2.0760784457066664e-06
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.10279225102693113,
+    "shoulder_roll": 22.902591980563766,
+    "shoulder_yaw": 0.5056265324530848,
+    "elbow": 1.7406863970762092
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.00034080421806936654,
+    "shoulder_roll": 1.863991748608748,
+    "shoulder_yaw": 0.7618020180184961,
+    "elbow": 0.03732733136958828
+   },
+   "base_v_max": 0.025145543798406694,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.385165118949791,
+     "ee_mm_max": 86.39328209866304
+    },
+    "유지": {
+     "err_deg_max": 0.16724324750751232,
+     "ee_mm_max": 1.6840569934299923
+    },
+    "복귀": {
+     "err_deg_max": 8.353950691666281,
+     "ee_mm_max": 86.03324171554382
+    }
+   },
+   "static_wmt": 22.863
+  },
+  "shoulder_roll|0.5kg|a2_doc": {
+   "name": "reach_shoulder_roll_0.5kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -0.00920554081657093,
+    "shoulder_roll": 25.66683227063866,
+    "shoulder_yaw": 0.010851073704310219,
+    "elbow": -2.986755256597776
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.005543373304001579,
+    "shoulder_roll": 8.703678822983289,
+    "shoulder_yaw": 2.6069930143073523,
+    "elbow": 0.19143333780255617
+   },
+   "ee_mm_max": 89.8439645106193,
+   "ee_mm_hold": 5.3312164126247685,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0013035870151071596,
+    "shoulder_roll": -0.46087966043941136,
+    "shoulder_yaw": 0.001728899593825848,
+    "elbow": 0.18767630965222554
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.10911414722120151,
+    "shoulder_roll": 25.804223567379402,
+    "shoulder_yaw": 0.7830961183237083,
+    "elbow": 3.0147159838086406
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.0003786108174184453,
+    "shoulder_roll": 1.8653589687292498,
+    "shoulder_yaw": 0.9144589840708116,
+    "elbow": 0.04794057431052696
+   },
+   "base_v_max": 0.028123926585031,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.703678822983289,
+     "ee_mm_max": 89.8439645106193
+    },
+    "유지": {
+     "err_deg_max": 0.4901530789524757,
+     "ee_mm_max": 5.439266421156179
+    },
+    "복귀": {
+     "err_deg_max": 8.038125759324943,
+     "ee_mm_max": 82.8396008519343
+    }
+   },
+   "static_wmt": 25.68
+  },
+  "shoulder_roll|0.5kg|cad_ri85": {
+   "name": "reach_shoulder_roll_0.5kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -0.009205171107178186,
+    "shoulder_roll": 25.666826169568882,
+    "shoulder_yaw": 0.010851088188728195,
+    "elbow": -2.98675567510801
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.0054862815147639155,
+    "shoulder_roll": 8.676794035953463,
+    "shoulder_yaw": 2.5978236844966567,
+    "elbow": 0.1903582965310861
+   },
+   "ee_mm_max": 89.57659731240031,
+   "ee_mm_hold": 5.3311565485340235,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0013036554710586371,
+    "shoulder_roll": -0.46087405580307117,
+    "shoulder_yaw": 0.0017288995983497418,
+    "elbow": 0.1876756161693912
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.10857464005264153,
+    "shoulder_roll": 25.751873701565405,
+    "shoulder_yaw": 0.6016928915551799,
+    "elbow": 3.0082363621744617
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.0003738313636892116,
+    "shoulder_roll": 1.8609018725407493,
+    "shoulder_yaw": 0.9119045825493297,
+    "elbow": 0.04792389263976771
+   },
+   "base_v_max": 0.028006699848792255,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.676794035953463,
+     "ee_mm_max": 89.57659731240031
+    },
+    "유지": {
+     "err_deg_max": 0.5482530104694872,
+     "ee_mm_max": 6.028301866938523
+    },
+    "복귀": {
+     "err_deg_max": 8.010746846794207,
+     "ee_mm_max": 82.56062776765654
+    }
+   },
+   "static_wmt": 25.68
+  },
+  "shoulder_roll|1kg|a2_doc": {
+   "name": "reach_shoulder_roll_1kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -0.027068995938410178,
+    "shoulder_roll": 28.467487977116303,
+    "shoulder_yaw": 0.02860058205134513,
+    "elbow": -4.311661862116731
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.006641048259957347,
+    "shoulder_roll": 8.993796269058926,
+    "shoulder_yaw": 2.8966595275974645,
+    "elbow": 0.4164388247371077
+   },
+   "ee_mm_max": 93.02996350237396,
+   "ee_mm_hold": 10.893752993537968,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0017303286392128087,
+    "shoulder_roll": -0.9214624426124847,
+    "shoulder_yaw": 0.0022937901987590795,
+    "elbow": 0.40771902445574276
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.11172761864375921,
+    "shoulder_roll": 28.709941774516622,
+    "shoulder_yaw": 0.8686640330211277,
+    "elbow": 4.371932013891886
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.00040323649107132527,
+    "shoulder_roll": 1.8622561933164763,
+    "shoulder_yaw": 1.0156647048998588,
+    "elbow": 0.05221798432066279
+   },
+   "base_v_max": 0.030944066901593768,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.993796269058926,
+     "ee_mm_max": 93.02996350237396
+    },
+    "유지": {
+     "err_deg_max": 0.9337161552294567,
+     "ee_mm_max": 11.040040435894559
+    },
+    "복귀": {
+     "err_deg_max": 7.69574609763473,
+     "ee_mm_max": 79.27316442449622
+    }
+   },
+   "static_wmt": 28.497
+  },
+  "shoulder_roll|1kg|cad_ri85": {
+   "name": "reach_shoulder_roll_1kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -0.027068086788937223,
+    "shoulder_roll": 28.467463423026715,
+    "shoulder_yaw": 0.028600436840474933,
+    "elbow": -4.311661172650365
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.006576600139039272,
+    "shoulder_roll": 8.968389247577996,
+    "shoulder_yaw": 2.886493071818323,
+    "elbow": 0.41475936309177425
+   },
+   "ee_mm_max": 92.78148877035116,
+   "ee_mm_hold": 10.893500165376453,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0017304655673434743,
+    "shoulder_roll": -0.921439299191133,
+    "shoulder_yaw": 0.002293873031834344,
+    "elbow": 0.40771506670043695
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.11111750856639743,
+    "shoulder_roll": 28.64272211494697,
+    "shoulder_yaw": 0.6672990238627172,
+    "elbow": 4.362438176044018
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.0003978773036487714,
+    "shoulder_roll": 1.8577635283343483,
+    "shoulder_yaw": 1.0128277504454801,
+    "elbow": 0.05219658586113144
+   },
+   "base_v_max": 0.030813823865243894,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 8.968389247577996,
+     "ee_mm_max": 92.78148877035116
+    },
+    "유지": {
+     "err_deg_max": 0.9288697667417615,
+     "ee_mm_max": 10.98601994291262
+    },
+    "복귀": {
+     "err_deg_max": 7.669397126697931,
+     "ee_mm_max": 79.00794208456483
+    }
+   },
+   "static_wmt": 28.497
+  },
+  "shoulder_roll|3kg|a2_doc": {
+   "name": "reach_shoulder_roll_3kg_a2_doc",
+   "tau_hold": {
+    "shoulder_pitch": -0.15890377877544373,
+    "shoulder_roll": 39.62172773448829,
+    "shoulder_yaw": 0.1609324075937124,
+    "elbow": -9.644035235860667
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.009077213856821567,
+    "shoulder_roll": 10.1460121321111,
+    "shoulder_yaw": 3.4176540330717624,
+    "elbow": 1.4246894025030157
+   },
+   "ee_mm_max": 105.84150836538163,
+   "ee_mm_hold": 33.8106257265547,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.00885114946137412,
+    "shoulder_roll": -2.7587049723779242,
+    "shoulder_yaw": -0.011855890979331877,
+    "elbow": 1.3749027147543393
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.16219446196583595,
+    "shoulder_roll": 40.51617344106464,
+    "shoulder_yaw": 1.038107232560565,
+    "elbow": 9.948070851081807
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.000613142877843886,
+    "shoulder_roll": 1.849328888030859,
+    "shoulder_yaw": 1.1979924247119789,
+    "elbow": 0.05246866660690899
+   },
+   "base_v_max": 0.041674725762512466,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 10.1460121321111,
+     "ee_mm_max": 105.84150836538163
+    },
+    "유지": {
+     "err_deg_max": 2.8360878113929964,
+     "ee_mm_max": 34.771837294866884
+    },
+    "복귀": {
+     "err_deg_max": 6.346332202596218,
+     "ee_mm_max": 64.90325937187997
+    }
+   },
+   "static_wmt": 39.767
+  },
+  "shoulder_roll|3kg|cad_ri85": {
+   "name": "reach_shoulder_roll_3kg_cad_ri85",
+   "tau_hold": {
+    "shoulder_pitch": -0.1588677985404205,
+    "shoulder_roll": 39.61750416648854,
+    "shoulder_yaw": 0.1608718308699353,
+    "elbow": -9.642817437111782
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.009085580898598301,
+    "shoulder_roll": 10.126759845752035,
+    "shoulder_yaw": 3.40557832635955,
+    "elbow": 1.421049104509541
+   },
+   "ee_mm_max": 105.67344690522862,
+   "ee_mm_hold": 33.80403082035084,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.008848725693725863,
+    "shoulder_roll": -2.7581604300541844,
+    "shoulder_yaw": -0.011845825003913858,
+    "elbow": 1.3746422920087047
+   },
+   "tau_max": {
+    "shoulder_pitch": 0.16136939832667702,
+    "shoulder_roll": 40.40156224154731,
+    "shoulder_yaw": 0.7869425124178744,
+    "elbow": 9.928902573876675
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.0005967642998066215,
+    "shoulder_roll": 1.8445428579926175,
+    "shoulder_yaw": 1.1946460812135877,
+    "elbow": 0.05208810921030938
+   },
+   "base_v_max": 0.041489524335033175,
+   "seg": {
+    "뻗기": {
+     "err_deg_max": 10.126759845752035,
+     "ee_mm_max": 105.67344690522862
+    },
+    "유지": {
+     "err_deg_max": 2.8233421111068497,
+     "ee_mm_max": 34.62961849288293
+    },
+    "복귀": {
+     "err_deg_max": 6.326322964985881,
+     "ee_mm_max": 64.72637026300778
+    }
+   },
+   "static_wmt": 39.767
+  }
+ },
+ "static_check": {
+  "p0": {
+   "tau_static": [
+    -2.3237632677092077,
+    0.15173496290564614,
+    -0.013065716777371589,
+    2.548793401882548
+   ],
+   "tau_static_drooped": [
+    -2.324766082095972,
+    0.15170188744659185,
+    -0.01308071806444859,
+    2.548860903769055
+   ],
+   "tau_sim_hold": [
+    -2.316798616405968,
+    0.15168872864726476,
+    -0.012907229747905442,
+    2.548506659166004
+   ],
+   "ee_droop_theory_mm": 0.0,
+   "ee_droop_sim_mm": 0.019972455600410218,
+   "q_droop_theory_deg": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "q_droop_sim_deg": [
+    -0.002389520750783328,
+    -7.92253921880122e-05,
+    -8.034136786807332e-05,
+    9.489083759133195e-05
+   ]
+  },
+  "p05": {
+   "tau_static": [
+    -3.573244681384903,
+    0.196075457405108,
+    -0.02028334839917359,
+    3.8095069206137464
+   ],
+   "tau_static_drooped": [
+    -3.4829558489921832,
+    0.19296253281302,
+    -0.019681211415323335,
+    3.7926613120447015
+   ],
+   "tau_sim_hold": [
+    -3.475279752054423,
+    0.19199667511843693,
+    -0.01989148562417103,
+    3.7917789358805036
+   ],
+   "ee_droop_theory_mm": 2.7749893844315947,
+   "ee_droop_sim_mm": 2.7488085876439947,
+   "q_droop_theory_deg": [
+    0.17897538690991643,
+    -0.007258652221139315,
+    0.0013784688569691108,
+    -0.24077902755267158
+   ],
+   "q_droop_sim_deg": [
+    0.17629219511827207,
+    -0.007304374697187605,
+    0.0013652406981034654,
+    -0.23963775153717748
+   ]
+  },
+  "p1": {
+   "tau_static": [
+    -4.8227285940284235,
+    0.2404160405857425,
+    -0.027500994456267733,
+    5.070222960777026
+   ],
+   "tau_static_drooped": [
+    -4.622008488454786,
+    0.23371811794362785,
+    -0.0262014812600658,
+    5.0254446816705824
+   ],
+   "tau_sim_hold": [
+    -4.608797843097233,
+    0.22990298230148667,
+    -0.02759280350270827,
+    5.021815190228931
+   ],
+   "ee_droop_theory_mm": 5.549978768863189,
+   "ee_droop_sim_mm": 5.489330009738061,
+   "q_droop_theory_deg": [
+    0.35795077381983287,
+    -0.01451730444227863,
+    0.0027569377139382216,
+    -0.48155805510534316
+   ],
+   "q_droop_sim_deg": [
+    0.3528550644448417,
+    -0.014341492549696098,
+    0.0029397124478008577,
+    -0.47692934578229107
+   ]
+  },
+  "p3": {
+   "tau_static": [
+    -9.820664244602506,
+    0.4177783733082592,
+    -0.056371578684644236,
+    10.113087121430143
+   ],
+   "tau_static_drooped": [
+    -8.985640241917023,
+    0.3913650709486305,
+    -0.05148497018186915,
+    9.845910947959382
+   ],
+   "tau_sim_hold": [
+    -8.838875606435403,
+    0.34288702170223906,
+    -0.07448877193186593,
+    9.762363751562784
+   ],
+   "ee_droop_theory_mm": 16.64993630658957,
+   "ee_droop_sim_mm": 16.223984757864358,
+   "q_droop_theory_deg": [
+    1.0738523214594986,
+    -0.04355191332683588,
+    0.008270813141814664,
+    -1.4446741653160293
+   ],
+   "q_droop_sim_deg": [
+    1.0451884794470385,
+    -0.042056005395370535,
+    0.010632171790593548,
+    -1.3988479272363648
+   ]
+  }
+ },
+ "lag_theory_deg": {
+  "shoulder_pitch": 1.116077621373442,
+  "shoulder_roll": 0.0555224995189324,
+  "shoulder_yaw": 0.035120318105566,
+  "elbow": 3.983618092095272
+ },
+ "qd_ref_max": [
+  0.2513448929134607,
+  0.01233336905235703,
+  0.012259303705798082,
+  1.8961977777021053
+ ],
+ "pick": [
+  0.2551,
+  0.2867,
+  0.7508
+ ],
+ "above": [
+  0.2551,
+  0.2867,
+  0.8508
+ ],
+ "segments": [
+  [
+   "대기",
+   0.0,
+   0.5
+  ],
+  [
+   "접근",
+   0.5,
+   2.0
+  ],
+  [
+   "하강",
+   2.0,
+   3.0
+  ],
+  [
+   "잡기",
+   3.0,
+   3.5
+  ],
+  [
+   "상승",
+   3.5,
+   4.5
+  ],
+  [
+   "복귀",
+   4.5,
+   6.0
+  ],
+  [
+   "정지",
+   6.0,
+   6.5
+  ]
+ ],
+ "ik": {
+  "above": {
+   "q": [
+    0.13188170106258293,
+    -0.009866695241885624,
+    0.009807442964638466,
+    1.5169582221616842
+   ],
+   "success": true,
+   "pos_err": 0.0005526611275641503,
+   "rot_err": 0.0,
+   "iters": 5,
+   "status": "converged",
+   "restarts_used": 0
+  },
+  "pick": {
+   "q": [
+    0.007426105968485927,
+    -0.006036550087965197,
+    0.010140510061454942,
+    1.0426077906082678
+   ],
+   "success": true,
+   "pos_err": 0.0006157315739449611,
+   "rot_err": 0.0,
+   "iters": 2,
+   "status": "converged",
+   "restarts_used": 0
+  },
+  "line_pos_err_max_mm": 0.6157315739449611,
+  "line_success": true,
+  "line_status": [
+   "converged"
+  ]
+ },
+ "runs": {
+  "p0": {
+   "name": "p0",
+   "tau_hold": {
+    "shoulder_pitch": -2.316798616405968,
+    "shoulder_roll": 0.15168872864726476,
+    "shoulder_yaw": -0.012907229747905442,
+    "elbow": 2.548506659166004
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0932002965681027,
+    "shoulder_roll": 0.0566309062514053,
+    "shoulder_yaw": 0.035881542664703676,
+    "elbow": 3.9442948728665135
+   },
+   "ee_mm_max": 15.868806457327342,
+   "ee_mm_hold": 0.019972455600410218,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.002389520750783328,
+    "shoulder_roll": -7.92253921880122e-05,
+    "shoulder_yaw": -8.034136786807332e-05,
+    "elbow": 9.489083759133195e-05
+   },
+   "tau_max": {
+    "shoulder_pitch": 2.3183882748240747,
+    "shoulder_roll": 0.25584935464498004,
+    "shoulder_yaw": 0.02075839339190469,
+    "elbow": 3.355014025230381
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24252659293175946,
+    "shoulder_roll": 0.012176252154529136,
+    "shoulder_yaw": 0.012164344316329213,
+    "elbow": 1.8934412125333782
+   },
+   "base_v_max": 0.004315822888055108,
+   "seg": {
+    "대기": {
+     "err_deg_max": 1.4843829271430385e-08,
+     "ee_mm_max": 1.4898564108187953e-07
+    },
+    "접근": {
+     "err_deg_max": 3.9442948728665135,
+     "ee_mm_max": 15.391369133362408
+    },
+    "하강": {
+     "err_deg_max": 1.8382305631053606,
+     "ee_mm_max": 5.9816207387217695
+    },
+    "잡기": {
+     "err_deg_max": 0.11225688940322363,
+     "ee_mm_max": 0.8826100110675122
+    },
+    "상승": {
+     "err_deg_max": 1.8445576939511208,
+     "ee_mm_max": 6.108696910042549
+    },
+    "복귀": {
+     "err_deg_max": 3.943374242235718,
+     "ee_mm_max": 15.868806457327342
+    },
+    "정지": {
+     "err_deg_max": 0.060809590827874,
+     "ee_mm_max": 0.5157497405438487
+    }
+   }
+  },
+  "p05": {
+   "name": "p05",
+   "tau_hold": {
+    "shoulder_pitch": -3.475279752054423,
+    "shoulder_roll": 0.19199667511843693,
+    "shoulder_yaw": -0.01989148562417103,
+    "elbow": 3.7917789358805036
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0932040044757672,
+    "shoulder_roll": 0.06375181231596155,
+    "shoulder_yaw": 0.03588118136743056,
+    "elbow": 3.9442947263889683
+   },
+   "ee_mm_max": 15.391364502114193,
+   "ee_mm_hold": 2.7488085876439947,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.17629219511827207,
+    "shoulder_roll": -0.007304374697187605,
+    "shoulder_yaw": 0.0013652406981034654,
+    "elbow": -0.23963775153717748
+   },
+   "tau_max": {
+    "shoulder_pitch": 3.6167118875295117,
+    "shoulder_roll": 0.2968145536810189,
+    "shoulder_yaw": 0.021529070331321516,
+    "elbow": 4.706600598138071
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24252623594695621,
+    "shoulder_roll": 0.012176244693561643,
+    "shoulder_yaw": 0.01219695094880347,
+    "elbow": 1.8934373640790199
+   },
+   "base_v_max": 0.0042122833921341,
+   "seg": {
+    "대기": {
+     "err_deg_max": 9.776739847364236e-05,
+     "ee_mm_max": 0.0010415366535915854
+    },
+    "접근": {
+     "err_deg_max": 3.9442947263889683,
+     "ee_mm_max": 15.391364502114193
+    },
+    "하강": {
+     "err_deg_max": 1.8382304363820243,
+     "ee_mm_max": 5.98162423055463
+    },
+    "잡기": {
+     "err_deg_max": 0.24698259817876075,
+     "ee_mm_max": 2.749869827219512
+    },
+    "상승": {
+     "err_deg_max": 2.1052744514181216,
+     "ee_mm_max": 7.085793253993928
+    },
+    "복귀": {
+     "err_deg_max": 3.753980277483125,
+     "ee_mm_max": 13.876194433159872
+    },
+    "정지": {
+     "err_deg_max": 0.08579190804738543,
+     "ee_mm_max": 0.8433873515820229
+    }
+   }
+  },
+  "p1": {
+   "name": "p1",
+   "tau_hold": {
+    "shoulder_pitch": -4.608797843097233,
+    "shoulder_roll": 0.22990298230148667,
+    "shoulder_yaw": -0.02759280350270827,
+    "elbow": 5.021815190228931
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0932076052651019,
+    "shoulder_roll": 0.07097379409320305,
+    "shoulder_yaw": 0.03588081680423599,
+    "elbow": 3.944294595632154
+   },
+   "ee_mm_max": 15.39136109797386,
+   "ee_mm_hold": 5.489330009738061,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.3528550644448417,
+    "shoulder_roll": -0.014341492549696098,
+    "shoulder_yaw": 0.0029397124478008577,
+    "elbow": -0.47692934578229107
+   },
+   "tau_max": {
+    "shoulder_pitch": 5.14459611356518,
+    "shoulder_roll": 0.337494951545681,
+    "shoulder_yaw": 0.029490591464854537,
+    "elbow": 6.049269330847698
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24252586356421812,
+    "shoulder_roll": 0.012176242518155292,
+    "shoulder_yaw": 0.012243409536963804,
+    "elbow": 1.8934374348647158
+   },
+   "base_v_max": 0.004894866265805405,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0002075055118600947,
+     "ee_mm_max": 0.0022129073837566827
+    },
+    "접근": {
+     "err_deg_max": 3.944294595632154,
+     "ee_mm_max": 15.39136109797386
+    },
+    "하강": {
+     "err_deg_max": 1.8382303060994183,
+     "ee_mm_max": 5.981627649453786
+    },
+    "잡기": {
+     "err_deg_max": 0.5068161390914822,
+     "ee_mm_max": 5.612160434883022
+    },
+    "상승": {
+     "err_deg_max": 2.364242098179459,
+     "ee_mm_max": 8.828244049570968
+    },
+    "복귀": {
+     "err_deg_max": 3.568986832669723,
+     "ee_mm_max": 11.971567055222986
+    },
+    "정지": {
+     "err_deg_max": 0.11022125674290707,
+     "ee_mm_max": 1.1660480017728552
+    }
+   }
+  },
+  "p3": {
+   "name": "p3",
+   "tau_hold": {
+    "shoulder_pitch": -8.838875606435403,
+    "shoulder_roll": 0.34288702170223906,
+    "shoulder_yaw": -0.07448877193186593,
+    "elbow": 9.762363751562784
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.3625135675945306,
+    "shoulder_roll": 0.10073186883275878,
+    "shoulder_yaw": 0.03587930542350434,
+    "elbow": 3.944294379889933
+   },
+   "ee_mm_max": 17.958741203459873,
+   "ee_mm_hold": 16.223984757864358,
+   "err_deg_hold": {
+    "shoulder_pitch": 1.0451884794470385,
+    "shoulder_roll": -0.042056005395370535,
+    "shoulder_yaw": 0.010632171790593548,
+    "elbow": -1.3988479272363648
+   },
+   "tau_max": {
+    "shoulder_pitch": 11.546208169354161,
+    "shoulder_roll": 0.642810265330152,
+    "shoulder_yaw": 0.11334500230184222,
+    "elbow": 11.342185368183829
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24252426229311702,
+    "shoulder_roll": 0.012176278402856218,
+    "shoulder_yaw": 0.0125521419534996,
+    "elbow": 1.8934377859522122
+   },
+   "base_v_max": 0.010899120849442112,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0007387473709109645,
+     "ee_mm_max": 0.007894735703338061
+    },
+    "접근": {
+     "err_deg_max": 3.944294379889933,
+     "ee_mm_max": 15.391364889392777
+    },
+    "하강": {
+     "err_deg_max": 1.8382298492687796,
+     "ee_mm_max": 5.981641073581265
+    },
+    "잡기": {
+     "err_deg_max": 1.6016047776317486,
+     "ee_mm_max": 17.94395403192437
+    },
+    "상승": {
+     "err_deg_max": 3.3823397574133915,
+     "ee_mm_max": 17.958741203459873
+    },
+    "복귀": {
+     "err_deg_max": 2.8780842863284737,
+     "ee_mm_max": 14.69487763424749
+    },
+    "정지": {
+     "err_deg_max": 0.20211988696257932,
+     "ee_mm_max": 2.386820262052553
+    }
+   }
+  },
+  "p1_ff": {
+   "name": "p1_ff",
+   "tau_hold": {
+    "shoulder_pitch": -4.816874714504641,
+    "shoulder_roll": 0.2407364090753788,
+    "shoulder_yaw": -0.02714091109821515,
+    "elbow": 5.070393389481111
+   },
+   "payload": 1.0,
+   "ff": true,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0932071627658413,
+    "shoulder_roll": 0.05942746136670828,
+    "shoulder_yaw": 0.035880914644764235,
+    "elbow": 3.9533718547676253
+   },
+   "ee_mm_max": 16.411715021476468,
+   "ee_mm_hold": 0.02489920860962056,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0029578820861657857,
+    "shoulder_roll": -0.00030712964252365587,
+    "shoulder_yaw": -0.00020264786487642823,
+    "elbow": 1.890420572371263e-05
+   },
+   "tau_max": {
+    "shoulder_pitch": 4.817709177546053,
+    "shoulder_roll": 0.3445636929946103,
+    "shoulder_yaw": 0.03093477607904363,
+    "elbow": 6.094590571968259
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.2425258373264762,
+    "shoulder_roll": 0.012176186988698334,
+    "shoulder_yaw": 0.012167077693112021,
+    "elbow": 1.8967329261077153
+   },
+   "base_v_max": 0.004198593889270529,
+   "seg": {
+    "대기": {
+     "err_deg_max": 1.3451495228079635e-15,
+     "ee_mm_max": 1.674213559807328e-18
+    },
+    "접근": {
+     "err_deg_max": 3.9442943011239864,
+     "ee_mm_max": 15.391359356414847
+    },
+    "하강": {
+     "err_deg_max": 1.8382308405713024,
+     "ee_mm_max": 5.981629320406505
+    },
+    "잡기": {
+     "err_deg_max": 0.11223655463079502,
+     "ee_mm_max": 0.8824783787936255
+    },
+    "상승": {
+     "err_deg_max": 1.85405323541006,
+     "ee_mm_max": 6.117034106805826
+    },
+    "복귀": {
+     "err_deg_max": 3.9533718547676253,
+     "ee_mm_max": 16.411715021476468
+    },
+    "정지": {
+     "err_deg_max": 0.11294070824153071,
+     "ee_mm_max": 1.194903988183786
+    }
+   }
+  },
+  "p1_kp2": {
+   "name": "p1_kp2",
+   "tau_hold": {
+    "shoulder_pitch": -4.713523641094736,
+    "shoulder_roll": 0.23667972605246176,
+    "shoulder_yaw": -0.0268296645655991,
+    "elbow": 5.046999810828238
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     800.0,
+     43.84062043356595
+    ],
+    "shoulder_roll": [
+     700.0,
+     38.890872965260115
+    ],
+    "shoulder_yaw": [
+     600.0,
+     21.213203435596427
+    ],
+    "elbow": [
+     600.0,
+     15.556349186104047
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.7677119025579519,
+    "shoulder_roll": 0.046579013222701,
+    "shoulder_yaw": 0.024576945703008602,
+    "elbow": 2.689550737175854
+   },
+   "ee_mm_max": 10.679466885995616,
+   "ee_mm_hold": 2.753154376400643,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.1768239394684187,
+    "shoulder_roll": -0.0071508990621289605,
+    "shoulder_yaw": 0.001387981343861807,
+    "elbow": -0.23960841001479927
+   },
+   "tau_max": {
+    "shoulder_pitch": 5.281713286103467,
+    "shoulder_roll": 0.3407014817842447,
+    "shoulder_yaw": 0.031077919776177514,
+    "elbow": 6.1056944577278305
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.2471330866846634,
+    "shoulder_roll": 0.012248142606291161,
+    "shoulder_yaw": 0.012228128183584597,
+    "elbow": 1.8950379146455807
+   },
+   "base_v_max": 0.004458486122723839,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.00010739092964128699,
+     "ee_mm_max": 0.0011736403523179
+    },
+    "접근": {
+     "err_deg_max": 2.689550737175854,
+     "ee_mm_max": 10.679466885995616
+    },
+    "하강": {
+     "err_deg_max": 1.2557888459054218,
+     "ee_mm_max": 4.193351248060324
+    },
+    "잡기": {
+     "err_deg_max": 0.25611333891407584,
+     "ee_mm_max": 2.8274278370997545
+    },
+    "상승": {
+     "err_deg_max": 1.5222011950065455,
+     "ee_mm_max": 5.437456607803624
+    },
+    "복귀": {
+     "err_deg_max": 2.5038606273607082,
+     "ee_mm_max": 9.018364133857089
+    },
+    "정지": {
+     "err_deg_max": 0.04190966547421477,
+     "ee_mm_max": 0.453779404970794
+    }
+   }
+  },
+  "p1_velff": {
+   "name": "p1_velff",
+   "tau_hold": {
+    "shoulder_pitch": -4.608372668935859,
+    "shoulder_roll": 0.2289932296936131,
+    "shoulder_yaw": -0.028073186266574006,
+    "elbow": 5.020897434286316
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": true,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.39905116842373,
+    "shoulder_roll": 0.017853954653901574,
+    "shoulder_yaw": 0.0036120616401497893,
+    "elbow": 0.5743283633282765
+   },
+   "ee_mm_max": 5.783701651075854,
+   "ee_mm_hold": 5.50385111653347,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.35460700589196437,
+    "shoulder_roll": -0.01405081156163555,
+    "shoulder_yaw": 0.0031440913527981612,
+    "elbow": -0.47682092610826277
+   },
+   "tau_max": {
+    "shoulder_pitch": 5.373831282495041,
+    "shoulder_roll": 0.34079424379375667,
+    "shoulder_yaw": 0.030870066315667202,
+    "elbow": 6.067622040896704
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.25778840504643724,
+    "shoulder_roll": 0.01248604905332529,
+    "shoulder_yaw": 0.012385905167022955,
+    "elbow": 1.9024310155038688
+   },
+   "base_v_max": 0.004938023648852859,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0002075055118600947,
+     "ee_mm_max": 0.0022129073837566827
+    },
+    "접근": {
+     "err_deg_max": 0.12205850603373086,
+     "ee_mm_max": 1.386875756949094
+    },
+    "하강": {
+     "err_deg_max": 0.07998086057452955,
+     "ee_mm_max": 0.4482873348353926
+    },
+    "잡기": {
+     "err_deg_max": 0.5155267098760647,
+     "ee_mm_max": 5.7126345360023
+    },
+    "상승": {
+     "err_deg_max": 0.5743283633282765,
+     "ee_mm_max": 5.783701651075854
+    },
+    "복귀": {
+     "err_deg_max": 0.5332605047211232,
+     "ee_mm_max": 5.106100115988526
+    },
+    "정지": {
+     "err_deg_max": 0.055581035124336195,
+     "ee_mm_max": 0.8089377827597319
+    }
+   }
+  },
+  "p1_ff_velff": {
+   "name": "p1_ff_velff",
+   "tau_hold": {
+    "shoulder_pitch": -4.816569413262777,
+    "shoulder_roll": 0.2397809578414527,
+    "shoulder_yaw": -0.027644672249319654,
+    "elbow": 5.069480755299142
+   },
+   "payload": 1.0,
+   "ff": true,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": true,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 0.10557235442003675,
+    "shoulder_roll": 0.0051911728396233005,
+    "shoulder_yaw": 0.004308275248221761,
+    "elbow": 0.1716902576836459
+   },
+   "ee_mm_max": 2.002636202277227,
+   "ee_mm_hold": 0.00915555081823476,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.0011444640073548919,
+    "shoulder_roll": -5.4841645261193954e-06,
+    "shoulder_yaw": 1.0422816305183614e-05,
+    "elbow": 0.00010362257269005524
+   },
+   "tau_max": {
+    "shoulder_pitch": 4.839950346096433,
+    "shoulder_roll": 0.3478454163799765,
+    "shoulder_yaw": 0.03218743898937474,
+    "elbow": 6.111347797937432
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.25772509639844315,
+    "shoulder_roll": 0.012485980881979303,
+    "shoulder_yaw": 0.012312681346829118,
+    "elbow": 1.9056720392066424
+   },
+   "base_v_max": 0.0046551424827570315,
+   "seg": {
+    "대기": {
+     "err_deg_max": 1.3451495228079635e-15,
+     "ee_mm_max": 1.674213559807328e-18
+    },
+    "접근": {
+     "err_deg_max": 0.12205905420330983,
+     "ee_mm_max": 1.386872699898454
+    },
+    "하강": {
+     "err_deg_max": 0.07998042025579145,
+     "ee_mm_max": 0.4482866282826358
+    },
+    "잡기": {
+     "err_deg_max": 0.05720937267088845,
+     "ee_mm_max": 0.4098167890373979
+    },
+    "상승": {
+     "err_deg_max": 0.10271866344526255,
+     "ee_mm_max": 0.48582841311859387
+    },
+    "복귀": {
+     "err_deg_max": 0.1716902576836459,
+     "ee_mm_max": 2.002636202277227
+    },
+    "정지": {
+     "err_deg_max": 0.058845838936271905,
+     "ee_mm_max": 0.8470563659593798
+    }
+   }
+  },
+  "p1_base": {
+   "name": "p1_base",
+   "tau_hold": {
+    "shoulder_pitch": -4.557564862622495,
+    "shoulder_roll": 0.229911511632539,
+    "shoulder_yaw": -0.026881924664964914,
+    "elbow": 5.016406786107899
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": true,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0353999191564354,
+    "shoulder_roll": 0.05278990654166627,
+    "shoulder_yaw": 0.04615446730321504,
+    "elbow": 3.9495961837753772
+   },
+   "ee_mm_max": 16.11804112835658,
+   "ee_mm_hold": 5.406938540098744,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.34293621602635804,
+    "shoulder_roll": -0.014335732750240505,
+    "shoulder_yaw": 0.0027749019686568,
+    "elbow": -0.47572344842438885
+   },
+   "tau_max": {
+    "shoulder_pitch": 5.036488066545216,
+    "shoulder_roll": 0.48314482925932933,
+    "shoulder_yaw": 0.36048169306983197,
+    "elbow": 6.047687513261556
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.240757817468791,
+    "shoulder_roll": 0.014410581544271397,
+    "shoulder_yaw": 0.016420687259490776,
+    "elbow": 1.8937800109698755
+   },
+   "base_v_max": 0.2937364057676966,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0002075055118600947,
+     "ee_mm_max": 0.0022129073837566827
+    },
+    "접근": {
+     "err_deg_max": 3.9495961837753772,
+     "ee_mm_max": 16.11804112835658
+    },
+    "하강": {
+     "err_deg_max": 1.8421403172577229,
+     "ee_mm_max": 6.13539322053614
+    },
+    "잡기": {
+     "err_deg_max": 0.50434570577119,
+     "ee_mm_max": 5.483517955324128
+    },
+    "상승": {
+     "err_deg_max": 2.3640337423658115,
+     "ee_mm_max": 8.732821821749399
+    },
+    "복귀": {
+     "err_deg_max": 3.5701798948573824,
+     "ee_mm_max": 12.075087893445497
+    },
+    "정지": {
+     "err_deg_max": 0.1086101615809192,
+     "ee_mm_max": 1.142965836684988
+    }
+   }
+  },
+  "p1_w05": {
+   "name": "p1_w05",
+   "tau_hold": {
+    "shoulder_pitch": -4.569712544659235,
+    "shoulder_roll": 0.23120248761420661,
+    "shoulder_yaw": -0.026531647629956565,
+    "elbow": 5.019412164985191
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "a2_doc",
+   "base": false,
+   "vel_ff": false,
+   "gains": "week05",
+   "err_deg_max": {
+    "shoulder_pitch": 1.412118648783235,
+    "shoulder_roll": 0.10288766944670048,
+    "shoulder_yaw": 0.039800007690425486,
+    "elbow": 5.132898281668747
+   },
+   "ee_mm_max": 19.78466104655685,
+   "ee_mm_hold": 6.503298576991143,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.46730716139829465,
+    "shoulder_roll": -0.017055167495368596,
+    "shoulder_yaw": 0.0027444021452918297,
+    "elbow": -0.47781638557454453
+   },
+   "tau_max": {
+    "shoulder_pitch": 4.887103947725096,
+    "shoulder_roll": 0.3354898728687589,
+    "shoulder_yaw": 0.030488452122568586,
+    "elbow": 6.060259172882116
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.23522171172435286,
+    "shoulder_roll": 0.011826211239415626,
+    "shoulder_yaw": 0.012240050849322281,
+    "elbow": 1.887113134619071
+   },
+   "base_v_max": 0.004580692394683196,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0001511062299451348,
+     "ee_mm_max": 0.0016287583062104894
+    },
+    "접근": {
+     "err_deg_max": 5.132898281668747,
+     "ee_mm_max": 19.78466104655685
+    },
+    "하강": {
+     "err_deg_max": 2.382944157853694,
+     "ee_mm_max": 7.639393310118277
+    },
+    "잡기": {
+     "err_deg_max": 0.4870091315604386,
+     "ee_mm_max": 6.507413467408501
+    },
+    "상승": {
+     "err_deg_max": 2.907358411009642,
+     "ee_mm_max": 10.614799452616355
+    },
+    "복귀": {
+     "err_deg_max": 4.754228124217782,
+     "ee_mm_max": 15.714064370686703
+    },
+    "정지": {
+     "err_deg_max": 0.19825855349754187,
+     "ee_mm_max": 1.7757558914926148
+    }
+   }
+  },
+  "ri85_p0": {
+   "name": "ri85_p0",
+   "tau_hold": {
+    "shoulder_pitch": -2.315539537608087,
+    "shoulder_roll": 0.15171278999762258,
+    "shoulder_yaw": -0.012860236082249853,
+    "elbow": 2.548405063596815
+   },
+   "payload": 0.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0867274771189226,
+    "shoulder_roll": 0.0564972182409177,
+    "shoulder_yaw": 0.03581024086956819,
+    "elbow": 3.944308650083115
+   },
+   "ee_mm_max": 15.895710412620861,
+   "ee_mm_hold": 0.020156400136077904,
+   "err_deg_hold": {
+    "shoulder_pitch": -0.002398104123276604,
+    "shoulder_roll": -7.827202536608518e-05,
+    "shoulder_yaw": -8.93355795407911e-05,
+    "elbow": 0.0001289749555920116
+   },
+   "tau_max": {
+    "shoulder_pitch": 2.318200012326359,
+    "shoulder_roll": 0.25584935357396016,
+    "shoulder_yaw": 0.021272847573258754,
+    "elbow": 3.355984802038587
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24150244450534814,
+    "shoulder_roll": 0.012146934770266229,
+    "shoulder_yaw": 0.012129423462205607,
+    "elbow": 1.8934429197843554
+   },
+   "base_v_max": 0.004277646737196467,
+   "seg": {
+    "대기": {
+     "err_deg_max": 1.465490494993211e-08,
+     "ee_mm_max": 1.4708942599738408e-07
+    },
+    "접근": {
+     "err_deg_max": 3.944308650083115,
+     "ee_mm_max": 15.407781693211161
+    },
+    "하강": {
+     "err_deg_max": 1.838321093538805,
+     "ee_mm_max": 5.984890956885268
+    },
+    "잡기": {
+     "err_deg_max": 0.12642323883516712,
+     "ee_mm_max": 1.0108980485110428
+    },
+    "상승": {
+     "err_deg_max": 1.8446820239706594,
+     "ee_mm_max": 6.102153064107609
+    },
+    "복귀": {
+     "err_deg_max": 3.943389030141029,
+     "ee_mm_max": 15.895710412620861
+    },
+    "정지": {
+     "err_deg_max": 0.06459184627665816,
+     "ee_mm_max": 0.5557959888409821
+    }
+   }
+  },
+  "ri85_p05": {
+   "name": "ri85_p05",
+   "tau_hold": {
+    "shoulder_pitch": -3.4754029121746117,
+    "shoulder_roll": 0.19231991629690204,
+    "shoulder_yaw": -0.01974828433942894,
+    "elbow": 3.7919431205186633
+   },
+   "payload": 0.5,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.0867312281347732,
+    "shoulder_roll": 0.06363555753780235,
+    "shoulder_yaw": 0.03580986181884938,
+    "elbow": 3.9443085100542334
+   },
+   "ee_mm_max": 15.407777768188403,
+   "ee_mm_hold": 2.745360726307539,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.17592259933290408,
+    "shoulder_roll": -0.007293138959660677,
+    "shoulder_yaw": 0.0013389662346770062,
+    "elbow": -0.2396118899396316
+   },
+   "tau_max": {
+    "shoulder_pitch": 3.6015775527214817,
+    "shoulder_roll": 0.2965218122775521,
+    "shoulder_yaw": 0.021864369159490235,
+    "elbow": 4.708210246836255
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.2415020990911396,
+    "shoulder_roll": 0.012146927151486004,
+    "shoulder_yaw": 0.012160473464468616,
+    "elbow": 1.8934390304382342
+   },
+   "base_v_max": 0.004169552680585827,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.00010393185767631034,
+     "ee_mm_max": 0.001105854304921758
+    },
+    "접근": {
+     "err_deg_max": 3.9443085100542334,
+     "ee_mm_max": 15.407777768188403
+    },
+    "하강": {
+     "err_deg_max": 1.8383209780991863,
+     "ee_mm_max": 5.984893533711788
+    },
+    "잡기": {
+     "err_deg_max": 0.2474761374243295,
+     "ee_mm_max": 2.7495880542086297
+    },
+    "상승": {
+     "err_deg_max": 2.105470305742711,
+     "ee_mm_max": 7.092466401527473
+    },
+    "복귀": {
+     "err_deg_max": 3.7539932419136908,
+     "ee_mm_max": 13.901732371525986
+    },
+    "정지": {
+     "err_deg_max": 0.08950205733323852,
+     "ee_mm_max": 0.88289011714445
+    }
+   }
+  },
+  "ri85_p1": {
+   "name": "ri85_p1",
+   "tau_hold": {
+    "shoulder_pitch": -4.611681361897994,
+    "shoulder_roll": 0.2308176093667181,
+    "shoulder_yaw": -0.027193762768801664,
+    "elbow": 5.0226518600595735
+   },
+   "payload": 1.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.086734857477769,
+    "shoulder_roll": 0.07087189356641335,
+    "shoulder_yaw": 0.03580948003927525,
+    "elbow": 3.944308382690715
+   },
+   "ee_mm_max": 15.407774986992699,
+   "ee_mm_hold": 5.481713011656455,
+   "err_deg_hold": {
+    "shoulder_pitch": 0.3520319067645027,
+    "shoulder_roll": -0.014305268897495612,
+    "shoulder_yaw": 0.0028823548063616313,
+    "elbow": -0.4769088524903952
+   },
+   "tau_max": {
+    "shoulder_pitch": 5.1239687563122445,
+    "shoulder_roll": 0.33708963008396764,
+    "shoulder_yaw": 0.03127880153753164,
+    "elbow": 6.051430076364998
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24150173198280053,
+    "shoulder_roll": 0.01214692515638424,
+    "shoulder_yaw": 0.012204946763677926,
+    "elbow": 1.8934390990603485
+   },
+   "base_v_max": 0.004889676851853856,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.00021985356689550344,
+     "ee_mm_max": 0.0023408175415563313
+    },
+    "접근": {
+     "err_deg_max": 3.944308382690715,
+     "ee_mm_max": 15.407774986992699
+    },
+    "하강": {
+     "err_deg_max": 1.8383208580566177,
+     "ee_mm_max": 5.984896081614215
+    },
+    "잡기": {
+     "err_deg_max": 0.5085771018493918,
+     "ee_mm_max": 5.585406576027099
+    },
+    "상승": {
+     "err_deg_max": 2.3645148778051337,
+     "ee_mm_max": 8.831920352426541
+    },
+    "복귀": {
+     "err_deg_max": 3.5689974697073854,
+     "ee_mm_max": 11.995487669909068
+    },
+    "정지": {
+     "err_deg_max": 0.11386881826757392,
+     "ee_mm_max": 1.2049996543994381
+    }
+   }
+  },
+  "ri85_p3": {
+   "name": "ri85_p3",
+   "tau_hold": {
+    "shoulder_pitch": -8.846549439814009,
+    "shoulder_roll": 0.3443108128881795,
+    "shoulder_yaw": -0.07253785724692868,
+    "elbow": 9.760732067417631
+   },
+   "payload": 3.0,
+   "ff": false,
+   "case": "cad_ri85",
+   "base": false,
+   "vel_ff": false,
+   "gains": {
+    "shoulder_pitch": [
+     400.0,
+     31.0
+    ],
+    "shoulder_roll": [
+     350.0,
+     27.5
+    ],
+    "shoulder_yaw": [
+     300.0,
+     15.0
+    ],
+    "elbow": [
+     300.0,
+     11.0
+    ]
+   },
+   "err_deg_max": {
+    "shoulder_pitch": 1.3584323206624593,
+    "shoulder_roll": 0.10065453231543059,
+    "shoulder_yaw": 0.035807905837414576,
+    "elbow": 3.944308137397744
+   },
+   "ee_mm_max": 17.98366610371997,
+   "ee_mm_hold": 16.163982047844023,
+   "err_deg_hold": {
+    "shoulder_pitch": 1.0396274154056724,
+    "shoulder_roll": -0.04120598331932042,
+    "shoulder_yaw": 0.01068741046523692,
+    "elbow": -1.39703267364197
+   },
+   "tau_max": {
+    "shoulder_pitch": 11.493242458795807,
+    "shoulder_roll": 0.6513241631132496,
+    "shoulder_yaw": 0.11994649704132507,
+    "elbow": 11.360079928865833
+   },
+   "vel_max": {
+    "shoulder_pitch": 0.24150017892849024,
+    "shoulder_roll": 0.012146958767844987,
+    "shoulder_yaw": 0.012505646523448575,
+    "elbow": 1.8934394388846865
+   },
+   "base_v_max": 0.010980184877700468,
+   "seg": {
+    "대기": {
+     "err_deg_max": 0.0007740514661206232,
+     "ee_mm_max": 0.00826274945406395
+    },
+    "접근": {
+     "err_deg_max": 3.944308137397744,
+     "ee_mm_max": 15.407779724540257
+    },
+    "하강": {
+     "err_deg_max": 1.8383203855837948,
+     "ee_mm_max": 5.984907211867773
+    },
+    "잡기": {
+     "err_deg_max": 1.6101574632588058,
+     "ee_mm_max": 17.901607113512974
+    },
+    "상승": {
+     "err_deg_max": 3.382886582026042,
+     "ee_mm_max": 17.98366610371997
+    },
+    "복귀": {
+     "err_deg_max": 2.8780758797326227,
+     "ee_mm_max": 14.667257929314445
+    },
+    "정지": {
+     "err_deg_max": 0.20559071203673127,
+     "ee_mm_max": 2.4243712325217652
+    }
+   }
+  }
+ },
+ "gains": {
+  "shoulder_pitch": [
+   400.0,
+   31.0
+  ],
+  "shoulder_roll": [
+   350.0,
+   27.5
+  ],
+  "shoulder_yaw": [
+   300.0,
+   15.0
+  ],
+  "elbow": [
+   300.0,
+   11.0
+  ]
+ },
+ "vel_limit": 3.0
+}

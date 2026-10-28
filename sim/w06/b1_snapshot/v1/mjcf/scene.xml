@@ -1,0 +1,18 @@
+<!-- 환경만 (바닥 · 조명 · option). 실행: python -m mujoco.viewer --mjcf=scene.xml (한글 경로면 scripts/v1_mjio.py) -->
+<mujoco model="b1_v1_scene">
+  <include file="b1.xml"/>
+  <option timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81"/>
+  <visual>
+    <headlight diffuse="0.7 0.7 0.7" ambient="0.35 0.35 0.35" specular="0.1 0.1 0.1"/>
+    <global azimuth="150" elevation="-15" offwidth="1280" offheight="960"/>
+  </visual>
+  <asset>
+    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.92 0.94 0.97" rgb2="0.75 0.80 0.88" width="256" height="256"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.82 0.84 0.86" rgb2="0.72 0.74 0.76" width="300" height="300"/>
+    <material name="grid" texture="grid" texrepeat="8 8" reflectance="0.05"/>
+  </asset>
+  <worldbody>
+    <light pos="1.5 -1.5 3" dir="-0.5 0.5 -1" directional="true"/>
+    <geom name="floor" type="plane" size="5 5 0.05" material="grid" group="2"/>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,68 @@
+{
+ "_note": "MJCF 덧붙이기 파라미터 (week05 커리큘럼: 함태훈 담당). 값 = B1 공용 가정값 v0.1 C4 · C5(팀장 10/16) 유지, 근거 · 검증은 함태훈 저장소 sim/v1/results/actuator_table.md · armature_study.md · validate_123.md. build_v1.py 가 URDF 재생성 후에도 이 파일을 다시 읽어 b1.xml 에 덧붙인다",
+ "owner": "함태훈 (10/17 근거 기입, 초기값 박종진)",
+ "classes": {
+  "shoulder": {
+   "joints": [
+    "shoulder_pitch",
+    "shoulder_roll",
+    "shoulder_yaw"
+   ],
+   "kp": 300.0,
+   "dampratio": 1.0,
+   "forcerange": 100.0,
+   "armature": 0.0,
+   "damping": 0.5,
+   "frictionloss": 0.0,
+   "source": "kp 300 = C5. dampratio 1 → 컴파일 kv = 2√(kp·I_eff), I_eff = 1/(M⁻¹)ᵢᵢ(qpos0, 베이스 포함 전 자유도 자유) → pitch 20.53 · roll 28.06 · yaw 4.25. 다른 관절을 서보로 붙잡은 실제 운용 감쇠비 ζ_hold = kv/(2√(kp·Mᵢᵢ)) = pitch 0.64 · roll 0.94 · yaw 0.99 → 계단 0.2 rad 오버슈트 3.6 · 0.1 · 0 %, 정착 0.32 · 0.27 · 0.04 s. kp 300 은 수평 자세 처짐 τg/kp = 4.85°(pitch) → 0.5° 기준은 중력보상 필수(보상 없이 맞추려면 kp ≈ 2,900). forcerange 100 = effort 피크(C4, 요청서 §3) → 포화 오차 19.1°. armature 0 = RI85 사양(A2) 대기 — 수령 시 armature = J_rotor · N² (출력축 반사관성). damping 0.5 · frictionloss 0 = C4 가정"
+  },
+  "elbow": {
+   "joints": [
+    "elbow"
+   ],
+   "kp": 300.0,
+   "dampratio": 1.0,
+   "forcerange": 100.0,
+   "armature": 0.0,
+   "damping": 0.5,
+   "frictionloss": 0.0,
+   "source": "같은 RI85 · 같은 C4 · C5. kv 6.24, ζ_hold 0.73, 오버슈트 1.6 %, 정착 0.06 s, 수평 처짐 0.57°. armature 들어오면 가장 가벼운 관절군(yaw · elbow)의 ω_n 이 가장 크게 내려감(armature_study.md)"
+  }
+ },
+ "base": {
+  "vx_kv": 200.0,
+  "vy_kv": 200.0,
+  "wz_kv": 50.0,
+  "v_max": 1.5,
+  "w_max": 1.5708,
+  "lin_forcerange": 2000.0,
+  "yaw_forcerange": 500.0,
+  "source": "week03 계단응답 · 기획서 1.5 m/s · 90 °/s"
+ },
+ "sensors": {
+  "joint": [
+   "jointpos",
+   "jointvel",
+   "actuatorfrc"
+  ],
+  "imu_site": "base_imu",
+  "ee_sites": [
+   "left_ee",
+   "right_ee"
+  ]
+ },
+ "recommend_week06": {
+  "_note": "함태훈 제안 — build_v1.py 반영 여부는 박종진과 합의 (값 변경 아님)",
+  "gravcomp": "팔 body gravcomp=1 + joint actuatorgravcomp=true 를 기본 옵션으로 — 목표 오프셋 방식(ctrl = q* + τg/kp)은 ctrlrange(= 관절 범위, inheritrange)에서 잘려 roll 상한 1.5 rad 자세에서 4.33° 처짐이 그대로 남음",
+  "sensor": "토크 예산(6주차)용 jointactuatorfrc 센서 8개 추가 — actuatorfrc 는 actuatorgravcomp 보상분을 포함하지 않음",
+  "kv_fixed": "6주차 kv 고정 튜닝 시 pitch Mᵢᵢ 가 자세에 따라 0.049~0.849 kg·m² (17배) 변함 → 고정 kv 면 ζ 0.64~2.68. dampratio 유지 또는 자세별 확인"
+ },
+ "gravcomp": {
+  "enable": true,
+  "_note": "함태훈 제안(10/17) 중력보상 B: 팔 body gravcomp=1 + joint actuatorgravcomp=true → 보상 토크가 actuator 쪽(qfrc_actuator)으로 들어가 ctrlrange 클리핑과 무관, 합은 actuatorfrcrange(±100)로 제한. 켜면 jointactuatorfrc 센서 8개 추가(actuatorfrc는 보상분 미포함). week05 제출본은 꺼 둠(검증 수치 기준 유지) → week06에서 켬 · (10/27 week06) enable = true — 함태훈 제안 반영(박종진), 검증 ②의 '보상 없음 · A' 는 validate_model.py가 gravcomp를 뺀 모델로 따로 계산"
+ },
+ "a2": {
+  "case": "a2_doc",
+  "_note": "(10/27 week06, 박종진 → 함태훈 확인 요청) inputs/a2_actuators.json case 선택. classes의 armature · forcerange 값은 빌드 시 case 값으로 덮어씀(이 파일 값 = A2 이전 가정, 비교용으로 남김). 어깨 TQ/RI85 팀장 확인 후 case 확정"
+ }
+}

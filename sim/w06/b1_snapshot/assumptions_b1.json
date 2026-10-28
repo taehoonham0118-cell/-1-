@@ -1,0 +1,120 @@
+{
+ "_note": "가정값 — 근거와 확정 시 교체 항목은 b1/models/assumptions-v0.md",
+ "version": "v0.3",
+ "date": "2026-10-19",
+ "actuator": {
+  "model": "RI85 (제작건)",
+  "effort_peak": 100.0,
+  "velocity": 3.0,
+  "damping": 0.5,
+  "friction": 0.0,
+  "armature": 0.0,
+  "_note": "effort = 피크(시뮬 힘 제한). PDR 토크 여유 판정은 정격 기준(정격 ≥ 정적 필요 토크 × 1.2), 피크는 가속분 별도"
+ },
+ "limits": {
+  "shoulder_pitch": [
+   -3.0,
+   3.0
+  ],
+  "shoulder_roll": [
+   -0.28,
+   1.5
+  ],
+  "shoulder_yaw": [
+   -2.5,
+   2.5
+  ],
+  "elbow": [
+   -1.83,
+   1.83
+  ],
+  "_note": "충돌 스윕(convex hull, 1°) 근거. shoulder_roll 하한 −0.28은 몸통 폭 150 mm 가정(torso.box_y)에 종속 — 몸통 설계 확정 시 재스윕"
+ },
+ "base": {
+  "plate_xy": [
+   0.576,
+   0.472
+  ],
+  "plate_t": 0.012,
+  "plate_top_z": 0.4,
+  "clearance_z": 0.05,
+  "mass_lower": 30.0,
+  "mass_plate": 3.69,
+  "_note": "C3 평면 3-DOF 채택(10/16): URDF planar 1개, Isaac Sim 이식 시 slide x · slide y · revolute z 3관절로 분해. 상판 3.69 kg = 별도 링크(base_plate_link, fixed) — v1 재생성부터. v0는 base_link 안에서 하체 box와 합성(질량 · COM 동일)",
+  "plate_separate_link": true
+ },
+ "torso": {
+  "shoulder_z": 1.2,
+  "box_x": 0.12,
+  "box_y": 0.15,
+  "box_top_above_shoulder": 0.05,
+  "box_mass": 8.0
+ },
+ "mesh": {
+  "visual_max_faces": 20000
+ },
+ "control": {
+  "kp": 300.0,
+  "dampratio": 1.0,
+  "base_kv": 200.0,
+  "base_vxy": 1.5,
+  "base_wz": 1.5708,
+  "_note": "position 액추에이터 kp + dampratio 1 (MuJoCo가 컴파일 시 관성으로 kv 계산). kv를 고정값으로 쓸 경우 v1에서 관성이 바뀌면 재튜닝 필요"
+ },
+ "cad_to_base": {
+  "_note": "CAD 프레임 → 로봇 좌표(REP 103: +x 전방, +y 좌, +z 상) 고정 변환 하나. p_torso = R·(p_cad − c)/1000, torso_link 원점 = 어깨 J1축 중심(바닥에서 torso.shoulder_z). +z_CAD = 전방은 가정(팀장 10/14: 가정 유지, 축 직접 사용 금지) — 바뀌면 R만 교체. 좌/우 = 변환 후 y 부호",
+  "R": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "c_mm": [
+   -118.15,
+   0,
+   0
+  ]
+ },
+ "zero_pose": {
+  "_note": "팀장 10/14: 영점 = 팔 내린 자세 + 팔꿈치 전방 굽힘. CAD 자세와의 차이는 shoulder_yaw joint origin rpy로 흡수 (left −90°, right +90° 거울)",
+  "left_shoulder_yaw_origin_yaw_rad": -1.5707963267948966
+ },
+ "density_kg_m3": {
+  "_note": "함태훈 3종 (FreeCAD 재질 지정). sun adapter · planet carrier = Al (10/14 합의). 토크 여유 판정은 강 상한(38.4 N·m)으로 보수적으로 유지",
+  "aluminum": 2700,
+  "steel": 7850,
+  "pcb": 1850
+ },
+ "arm": {
+  "_note": "공칭값: 오른팔 = 왼팔 거울(축 부호 규약 안 A, 팀장 승인 10/16). 팔당 4-DOF, 손목 없음(A1 확인 10/16)",
+  "dof_per_arm": 4,
+  "right_from_left_mirror": true
+ },
+ "gripper": {
+  "_note": "S14 (week05 커리큘럼: 그리퍼 플랜지까지 모델링 + 끝단 site, 본체는 BOM 질량 box로 임시) — BOM 그리퍼 질량 · 치수 수령 시 교체. tool0(플랜지면)에서 링크 −z(전완 방향)로 box를 붙이고 끝단에 {side}_ee site · 팀장 10/19: BOM 정보 없음 → 이 box 가정으로 계속 진행",
+  "mass": 0.5,
+  "box_xyz": [
+   0.08,
+   0.08,
+   0.1
+  ],
+  "ee_offset": 0.1
+ },
+ "pdr_torque": {
+  "_note": "PDR 토크 여유 판정 (팀장 10/19): 그리퍼 box 가정(S14) 유지, 기준을 그만큼 높임. 정격 ≥ 최악 정적 토크 × 1.2 → shoulder_pitch 3 kg 42.92 × 1.2 = 51.5 → 52 N·m(올림). 이전 46 N·m(10/16, 그리퍼 없음 · 강 상한 38.4 × 1.2). 피크(가속분)는 별도, effort = 피크 100 유지",
+  "rated_criterion_Nm": 52.0,
+  "margin": 0.2,
+  "previous_Nm": 46.0
+ }
+}

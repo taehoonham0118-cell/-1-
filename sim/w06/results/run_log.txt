@@ -1,0 +1,86 @@
+# run_log 2026-10-28T22:53:10+09:00 | Python 3.13.18 | mujoco 3.15.0 | snapshot 박종진 d6d6304
+## python sim/w06/w06_kpkv_tune.py
+# kp · kv 튜닝 (week06, 함태훈) — A2 armature 반영 모델, 중력보상 B on
+
+- 모델: 박종진 d6d6304 빌드 사본(`sim/w06/b1_snapshot/v1`), case a2_doc(어깨 TQ armature 0.219 · 팔꿈치 RI85 0.098) 기본, cad_ri85(8개 RI85) 병기. dt 0.002 s, implicitfast
+- 규칙(함태훈 제안): R1 모르는 짐 1 kg 정적 처짐 ≤ 1° → kp ≥ Δτ_1kg / 1°(하한 C5 300) · R2 고정 kv = 2√(kp·Mᵢᵢ,max) (가장 무거운 자세 ζ = 1) · R3 0.2 rad 계단 오버슈트 ≤ 5 %, 2 % 정착 ≤ 0.30 s (Mᵢᵢ 최소 · 중앙 · 최대 자세 × 2 case)
+
+## 1. Mᵢᵢ 범위 (armature 포함, 왼팔 관절 범위 균일 5,000 자세)
+
+
+→ armature 가 Mᵢᵢ 의 바닥을 올려 자세에 따른 변화가 줄어듦 (pitch 링크만 0.049 ~ 0.849 = 17배 → TQ armature 0.219 더하면 3.98배). 고정 kv 를 쓸 수 있는 근거.
+
+## 2. 선정 kp · kv
+
+
+## 3. 계단 응답 0.2 rad (최악값 = 3 자세 × 2 case 중 최대)
+
+
+- 판정: week06 게인 R3 **통과** (week05 기본 미통과)
+- 접촉: 계단 시험 중 최대 접촉 수 0
+
+## 4. 자세 · case 별 전체
+
+## python sim/w06/w06_pick_scenario.py --gif
+p0           err° 1.09 0.06 0.04 3.94 | ee 15.9 mm (hold 0.0) | τ 2.3 0.3 0.0 3.4 | v 1.89
+p05          err° 1.09 0.06 0.04 3.94 | ee 15.4 mm (hold 2.7) | τ 3.6 0.3 0.0 4.7 | v 1.89
+p1           err° 1.09 0.07 0.04 3.94 | ee 15.4 mm (hold 5.5) | τ 5.1 0.3 0.0 6.0 | v 1.89
+p3           err° 1.36 0.10 0.04 3.94 | ee 18.0 mm (hold 16.2) | τ 11.5 0.6 0.1 11.3 | v 1.89
+p1_ff        err° 1.09 0.06 0.04 3.95 | ee 16.4 mm (hold 0.0) | τ 4.8 0.3 0.0 6.1 | v 1.90
+p1_kp2       err° 0.77 0.05 0.02 2.69 | ee 10.7 mm (hold 2.8) | τ 5.3 0.3 0.0 6.1 | v 1.90
+p1_velff     err° 0.40 0.02 0.00 0.57 | ee 5.8 mm (hold 5.5) | τ 5.4 0.3 0.0 6.1 | v 1.90
+p1_ff_velff  err° 0.11 0.01 0.00 0.17 | ee 2.0 mm (hold 0.0) | τ 4.8 0.3 0.0 6.1 | v 1.91
+p1_base      err° 1.04 0.05 0.05 3.95 | ee 16.1 mm (hold 5.4) | τ 5.0 0.5 0.4 6.0 | v 1.89
+p1_w05       err° 1.41 0.10 0.04 5.13 | ee 19.8 mm (hold 6.5) | τ 4.9 0.3 0.0 6.1 | v 1.89
+ri85_p0      err° 1.09 0.06 0.04 3.94 | ee 15.9 mm (hold 0.0) | τ 2.3 0.3 0.0 3.4 | v 1.89
+ri85_p05     err° 1.09 0.06 0.04 3.94 | ee 15.4 mm (hold 2.7) | τ 3.6 0.3 0.0 4.7 | v 1.89
+ri85_p1      err° 1.09 0.07 0.04 3.94 | ee 15.4 mm (hold 5.5) | τ 5.1 0.3 0.0 6.1 | v 1.89
+ri85_p3      err° 1.36 0.10 0.04 3.94 | ee 18.0 mm (hold 16.2) | τ 11.5 0.7 0.1 11.4 | v 1.89
+check p0 τ static [-2.32  0.15 -0.01  2.55] sim [-2.32  0.15 -0.01  2.55] | droop th 0.00 sim 0.02 mm
+check p05 τ static [-3.57  0.2  -0.02  3.81] sim [-3.48  0.19 -0.02  3.79] | droop th 2.77 sim 2.75 mm
+check p1 τ static [-4.82  0.24 -0.03  5.07] sim [-4.61  0.23 -0.03  5.02] | droop th 5.55 sim 5.49 mm
+check p3 τ static [-9.82  0.42 -0.06 10.11] sim [-8.84  0.34 -0.07  9.76] | droop th 16.65 sim 16.22 mm
+lag theory deg {'shoulder_pitch': 1.12, 'shoulder_roll': 0.06, 'shoulder_yaw': 0.04, 'elbow': 3.98} qd_ref max [0.251 0.012 0.012 1.896]
+reach shoulder_pitch  0kg   τmax 25.49 0.34 0.32 2.95 | static 25.41 | hold τ 25.41 | ee hold 0.0 mm
+reach shoulder_pitch  0.5kg τmax 28.50 0.43 0.33 4.43 | static 28.32 | hold τ 28.32 | ee hold 5.8 mm
+reach shoulder_pitch  1kg   τmax 31.55 0.53 0.36 5.93 | static 31.24 | hold τ 31.24 | ee hold 11.5 mm
+reach shoulder_pitch  3kg   τmax 43.95 1.00 0.58 12.09 | static 42.92 | hold τ 42.87 | ee hold 34.7 mm
+reach shoulder_roll   0kg   τmax 0.10 22.93 0.66 1.75 | static 22.86 | hold τ 22.86 | ee hold 0.0 mm
+reach shoulder_roll   0.5kg τmax 0.11 25.80 0.78 3.01 | static 25.68 | hold τ 25.67 | ee hold 5.3 mm
+reach shoulder_roll   1kg   τmax 0.11 28.71 0.87 4.37 | static 28.50 | hold τ 28.47 | ee hold 10.9 mm
+reach shoulder_roll   3kg   τmax 0.16 40.52 1.04 9.95 | static 39.77 | hold τ 39.62 | ee hold 33.8 mm
+sens T 2.00 s  τ pitch 43.35 (static 42.92)  q̇ref max 1.47 rad/s  OK
+sens T 1.50 s  τ pitch 43.95 (static 42.92)  q̇ref max 1.96 rad/s  OK
+sens T 1.00 s  τ pitch 46.14 (static 42.92)  q̇ref max 2.95 rad/s  OK
+sens T 0.75 s  τ pitch 49.49 (static 42.92)  q̇ref max 3.93 rad/s  > 3.0 rad/s
+sens T 0.60 s  τ pitch 57.19 (static 42.92)  q̇ref max 4.91 rad/s  > 3.0 rad/s
+gif frames 130
+done 42.7 s
+## python sim/w06/w06_torque_budget.py
+# 토크 예산표 (week06, 함태훈 · A팀 피드백용) — 노션 6주차 양식
+
+- 모델: B1 v1 (박종진 d6d6304 빌드), 중력보상 B on · week06 게인(`kpkv_tune.md`). 왼팔 기준(오른팔 = 거울, 크기 동일)
+- 정적 최악 = 박종진 `workspace_max_torque.json`(= 5주차 ③, 함태훈 `v1_validate_123.py` 와 일치). 집기 = `w06_pick_scenario.py` 집기 동작(테이블 높이 pick_point) 중 |τ| 최대(중력보상분 포함 구동 토크). 뻗기 = 정적 최악 자세로 1.5 s 5차 궤적 뻗기 · 유지 · 복귀 동작 중 최대
+- 여유율 = 정격 / max(정적, 집기, 뻗기) − 1 (5주차 ③ 과 같은 정의). 판정 OK ≥ 20 % / 주의 0 ~ 20 % / 초과 < 0. 짐 = 끝점 질점, 중력보상 대상 아님(모르는 짐)
+
+## case a2_doc — 어깨 TQ ILM-E85x30 (A2 사양서 10/19, 기본)
+
+
+## case cad_ri85 — 8개 모두 RI85 (CAD 대로)
+
+
+## 요약 · A팀 피드백
+
+- **최소 여유율 (3 kg, 정격 대비)**: a2_doc shoulder_pitch 170 % (τ 43.95 / 정격 118.8), cad_ri85 shoulder_pitch 66 % (/ 72.6) → 두 case 모두 OK
+- 1.0 kg(커리큘럼 페이로드) 최소 여유율: a2_doc 277 %, cad_ri85 131 %
+- 집기 동작(테이블 높이 pick_point) 토크는 정적 최악의 27 %(pitch, 3 kg) — 팔을 내려 쓰는 자세라 작음. 예산을 정하는 것은 팔을 앞으로 · 옆으로 뻗은 정적 최악 자세
+- 뻗기 동작(1.5 s) 동적 최대 = 정적 최악 + 2.4 % (pitch 3 kg 43.95 N·m). 관성 토크는 1/T² 로 커짐(아래 표)
+- **PDR 52 기준(정격 ≥ 최악 × 1.2) 은 정적 기준으로 통과**(5주차 ③ 21.2 %). 동적 뻗기까지 넣으면 pitch 3 kg 여유 18.3 %(주의), 관절 속도 한계(3.0 rad/s) 까지 빠르게 뻗으면 46.14 N·m → 12.7 %(주의). 실제 정격(TQ 118.8 · RI85 72.6) 대비는 모두 OK
+
+### 가감속 민감도 (pitch 최악 자세 · 3 kg, 뻗기 시간 T)
+
+
+- 정적 최악 자세(팔 수평)에서 끝나는 5차 궤적은 끝점에서 가속도가 0이라, 큰 가속도는 팔이 아래쪽(중력 토크 작음)일 때 생김 → 관성분이 정적 최악에 그대로 더해지지 않음. 그래도 짧게 할수록 커지므로 동작 시간 · 속도 제한을 함께 정해야 함
+- 시뮬레이션에 없는 것(구술 ②): 마찰(frictionloss 0) · 백래시(A2 0.002 rad) · 열(연속 정격은 RMS 토크로 판단) · 모터 전류 한계 · 실제 가감속 프로파일 → 위 여유율은 낙관적 추정(실제 여유는 이보다 작아질 수 있음)
+
+재생성: `python sim/w06/w06_kpkv_tune.py` → `python sim/w06/w06_pick_scenario.py` → `python sim/w06/w06_torque_budget.py`
