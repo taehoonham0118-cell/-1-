@@ -1387,6 +1387,99 @@
    }
   },
   "pass_week06": true,
-  "pass_week05": false
+  "pass_week05": false,
+  "extended": {
+   "a2_doc|shoulder_pitch": {
+    "n": 297,
+    "skipped_contact": 4,
+    "os_max": 2.7483298830220715,
+    "ts_max": 0.296,
+    "zero_os": 1.5640447817547365,
+    "zero_ts": 0.192
+   },
+   "a2_doc|shoulder_roll": {
+    "n": 298,
+    "skipped_contact": 3,
+    "os_max": 2.7328112862331277,
+    "ts_max": 0.3,
+    "zero_os": 1.9221976048877876,
+    "zero_ts": 0.184
+   },
+   "a2_doc|shoulder_yaw": {
+    "n": 298,
+    "skipped_contact": 3,
+    "os_max": 1.4347994835923972,
+    "ts_max": 0.132,
+    "zero_os": 0.1795536512363194,
+    "zero_ts": 0.132
+   },
+   "a2_doc|elbow": {
+    "n": 297,
+    "skipped_contact": 4,
+    "os_max": 1.5467331687745833,
+    "ts_max": 0.094,
+    "zero_os": 1.3483187846538458,
+    "zero_ts": 0.094
+   },
+   "cad_ri85|shoulder_pitch": {
+    "n": 297,
+    "skipped_contact": 4,
+    "os_max": 1.5619524930928552,
+    "ts_max": 0.28800000000000003,
+    "zero_os": 0.847657266821078,
+    "zero_ts": 0.202
+   },
+   "cad_ri85|shoulder_roll": {
+    "n": 298,
+    "skipped_contact": 3,
+    "os_max": 1.4248653879511464,
+    "ts_max": 0.246,
+    "zero_os": 0.8108720114014201,
+    "zero_ts": 0.194
+   },
+   "cad_ri85|shoulder_yaw": {
+    "n": 298,
+    "skipped_contact": 3,
+    "os_max": 0.015741785948852893,
+    "ts_max": 0.17200000000000001,
+    "zero_os": 2.413721955640824e-06,
+    "zero_ts": 0.17200000000000001
+   },
+   "cad_ri85|elbow": {
+    "n": 297,
+    "skipped_contact": 4,
+    "os_max": 1.6361974672110424,
+    "ts_max": 0.094,
+    "zero_os": 1.4314196249295863,
+    "zero_ts": 0.094
+   }
+  },
+  "extended_worst": {
+   "shoulder_pitch": {
+    "os": 2.7483298830220715,
+    "ts": 0.296,
+    "zos": 1.5640447817547365,
+    "zts": 0.192
+   },
+   "shoulder_roll": {
+    "os": 2.7328112862331277,
+    "ts": 0.3,
+    "zos": 1.9221976048877876,
+    "zts": 0.184
+   },
+   "shoulder_yaw": {
+    "os": 1.4347994835923972,
+    "ts": 0.17200000000000001,
+    "zos": 0.1795536512363194,
+    "zts": 0.132
+   },
+   "elbow": {
+    "os": 1.6361974672110424,
+    "ts": 0.094,
+    "zos": 1.3483187846538458,
+    "zts": 0.094
+   }
+  },
+  "pass_extended": true
  }
 }

@@ -22,7 +22,7 @@
 | # | 수행 내용 | 완료율 | 산출물 |
 |---|---|---|---|
 | 1 | **박종진 6주차 반영분 확인**: `actuator_params.json` a2.case = a2_doc → 어깨 armature 0.219 · forcerange 381.7, 팔꿈치 0.098 · 181.5, gravcomp on, jointactuatorfrc 센서 8개 — 빌드 재현(파일 변화 0) · 검증 5종 통과 · 3 kg pitch 42.918 N·m 내 계산과 일치 | 100 % | `sim/w06/b1_snapshot/`, notes/11 |
-| 2 | **kp · kv 튜닝** (armature 반영 모델, 고정 kv = Isaac damping 방식): Mᵢᵢ 범위 5,000 자세(pitch 0.268 ~ 1.068, 3.98배) → R1(1 kg 처짐 ≤ 1°) · R3(OS ≤ 5 %, 정착 ≤ 0.3 s, 3 자세 × 2 case) → pitch 400 · 31.0 / roll 350 · 27.5 / yaw 300 · 15.0 / elbow 300 · 11.0. 최악 OS 1.5 %, 정착 0.288 s (week05 기본 0.362 s 미통과) | 100 % | [w06_kpkv_tune.py](../sim/w06/w06_kpkv_tune.py), [kpkv_tune.md](../sim/w06/results/kpkv_tune.md), [week06_kpkv_step.png](../assets/screenshots/week06/week06_kpkv_step.png) |
+| 2 | **kp · kv 튜닝** (armature 반영 모델, 고정 kv = Isaac damping 방식): Mᵢᵢ 범위 5,000 자세(pitch 0.268 ~ 1.068, 3.98배) → R1(1 kg 처짐 ≤ 1°) · R3(OS ≤ 5 %, 정착 ≤ 0.3 s, 3 자세 × 2 case) → pitch 400 · 31.0 / roll 350 · 27.5 / yaw 300 · 15.0 / elbow 300 · 11.0. 확장 점검(영점 + 300 자세 × 2 case, 접촉 자세 제외) 최악 OS 2.75 %, 정착 0.300 s(roll, 기준선) → 통과 (week05 기본은 3 자세에서 이미 0.362 s 미통과) | 100 % | [w06_kpkv_tune.py](../sim/w06/w06_kpkv_tune.py), [kpkv_tune.md](../sim/w06/results/kpkv_tune.md), [week06_kpkv_step.png](../assets/screenshots/week06/week06_kpkv_step.png) |
 | 3 | **집기 시나리오** (박종진 ik.py v1 + 5차 궤적 + 직선 하강 IK 21 점): 짐 0 / 0.5 / 1 / 3 kg, 짐 · 속도 피드포워드, kp×2, 베이스 동시, week05 게인, cad_ri85 — 14 실행. 1 kg 끝점 오차 15.4 mm(잡은 뒤 처짐 5.5 mm), 최고 속도 1.90 rad/s. 이론 검산: 속도 지연 kv·q̇/kp 1.12 · 3.98° = 시뮬 1.09 · 3.94°, 처짐 ‖JK⁻¹Jᵀmg‖ 5.55 = 5.49 mm | 100 % | [w06_pick_scenario.py](../sim/w06/w06_pick_scenario.py), [pick_scenario.md](../sim/w06/results/pick_scenario.md), [tracking](../assets/screenshots/week06/week06_pick_tracking.png) · [payload](../assets/screenshots/week06/week06_pick_payload.png) · [GIF](../assets/screenshots/week06/week06_pick.gif), pick_log_*.csv |
 | 4 | **팀 연계 — 최악 조건**: 박종진 `workspace_max_torque.json` 관절별 최악 자세로 실제 뻗기 동작(1.5 s 5차) → 동적 최대 = 정적 + 2.4 % (pitch 3 kg 43.95 N·m). 가감속 민감도 T 2.0 ~ 0.6 s: 43.35 → 57.19 N·m, T ≤ 0.75 s 는 속도 한계 3.0 rad/s 밖 | 100 % | 같은 스크립트, pick_scenario.json `reach` · `sens` |
 | 5 | **토크 예산표 (노션 양식, A팀 피드백)**: 두 case × 4관절 × 0 / 0.5 / 1 / 3 kg. 최소 여유율 3 kg a2_doc pitch **170 %** · cad_ri85 **66 %** → 모두 OK. PDR 52 기준은 정적 21.2 % 통과, 동적 포함 시 18.3 %(주의) | 100 % | [w06_torque_budget.py](../sim/w06/w06_torque_budget.py), [torque_budget.md](../sim/w06/results/torque_budget.md) · .csv |
@@ -50,7 +50,7 @@ python sim/w06/w06_torque_budget.py
 | 항목 | 값 | 조건 / 근거 |
 |---|---|---|
 | week06 게인 | pitch 400 · 31.0 / roll 350 · 27.5 / yaw 300 · 15.0 / elbow 300 · 11.0 | 고정 kv, kpkv_tune.md |
-| 계단 0.2 rad 최악 | OS 1.5 · 1.5 · 1.3 · 1.5 %, 정착 0.288 · 0.232 · 0.172 · 0.094 s | Mᵢᵢ 최소 · 중앙 · 최대 × 2 case, 중력보상 B |
+| 계단 0.2 rad 최악 | OS 2.75 · 2.73 · 1.43 · 1.64 %, 정착 0.296 · 0.300 · 0.172 · 0.094 s | 영점 + 무작위 300 자세 × 2 case(접촉 3~4 자세 제외), 중력보상 B. 3 자세 표본으로는 1.5 % · 0.288 s 였음 |
 | 집기 추종 (1 kg) | 관절 최대 pitch 1.09° · elbow 3.94°, 끝점 15.4 mm, 처짐 5.5 mm | 모르는 짐, 속도 FF 없음 |
 | 추종 개선 (1 kg 끝점) | kp×2 처짐 2.8 mm · 짐 FF 0.0 mm · 속도 FF 5.8 mm · 짐 + 속도 FF 2.0 mm | pick_scenario.md |
 | 집기 최대 토크 | 0 / 0.5 / 1 / 3 kg pitch 2.32 / 3.62 / 5.14 / 11.55 · elbow 3.36 / 4.71 / 6.05 / 11.34 N·m | 테이블 높이 pick_point |
@@ -66,6 +66,7 @@ python sim/w06/w06_torque_budget.py
 | 짐 0 → 3 kg 인데 관절 최대 오차가 거의 그대로 | 오차의 대부분이 짐과 무관한 속도 지연 kv·q̇/kp | 정적 처짐(잡은 뒤 유지 구간)을 따로 기록, 속도 피드포워드 실험 추가 |
 | 속도 FF 실행에서 elbow 토크가 23.7 N·m 로 튐 | 토크를 qfrc_actuator 만 기록 — FF 는 qfrc_applied 로 들어감 | 구동 토크 = qfrc_actuator + qfrc_applied 로 수정 → 6.07 N·m |
 | 3 kg 유지 토크가 이론(IK 자세 qfrc_bias)보다 10 % 작음 | 16 mm 처지며 자세가 바뀜 | 처진 자세에서 qfrc_bias 다시 계산 → 시뮬과 일치(잡고 2.5 s 뒤 9.00 = 9.00 N·m, 0.3 s 시점은 아직 정착 중 8.84) |
+| R3 최악표가 영점 계단(roll 1.92 %)보다 작게 나옴 (박종진 10/28 대조) | 표본이 Mᵢᵢ 최소 · 중앙 · 최대 3 자세뿐이라 영점 · 다른 자세 누락 | 영점 + 무작위 300 자세 × 2 case 로 확장 → 최악 2.75 % · 0.300 s, 판정 그대로 통과. 보고서 · 로그 수치 교체 (`kpkv_tune.md` 3-1절) |
 | dampratio 로 짐을 붙이면 kv 가 바뀜 | dampratio 는 컴파일 시 관성(짐 포함)으로 kv 계산 | 게인은 고정 kp · kv 로 지정(`w06_common.edit_b1(gains=…)`) |
 
 ## 4. B1 업무와의 연결
@@ -99,4 +100,5 @@ python sim/w06/w06_torque_budget.py
 |---|---|
 | 2026-10-28 | 6주차 작업 · 업로드 |
 | 2026-10-29 | 최종 제출 커밋 = `week06` 태그, 보고서 카톡 제출 · 구술 |
-| 2026-10-28 | 업로드 커밋 2dcb548 (58개, clone 대조 일치). **이 §7 기록 커밋이 최종 제출 커밋 = `week06` 태그**, 제출일 10/29(목). 태그 이후 6주차 커밋 없음, 이후 수정은 week07 |
+| 2026-10-28 | 업로드 커밋 2dcb548 (58개, clone 대조 일치) → §7 기록 5639c71 에 `week06` 태그 (제출 전) |
+| 2026-10-29 | **제출 전 수정**: 박종진 10/28 대조(549df63)에서 R3 최악표 표본 부족 지적 → 확장 점검 추가, 계단 최악 1.5 % · 0.288 s → **2.75 % · 0.300 s** 로 보고서 · 로그 · 결과표 교체(판정 동일). 이 수정 커밋으로 `week06` 태그를 옮김(릴리스 다시 생성). 뻗기 토크 역동역학 대조 · 서보 과도 원인 · A팀 조건 · MuJoCo 게인 통일은 week07 |

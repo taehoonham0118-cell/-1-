@@ -110,6 +110,23 @@ A5, A6 = agg("week05"), agg("week06")
 ok6 = all(A6[j]["os"] <= OS_MAX and A6[j]["ts"] <= TS_MAX for j in ARM)
 ok5 = all(A5[j]["os"] <= OS_MAX and A5[j]["ts"] <= TS_MAX for j in ARM)
 
+# --- 4-1) 확장 점검 (박종진 10/28 대조 지적: 3 자세 표본에 영점이 빠짐) — 영점 + 무작위 300 자세 × 2 case, 계단 중 자기 접촉 자세 제외
+EXT = {}
+for c in CASES:
+    mt = load(case=c, gains=gains); jid = [mt.joint(f"left_{a}_joint").id for a in ARM]; lo, hi = mt.jnt_range[jid, 0], mt.jnt_range[jid, 1]
+    QX = np.vstack([np.zeros(4), np.random.default_rng(1).uniform(lo, hi, (300, 4))])
+    for i, j in enumerate(ARM):
+        oss, tss, nskip = [], [], 0
+        for q0 in QX:
+            os_, ts, _, nc, _, _ = step_resp(mt, q0.copy(), i, STEP if q0[i] + STEP <= hi[i] else -STEP)
+            if nc > 0: nskip += 1; continue
+            oss.append(os_); tss.append(ts)
+        z = step_resp(mt, np.zeros(4), i, STEP)
+        EXT[f"{c}|{j}"] = dict(n=len(oss), skipped_contact=nskip, os_max=float(max(oss)), ts_max=float(max(tss)), zero_os=float(z[0]), zero_ts=float(z[1]))
+EX = {j: dict(os=max(EXT[f"{c}|{j}"]["os_max"] for c in CASES), ts=max(EXT[f"{c}|{j}"]["ts_max"] for c in CASES),
+              zos=EXT[f"a2_doc|{j}"]["zero_os"], zts=EXT[f"a2_doc|{j}"]["zero_ts"]) for j in ARM}
+okx = all(EX[j]["os"] <= OS_MAX and EX[j]["ts"] <= TS_MAX + 1e-9 for j in ARM)
+
 L = ["# kp · kv 튜닝 (week06, 함태훈) — A2 armature 반영 모델, 중력보상 B on", "",
      f"- 모델: 박종진 d6d6304 빌드 사본(`sim/w06/b1_snapshot/v1`), case a2_doc(어깨 TQ armature 0.219 · 팔꿈치 RI85 0.098) 기본, cad_ri85(8개 RI85) 병기. dt {mb.opt.timestep} s, implicitfast",
      f"- 규칙(함태훈 제안): R1 모르는 짐 1 kg 정적 처짐 ≤ 1° → kp ≥ Δτ_1kg / 1°(하한 C5 300) · R2 고정 kv = 2√(kp·Mᵢᵢ,max) (가장 무거운 자세 ζ = 1) · R3 0.2 rad 계단 오버슈트 ≤ {OS_MAX:g} %, 2 % 정착 ≤ {TS_MAX:.2f} s (Mᵢᵢ 최소 · 중앙 · 최대 자세 × 2 case)",
@@ -131,6 +148,14 @@ for j in ARM:
     L.append(f"| {j} | {A5[j]['os']:.1f} · {A5[j]['ts']:.3f} | **{A6[j]['os']:.1f} · {A6[j]['ts']:.3f}** | {min(z):.2f} ~ {max(z):.2f} | {tm:.1f} |")
 L += ["", f"- 판정: week06 게인 R3 **{'통과' if ok6 else '미통과'}** (week05 기본 {'통과' if ok5 else '미통과'})",
       f"- 접촉: 계단 시험 중 최대 접촉 수 {max(x['contacts'] for x in res)}",
+      "", "## 3-1. 확장 점검 — 영점 + 무작위 300 자세 × 2 case (박종진 10/28 대조 지적 반영, 10/29)", "",
+      "3 자세(Mᵢᵢ 최소 · 중앙 · 최대) 표본에는 영점이 빠져 있어 최악을 놓침 → 표본을 넓혀 다시 판정. 계단 목표가 몸통과 닿는 자세(접촉 발생)는 게인 문제가 아니라 제외", "",
+      "| 관절 | 영점 OS % · 정착 s (a2_doc) | **확장 최악 OS % · 정착 s** (2 case) | 시험 자세 수 (a2_doc / cad_ri85) · 접촉 제외 |", "|---|---|---|---|"]
+for j in ARM:
+    a_, b_ = EXT[f"a2_doc|{j}"], EXT[f"cad_ri85|{j}"]
+    L.append(f"| {j} | {EX[j]['zos']:.2f} · {EX[j]['zts']:.3f} | **{EX[j]['os']:.2f} · {EX[j]['ts']:.3f}** | {a_['n']} / {b_['n']} · {a_['skipped_contact']} / {b_['skipped_contact']} |")
+L += ["", f"- 판정(확장): R3 **{'통과' if okx else '미통과'}** — 최악 OS {max(EX[j]['os'] for j in ARM):.2f} %, 정착 최대 {max(EX[j]['ts'] for j in ARM):.3f} s (roll 은 기준 0.30 s 에 걸림 → 7주차 재튜닝 후보)",
+      "- 보고서 · 로그의 「최악」은 이 확장 점검 값을 씀",
       "", "## 4. 자세 · case 별 전체", "", "| case | 관절 | 자세 | Mᵢᵢ | 게인 | kp | kv | ζ | 오버슈트 % | 정착 s | τmax |", "|---|---|---|---|---|---|---|---|---|---|---|"]
 for x in res:
     L.append(f"| {x['case']} | {x['joint']} | {x['pose']} | {x['Mii']:.4f} | {x['gains']} | {x['kp']:.0f} | {x['kv']:.2f} | {x['zeta']:.2f} | {x['os_pct']:.2f} | {x['ts_s']:.3f} | {x['tau_max']:.1f} |")
@@ -138,7 +163,7 @@ L += ["", f"실행 {time.time()-t0:.1f} s · `python sim/w06/w06_kpkv_tune.py`"]
 save_md("kpkv_tune.md", "\n".join(L) + "\n")
 save_json("kpkv_tune.json", dict(rule=dict(step=STEP, zeta=ZETA, os_max=OS_MAX, ts_max=TS_MAX, err_1kg_deg=1.0, kp_floor=KP_FLOOR),
                                  gains={j: dict(kp=g[0], kv=g[1]) for j, g in gains.items()}, rows=rows, results=res,
-                                 summary=dict(week05=A5, week06=A6, pass_week06=ok6, pass_week05=ok5)))
+                                 summary=dict(week05=A5, week06=A6, pass_week06=ok6, pass_week05=ok5, extended=EXT, extended_worst=EX, pass_extended=okx)))
 
 plt = plot_style()
 fig, ax = plt.subplots(1, 4, figsize=(12, 3), sharey=True)
