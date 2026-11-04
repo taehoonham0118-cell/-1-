@@ -1,0 +1,64 @@
+{
+ "_note": "A2 구동기 사양서(2026-10-19, A2_Actuator_Specs_for_B1.pdf §3 'Suggested preliminary values for simulation') → B1 시뮬 값. armature = J_rotor × i² (로터만 — 기어열 관성 TBD라 과소 추정), peak = MJCF forcerange · URDF effort, rated = PDR 판정. 어깨 구동기가 TQ인지(사양서) RI85인지(CAD 8개 모두 RI85) 팀장 확인 대기 → case 두 개를 두고 actuator_params.json a2.case 로 선택 (환경변수 B1_A2_CASE 로 덮어쓰기 가능)",
+ "source": {
+  "RI85": {
+   "model": "CubeMars RI85-PH KV85 + Wolfrom 38.79:1",
+   "rated": 72.6,
+   "peak": 181.5,
+   "J_rotor": 6.52e-05,
+   "ratio": 38.79,
+   "armature": 0.098,
+   "vel_rated": 8.21,
+   "vel_noload": 11.02,
+   "backlash_rad": 0.0022
+  },
+  "TQ": {
+   "model": "TQ ILM-E85x30 + Wolfrom 38.5:1",
+   "rated": 118.8,
+   "peak": 381.7,
+   "J_rotor": 0.000148,
+   "ratio": 38.5,
+   "armature": 0.219,
+   "vel_noload_star_serial": 3.5,
+   "vel_noload_star_parallel": 7.0,
+   "backlash_rad": 0.002
+  }
+ },
+ "cases": {
+  "a2_doc": {
+   "_note": "사양서대로: 어깨 3관절 = TQ, 팔꿈치 = RI85 (week06 기본)",
+   "classes": {
+    "shoulder": {
+     "actuator": "TQ",
+     "armature": 0.219,
+     "rated": 118.8,
+     "peak": 381.7
+    },
+    "elbow": {
+     "actuator": "RI85",
+     "armature": 0.098,
+     "rated": 72.6,
+     "peak": 181.5
+    }
+   }
+  },
+  "cad_ri85": {
+   "_note": "CAD대로: 8개 모두 RI85",
+   "classes": {
+    "shoulder": {
+     "actuator": "RI85",
+     "armature": 0.098,
+     "rated": 72.6,
+     "peak": 181.5
+    },
+    "elbow": {
+     "actuator": "RI85",
+     "armature": 0.098,
+     "rated": 72.6,
+     "peak": 181.5
+    }
+   }
+  }
+ },
+ "velocity_note": "URDF velocity 3.0 rad/s(가정 C4) 유지 — TQ star-serial 무부하 3.50 rad/s 이하라 두 case 모두 안전 쪽. 권선 결정(A2) 후 갱신"
+}

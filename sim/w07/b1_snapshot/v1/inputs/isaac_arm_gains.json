@@ -1,0 +1,22 @@
+{
+ "_note": "Isaac Lab 팔 게인 (고정 kv) — 함태훈 week06 sim/w06/docs/actuator_params.md · results/kpkv_tune.md (taehoonham0118-cell/-1- 태그 week06, 2dcb548). a2_doc · cad_ri85 두 case 모두에서 0.2 rad 계단 오버슈트 ≤ 1.5 %, 정착 ≤ 0.29 s → 어깨 확정과 무관하게 사용. MuJoCo b1.xml(actuator_params.json)은 아직 kp 300 · dampratio 1(week05) — 통일 여부 함태훈과 합의 후",
+ "source": "함태훈 2dcb548 (week06)",
+ "joints": {
+  "shoulder_pitch": {
+   "stiffness": 400,
+   "damping": 31.0
+  },
+  "shoulder_roll": {
+   "stiffness": 350,
+   "damping": 27.5
+  },
+  "shoulder_yaw": {
+   "stiffness": 300,
+   "damping": 15.0
+  },
+  "elbow": {
+   "stiffness": 300,
+   "damping": 11.0
+  }
+ }
+}

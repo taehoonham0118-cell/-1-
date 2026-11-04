@@ -22,6 +22,7 @@
 | 4주 | – | 우리 로봇 STEP → 링크 분할표(9링크, 팔 4-DOF) · 링크별 STL · 질량/관성 표(FreeCAD 1.0.2 일치) · inertial 블록 · v0 URDF(planar 베이스 + 양팔) MuJoCo 로드 · 박종진 관절 표 대조 (STEP·BOM 원본 커밋 금지) | [week04](logs/week04.md) | `week04` |
 | 5주 | – | v1(양팔 + 평면 베이스, 박종진 빌드) MJCF 덧붙이기 값 · 근거: 액추에이터 파라미터표(컴파일 kv · 실효 감쇠비), 검증 ① 질량 · ② 정지 유지(중력보상 2방식) · ③ 중력 토크 vs 정격 52 N·m(10/19, 통과) — 검증 5종 통과(④⑤ 박종진), A2 사양 영향 분석, armature 실험, 미러 점검 17항목, 링크 원점 = 관절점, 노트북 재현 · 뷰어 캡처 | [week05](logs/week05.md) | `week05` |
 | 6주 | **PDR (×2)** | 관절별 kp · kv 튜닝(고정 kv, armature 반영), 집기 시나리오(박종진 IK + 5차 궤적, 짐 0 ~ 3 kg · 피드포워드 · 베이스 동시) · GIF, 토크 예산표(최소 여유율 3 kg 170 % / RI85 66 %), Isaac Lab 액추에이터표 | [week06](logs/week06.md) | `week06` |
+| 7주 | – | 게인 통일(MuJoCo ↔ Isaac 한 벌) · 검증 ② 재기록, 짐 0 · 3 kg 계단응답 · 짐 질량 중력보상 비교(모르는 짐 · FF · 적분 · 추정), 베이스 + 팔 전신 가중 DLS resolved-rate 직선 추종 · GIF, 베이스 가감속 포함 토크 예산 | [week07](logs/week07.md) | `week07` |
 
 전체 누적표는 [`logs/contribution_log.md`](logs/contribution_log.md) 참고.
 
@@ -40,7 +41,8 @@
 │   ├── week03.md
 │   ├── week04.md
 │   ├── week05.md
-│   └── week06.md
+│   ├── week06.md
+│   └── week07.md
 ├── reports/                   ← 제출한 주간활동보고서(docx) 사본
 ├── notes/                     ← 학습 정리
 │   ├── 01_isaac_install.md    (Isaac Sim/Lab 설치, 노션 기준)
@@ -53,8 +55,10 @@
 │   ├── 08_step_to_urdf_inertial_procedure.md (STEP → STL · 질량 · 관성 → URDF inertial 변환 절차서)
 │   ├── 09_our_robot_link_split_v0.md     (우리 로봇 링크 분할 · 질량 · 관성 · 관절 원점 · v0 URDF)
 │   ├── 10_v1_mjcf_actuator_sensor_validation.md (v1 MJCF 덧붙이기 · 액추에이터 근거 · qfrc_bias · armature · 검증 ①②③)
-│   └── 11_trajectory_tracking_torque_budget.md (kp · kv 튜닝 · 집기 궤적 추종 · 토크 예산 · Isaac 액추에이터)
+│   ├── 11_trajectory_tracking_torque_budget.md (kp · kv 튜닝 · 집기 궤적 추종 · 토크 예산 · Isaac 액추에이터)
+│   └── 12_wholebody_rrc_payload_comp.md (게인 통일 · 짐 질량 중력보상 · 전신 resolved-rate · 베이스 가감속 토크)
 ├── sim/
+│   ├── w07/                   ← week07: 게인 통일 · 중력보상 비교 · 전신 resolved-rate · 베이스 가속 토크, wb_jac.py, proposal/(빌드 패치), results/, b1_snapshot/(패치 빌드 사본)
 │   ├── w06/                   ← week06: kp · kv 튜닝 · 집기 시나리오 · 토크 예산표 · docs/actuator_params.md, results/, b1_snapshot/(박종진 d6d6304 사본)
 │   ├── v1/                    ← week05: B1 공용 v1 위 함태훈 몫 — 액추에이터표 · 검증 ①②③ · armature · 미러 점검 스크립트, results/, handoff/(박종진 전달), b1_snapshot/(재현용 사본)
 │   ├── robot_v1/              ← week05: 링크 원점 = 관절점 메시 · 관성 (link_inertials_v1.json)

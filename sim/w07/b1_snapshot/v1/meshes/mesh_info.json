@@ -1,0 +1,20 @@
+{
+ "torso_link_visual": 19999,
+ "torso_link_collision": 388,
+ "left_shoulder_pitch_link_visual": 19999,
+ "right_shoulder_pitch_link_visual": 19999,
+ "left_shoulder_pitch_link_collision": 282,
+ "right_shoulder_pitch_link_collision": 282,
+ "left_shoulder_roll_link_visual": 20000,
+ "right_shoulder_roll_link_visual": 20000,
+ "left_shoulder_roll_link_collision": 272,
+ "right_shoulder_roll_link_collision": 272,
+ "left_shoulder_yaw_link_visual": 19999,
+ "right_shoulder_yaw_link_visual": 19999,
+ "left_shoulder_yaw_link_collision": 318,
+ "right_shoulder_yaw_link_collision": 318,
+ "left_elbow_link_visual": 11226,
+ "right_elbow_link_visual": 11226,
+ "left_elbow_link_collision": 292,
+ "right_elbow_link_collision": 292
+}

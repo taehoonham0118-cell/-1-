@@ -1,0 +1,9 @@
+case,joint,actuator,rated,peak,static,pick,reach,base_design,base_step,need,margin,ok,margin_step,ok_step,pdr52,peak_ok_step
+a2_doc,shoulder_pitch,TQ,118.800,381.700,42.918,11.546,43.953,44.124,65.006,44.124,169.243,True,82.753,True,17.850,True
+a2_doc,shoulder_roll,TQ,118.800,381.700,39.767,0.643,40.516,41.569,80.236,41.569,185.788,True,48.064,True,25.092,True
+a2_doc,shoulder_yaw,TQ,118.800,381.700,11.849,0.113,1.038,12.303,23.408,12.303,865.651,True,407.517,True,322.676,True
+a2_doc,elbow,RI85,72.600,181.500,11.784,11.342,12.090,12.446,26.293,12.446,483.317,True,176.118,True,317.802,True
+cad_ri85,shoulder_pitch,RI85,72.600,181.500,42.918,11.493,43.834,44.124,65.006,44.124,64.537,True,11.682,False,17.850,True
+cad_ri85,shoulder_roll,RI85,72.600,181.500,39.767,0.651,40.402,41.569,80.236,41.569,74.648,True,-9.517,False,25.092,True
+cad_ri85,shoulder_yaw,RI85,72.600,181.500,11.849,0.120,0.787,12.303,23.408,12.303,490.120,True,210.149,True,322.676,True
+cad_ri85,elbow,RI85,72.600,181.500,11.784,11.360,12.067,12.446,26.293,12.446,483.317,True,176.118,True,317.802,True

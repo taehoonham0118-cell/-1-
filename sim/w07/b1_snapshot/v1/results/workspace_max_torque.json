@@ -1,0 +1,551 @@
+{
+ "_note": "정적 중력 토크 |τ| 최대 자세 (qvel = 0, qfrc_bias + 페이로드 −Jᵀ·m·g at {side}_ee). 후보 = 작업공간 충돌 없는 샘플 → 상위 6자세 L-BFGS-B(관절 범위) → 최적점 자기 충돌 0 확인. 왼팔 기준(오른팔 = 거울 대칭, 크기 동일 · 부호 규칙은 mirror_rules.md)",
+ "joint_order": [
+  "shoulder_pitch",
+  "shoulder_roll",
+  "shoulder_yaw",
+  "elbow"
+ ],
+ "units": {
+  "q": "rad",
+  "q_deg": "deg",
+  "ee_pos": "m (base_link)",
+  "tau": "N·m (4관절, 부호 = qfrc_bias 규약: 유지에 필요한 구동 토크와 같은 부호)"
+ },
+ "criterion": {
+  "pdr_rated_Nm": 52.0,
+  "A2": {
+   "RI85": {
+    "rated": 72.6,
+    "peak": 181.5
+   },
+   "TQ": {
+    "rated": 118.8,
+    "peak": 381.7
+   }
+  },
+  "rule": "정격 ≥ |τ| × 1.2 (팀장 10/19)"
+ },
+ "results": {
+  "0kg": {
+   "shoulder_pitch": {
+    "q": [
+     -1.5714,
+     -0.0115,
+     -0.1935,
+     0.0101
+    ],
+    "q_deg": [
+     -90.0,
+     -0.7,
+     -11.1,
+     0.6
+    ],
+    "ee_pos": [
+     0.595,
+     0.2793,
+     1.205
+    ],
+    "tau": [
+     -25.405,
+     0.0,
+     -0.258,
+     2.931
+    ],
+    "tau_abs_max": 25.405,
+    "sample_max": 25.397,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 104.7,
+    "margin_vs_RI85_rated_pct": 185.8,
+    "margin_vs_A2_rated_pct": 367.6,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_roll": {
+    "q": [
+     0.0,
+     1.5,
+     -0.6133,
+     -0.0279
+    ],
+    "q_deg": [
+     0.0,
+     85.9,
+     -35.1,
+     -1.6
+    ],
+    "ee_pos": [
+     -0.0016,
+     0.852,
+     1.1515
+    ],
+    "tau": [
+     0.002,
+     22.863,
+     -0.0,
+     -1.722
+    ],
+    "tau_abs_max": 22.863,
+    "sample_max": 22.758,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 127.4,
+    "margin_vs_RI85_rated_pct": 217.5,
+    "margin_vs_A2_rated_pct": 419.6,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_yaw": {
+    "q": [
+     -1.5708,
+     1.2486,
+     -1.4887,
+     -1.5579
+    ],
+    "q_deg": [
+     -90.0,
+     71.5,
+     -85.3,
+     -89.3
+    ],
+    "ee_pos": [
+     -0.1746,
+     0.6378,
+     1.1845
+    ],
+    "tau": [
+     -5.909,
+     0.0,
+     -3.052,
+     -0.0
+    ],
+    "tau_abs_max": 3.052,
+    "sample_max": 3.051,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 1604.0,
+    "margin_vs_RI85_rated_pct": 2279.0,
+    "margin_vs_A2_rated_pct": 3792.9,
+    "A2_actuator": "TQ"
+   },
+   "elbow": {
+    "q": [
+     0.3502,
+     0.6134,
+     2.1361,
+     0.8887
+    ],
+    "q_deg": [
+     20.1,
+     35.1,
+     122.4,
+     50.9
+    ],
+    "ee_pos": [
+     -0.2233,
+     0.7013,
+     0.973
+    ],
+    "tau": [
+     7.96,
+     13.157,
+     -0.16,
+     2.987
+    ],
+    "tau_abs_max": 2.987,
+    "sample_max": 2.987,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 1640.8,
+    "margin_vs_RI85_rated_pct": 2330.4,
+    "margin_vs_A2_rated_pct": 2330.4,
+    "A2_actuator": "RI85"
+   }
+  },
+  "0.5kg": {
+   "shoulder_pitch": {
+    "q": [
+     -1.5713,
+     -0.0119,
+     -0.1755,
+     0.006
+    ],
+    "q_deg": [
+     -90.0,
+     -0.7,
+     -10.1,
+     0.3
+    ],
+    "ee_pos": [
+     0.5951,
+     0.2793,
+     1.2037
+    ],
+    "tau": [
+     -28.324,
+     -0.0,
+     -0.301,
+     4.385
+    ],
+    "tau_abs_max": 28.324,
+    "sample_max": 28.312,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 83.6,
+    "margin_vs_RI85_rated_pct": 156.3,
+    "margin_vs_A2_rated_pct": 319.4,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_roll": {
+    "q": [
+     0.0,
+     1.5,
+     -0.7342,
+     -0.0388
+    ],
+    "q_deg": [
+     0.0,
+     85.9,
+     -42.1,
+     -2.2
+    ],
+    "ee_pos": [
+     -0.0026,
+     0.852,
+     1.1538
+    ],
+    "tau": [
+     0.002,
+     25.68,
+     0.0,
+     -2.988
+    ],
+    "tau_abs_max": 25.68,
+    "sample_max": 25.556,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 102.5,
+    "margin_vs_RI85_rated_pct": 182.7,
+    "margin_vs_A2_rated_pct": 362.6,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_yaw": {
+    "q": [
+     1.5708,
+     0.3755,
+     1.636,
+     -1.5621
+    ],
+    "q_deg": [
+     90.0,
+     21.5,
+     93.7,
+     -89.5
+    ],
+    "ee_pos": [
+     -0.3889,
+     0.1019,
+     1.1895
+    ],
+    "tau": [
+     24.041,
+     0.0,
+     -4.517,
+     -0.0
+    ],
+    "tau_abs_max": 4.517,
+    "sample_max": 4.516,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 1051.2,
+    "margin_vs_RI85_rated_pct": 1507.3,
+    "margin_vs_A2_rated_pct": 2530.0,
+    "A2_actuator": "TQ"
+   },
+   "elbow": {
+    "q": [
+     -2.6765,
+     1.0647,
+     -1.0499,
+     -0.4395
+    ],
+    "q_deg": [
+     -153.4,
+     61.0,
+     -60.2,
+     -25.2
+    ],
+    "ee_pos": [
+     0.1324,
+     0.8114,
+     1.3401
+    ],
+    "tau": [
+     -6.584,
+     -20.575,
+     -0.265,
+     4.453
+    ],
+    "tau_abs_max": 4.453,
+    "sample_max": 4.453,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 1067.7,
+    "margin_vs_RI85_rated_pct": 1530.3,
+    "margin_vs_A2_rated_pct": 1530.3,
+    "A2_actuator": "RI85"
+   }
+  },
+  "1kg": {
+   "shoulder_pitch": {
+    "q": [
+     -1.5713,
+     -0.0123,
+     -0.1628,
+     0.004
+    ],
+    "q_deg": [
+     -90.0,
+     -0.7,
+     -9.3,
+     0.2
+    ],
+    "ee_pos": [
+     0.5951,
+     0.2793,
+     1.2029
+    ],
+    "tau": [
+     -31.243,
+     0.0,
+     -0.345,
+     5.841
+    ],
+    "tau_abs_max": 31.243,
+    "sample_max": 31.227,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 66.4,
+    "margin_vs_RI85_rated_pct": 132.4,
+    "margin_vs_A2_rated_pct": 280.2,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_roll": {
+    "q": [
+     0.0,
+     1.5,
+     -0.8155,
+     -0.0451
+    ],
+    "q_deg": [
+     0.0,
+     85.9,
+     -46.7,
+     -2.6
+    ],
+    "ee_pos": [
+     -0.0027,
+     0.852,
+     1.1553
+    ],
+    "tau": [
+     0.002,
+     28.497,
+     0.0,
+     -4.315
+    ],
+    "tau_abs_max": 28.497,
+    "sample_max": 28.353,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 82.5,
+    "margin_vs_RI85_rated_pct": 154.8,
+    "margin_vs_A2_rated_pct": 316.9,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_yaw": {
+    "q": [
+     1.5708,
+     0.375,
+     1.6274,
+     -1.5643
+    ],
+    "q_deg": [
+     90.0,
+     21.5,
+     93.2,
+     -89.6
+    ],
+    "ee_pos": [
+     -0.3882,
+     0.1013,
+     1.1921
+    ],
+    "tau": [
+     25.939,
+     -0.0,
+     -5.983,
+     0.0
+    ],
+    "tau_abs_max": 5.983,
+    "sample_max": 5.981,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 769.1,
+    "margin_vs_RI85_rated_pct": 1113.4,
+    "margin_vs_A2_rated_pct": 1885.6,
+    "A2_actuator": "TQ"
+   },
+   "elbow": {
+    "q": [
+     -2.6763,
+     1.0657,
+     -1.0499,
+     -0.4407
+    ],
+    "q_deg": [
+     -153.3,
+     61.1,
+     -60.2,
+     -25.3
+    ],
+    "ee_pos": [
+     0.1322,
+     0.8115,
+     1.3392
+    ],
+    "tau": [
+     -7.225,
+     -22.922,
+     -0.305,
+     5.919
+    ],
+    "tau_abs_max": 5.919,
+    "sample_max": 5.919,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 778.5,
+    "margin_vs_RI85_rated_pct": 1126.5,
+    "margin_vs_A2_rated_pct": 1126.5,
+    "A2_actuator": "RI85"
+   }
+  },
+  "3kg": {
+   "shoulder_pitch": {
+    "q": [
+     -1.5713,
+     -0.0132,
+     -0.1089,
+     0.0013
+    ],
+    "q_deg": [
+     -90.0,
+     -0.8,
+     -6.2,
+     0.1
+    ],
+    "ee_pos": [
+     0.5951,
+     0.279,
+     1.2017
+    ],
+    "tau": [
+     -42.918,
+     0.0,
+     -0.52,
+     11.714
+    ],
+    "tau_abs_max": 42.918,
+    "sample_max": 42.888,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 21.2,
+    "margin_vs_RI85_rated_pct": 69.2,
+    "margin_vs_A2_rated_pct": 176.8,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_roll": {
+    "q": [
+     0.0,
+     1.5,
+     -0.9618,
+     -0.0548
+    ],
+    "q_deg": [
+     0.0,
+     85.9,
+     -55.1,
+     -3.1
+    ],
+    "ee_pos": [
+     -0.002,
+     0.8521,
+     1.1579
+    ],
+    "tau": [
+     0.002,
+     39.767,
+     -0.0,
+     -9.673
+    ],
+    "tau_abs_max": 39.767,
+    "sample_max": 39.543,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 30.8,
+    "margin_vs_RI85_rated_pct": 82.6,
+    "margin_vs_A2_rated_pct": 198.7,
+    "A2_actuator": "TQ"
+   },
+   "shoulder_yaw": {
+    "q": [
+     1.5708,
+     0.3743,
+     1.6143,
+     -1.5675
+    ],
+    "q_deg": [
+     90.0,
+     21.4,
+     92.5,
+     -89.8
+    ],
+    "ee_pos": [
+     -0.3872,
+     0.1006,
+     1.196
+    ],
+    "tau": [
+     33.52,
+     0.0,
+     -11.849,
+     0.0
+    ],
+    "tau_abs_max": 11.849,
+    "sample_max": 11.841,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 338.9,
+    "margin_vs_RI85_rated_pct": 512.7,
+    "margin_vs_A2_rated_pct": 902.6,
+    "A2_actuator": "TQ"
+   },
+   "elbow": {
+    "q": [
+     -2.6759,
+     1.0672,
+     -1.0499,
+     -0.4425
+    ],
+    "q_deg": [
+     -153.3,
+     61.1,
+     -60.2,
+     -25.4
+    ],
+    "ee_pos": [
+     0.1319,
+     0.8118,
+     1.3379
+    ],
+    "tau": [
+     -9.799,
+     -32.297,
+     -0.465,
+     11.784
+    ],
+    "tau_abs_max": 11.784,
+    "sample_max": 11.783,
+    "self_contacts": 0,
+    "margin_vs_pdr52_pct": 341.3,
+    "margin_vs_RI85_rated_pct": 516.1,
+    "margin_vs_A2_rated_pct": 516.1,
+    "A2_actuator": "RI85"
+   }
+  }
+ }
+}
