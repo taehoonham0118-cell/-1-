@@ -1,5 +1,5 @@
 # DLS 역기구학 모듈 (week06 커리큘럼 화) — 박종진
-#   인터페이스 = docs/ik_interface.md (함태훈 집기 시나리오와 합의, 10/18 초안 → week06 v1)
+#   인터페이스 = docs/ik_interface.md (함태훈 집기 시나리오와 합의, 10/18 초안 → week06 v1 → week07 v2: include_base 옵션 = 전신 IK wb_ik.py)
 #   dq = Jᵀ (J Jᵀ + λ² I)⁻¹ e,  관절 한계 클리핑(매 반복), 스텝 크기 제한, 위치만 / 위치 + 그리퍼 축 / 위치 + 자세 전체
 #   4-DOF 팔: 위치 3 + 그리퍼 축 2 = 5조건 > 4자유도 → 최소자승 타협 (rot_weight로 위치 우선)
 # 사용 (모듈):  from ik import solve_ik, approach_quat, load_b1
@@ -70,13 +70,24 @@ def _solve_once(model,dd,I,tp,tq,q0,rot_mode,rot_weight,damping,pos_tol,rot_tol,
     return q,pe,re,it,"max_iter",hist
 
 def solve_ik(model,data,side,target_pos,target_quat=None,*,frame="base",q_init=None,rot_mode="axis",rot_weight=0.3,
-             damping=0.05,pos_tol=1e-3,rot_tol=1e-2,max_iter=200,step_max=0.3,restarts=4,seed=0,return_history=False):
-    """docs/ik_interface.md 참고. data는 복사본으로 계산(호출 쪽 상태 그대로). 실패 시 최근접 해 + status."""
+             damping=0.05,pos_tol=1e-3,rot_tol=1e-2,max_iter=200,step_max=0.3,restarts=4,seed=0,return_history=False,
+             include_base=False,**wb_kw):
+    """docs/ik_interface.md 참고. data는 복사본으로 계산(호출 쪽 상태 그대로). 실패 시 최근접 해 + status.
+    (v2, week07) include_base=True → 전신 IK(wb_ik.solve_wb_ik)로 위임, WBIKResult(q · base · status …) 반환.
+      목표는 frame 기준(base = 지금 베이스 자세 기준)으로 world 변환 후 전달, target_quat는 axis 모드만(그리퍼 축). wb_kw = w_xy · w_yaw · table_x · base_box …"""
     I=_arm_info(model,side); dd=mujoco.MjData(model); dd.qpos[:]=data.qpos; mujoco.mj_kinematics(model,dd)
     tp=np.asarray(target_pos,float); tq=None if target_quat is None else np.asarray(target_quat,float)
     if frame=="base":   # base_link 기준 → world (베이스 이동과 무관하게 같은 목표)
         Rb=dd.xmat[I["base"]].reshape(3,3); pb=dd.xpos[I["base"]].copy(); tp=pb+Rb@tp
         if tq is not None: qb=dd.xquat[I["base"]].copy(); out=np.zeros(4); mujoco.mju_mulQuat(out,qb,tq); tq=out
+    if include_base:
+        from wb_ik import solve_wb_ik
+        ax=None
+        if tq is not None:
+            if rot_mode!="axis": raise ValueError("include_base=True는 rot_mode='axis'(그리퍼 축)만 지원")
+            Mz=np.zeros(9); mujoco.mju_quat2Mat(Mz,tq); ax=-Mz.reshape(3,3)[:,2]   # ee z = −접근 방향
+        return solve_wb_ik(model,data,side,tp,ax,q_init=q_init,lam=damping,rot_weight=rot_weight,pos_tol=pos_tol,rot_tol=rot_tol,
+                           max_iter=max(max_iter,300),step_max=step_max,restarts=max(restarts,4),seed=seed,**wb_kw)
     q0=data.qpos[I["qadr"]].copy() if q_init is None else np.asarray(q_init,float)
     rng=np.random.default_rng(seed); best=None
     for k in range(restarts+1):

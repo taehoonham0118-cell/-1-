@@ -3,7 +3,7 @@
 - 기간: 2026. 11. 2. (월) ~ 11. 5. (목) 마감 (금: 구술 · 평가 피드백 반영 → week08 태그)
 - 저장소 태그: `week07` — 11/5 최종 제출 커밋에 찍음. 이후 수정은 week08
 - 기준 커리큘럼: 노션 「B1 7·8·9주차 학습 커리큘럼」 §1 (7주차) — 함태훈 = 게인 통일 + 짐 질량 반영 중력보상, resolved-rate 제어기 + 직선 추종, 협조 동작 중 토크 예산 갱신(베이스 가감속)
-- 공용 모델: 박종진 d6d6304 (10/27, 11/04 기준 이후 변경 없음) + 함태훈 게인 통일 패치(`sim/w07/proposal/build_v1_joint_gains.diff`)로 다시 빌드한 사본 `sim/w07/b1_snapshot/`
+- 공용 모델: 박종진 d6d6304 + 함태훈 게인 통일 패치(`sim/w07/proposal/build_v1_joint_gains.diff`) → 박종진 원본 반영 **f061e4b**(11/05, 빌드 b1.xml 사본과 동일). 사본 `sim/w07/b1_snapshot/`, 박종진 week07 = 4296c64
 - 학습 노트: [notes/12](../notes/12_wholebody_rrc_payload_comp.md) · 코드: [sim/w07/](../sim/w07/README.md) · 주간 보고서: [reports/학부생_주간활동보고서_7주차_함태훈_22212334_261105.docx](../reports/학부생_주간활동보고서_7주차_함태훈_22212334_261105.docx)
 
 ## 1. 이번 주 계획 (커리큘럼 7주차 + 6주차 인계)
@@ -21,15 +21,16 @@
 
 | # | 수행 내용 | 완료율 | 산출물 |
 |---|---|---|---|
-| 1 | **게인 통일**: `actuator_params.json` `joint_gains`(pitch 400·31 / roll 350·27.5 / yaw 300·15 / elbow 300·11) + `build_v1.py` 9 줄 패치 → b1.xml 액추에이터 8 줄만 변경(URDF 변화 0). 박종진 `validate_model.py` 5종 **모두 통과**. 박종진 빌드 반영은 합의 대기 | 90 % (공용 반영 대기) | `sim/w07/proposal/build_v1_joint_gains.diff`, `b1_snapshot/v1/results/validate_model.md` |
+| 1 | **게인 통일**: `actuator_params.json` `joint_gains`(pitch 400·31 / roll 350·27.5 / yaw 300·15 / elbow 300·11) + `build_v1.py` 9 줄 패치 → b1.xml 액추에이터 8 줄만 변경(URDF 변화 0). 박종진 `validate_model.py` 5종 **모두 통과**. 박종진 원본 빌드에 반영(f061e4b) | 100 % (박종진 원본 반영 f061e4b, 검증 5종 · ② 3.63° 일치) | `sim/w07/proposal/build_v1_joint_gains.diff`, `b1_snapshot/v1/results/validate_model.md` |
 | 2 | **검증 ② 처짐 재기록**: 보상 끔 앞으로 수평 4.83° → **3.63°**(이론 4.85 → 3.64°), roll 상한 4.33 → 3.72°, 보상 B 켬 0.00° | 100 % | `results/gain_payload.md` 1절 |
 | 3 | **짐 0 · 3 kg 계단응답** (302 자세): 3 kg 이면 ζ 0.75 → 0.53, pitch OS 2.96 → 14.5 %, 정착 0.30 → 0.64 s (R3 미통과). 짐 FF 는 동특성 불변, 관성 비례 게인 스케줄로 5.2 % · 0.34 s. 앞으로 수평 0 kg pitch 정착 0.302 s(경계) 새로 발견 | 100 % | `gain_payload.md` 2절, [week07_step_0_3kg.png](../assets/screenshots/week07/week07_step_0_3kg.png) |
 | 4 | **짐 질량 중력보상 6 방식** (3 kg 잡기 · 놓기): 모르는 짐 34.7 mm(이론 34.8), 아는 짐 0, 질량 ±1 kg 틀림 ±11.6 mm, 적분 0.1 mm 이나 놓을 때 32 mm 튐, 추정 m̂ 2.851 kg · 1.7 mm 이나 놓기 감지 없으면 34 mm 들림 | 100 % | `gain_payload.md` 3절, [week07_payload_comp.png](../assets/screenshots/week07/week07_payload_comp.png) |
-| 5 | **전신 자코비안 · 가중 DLS · 영공간** (`wb_jac.py`, 인터페이스 v2 제안) — 박종진 `wb_ik` 미공유로 같은 형태 임시 구현 | 100 % (교체 대기) | `sim/w07/wb_jac.py` |
+| 5 | **전신 자코비안 · 가중 DLS · 영공간** (`wb_jac.py`, 인터페이스 v2 제안) → 박종진 `wb_ik.py`(68699e2)가 같은 이름 · 인자로 구현, 제어기를 `wb_ik` 로 교체해 9런 재실행 **결과 동일(차 0)** — 박종진 `wb_rrc_crosscheck.md` · 함태훈 재확인. 박종진 원본 모델(`B1_V1`)로 결과표 3개도 동일 | 100 % | `sim/w07/wb_jac.py`, `w07_wb_rrc.py`, `b1_snapshot/v1/scripts/wb_ik.py` |
 | 6 | **resolved-rate 직선 추종**: 경로 A(z 0.75 m, x 0.30 → 0.80) 팔만 실패(323 mm) → 전신 W 10 최대 7.6 · RMS 4.8 mm, 직선 수직 0.4 mm, 베이스 +0.40 m. 경로 B(측방) 전신 5.8 mm. W 1 · 100 비교 | 100 % | `w07_wb_rrc.py`, `wb_rrc.md`, [week07_wb_line.png](../assets/screenshots/week07/week07_wb_line.png) · [GIF](../assets/screenshots/week07/week07_wb_line.gif), `wb_log_*.csv` |
 | 7 | **베이스 가감속 추가 토크 + 예산 갱신**: τ = M_ab·q̈_b + c, 손 검산 Σmh 4.375 = M_ab 4.375, 시뮬 = 이론(≤ 6 %). 설계 1 m/s² 에서 pitch 44.12 · roll 41.57 N·m → 최소 여유 a2_doc 169 % · cad_ri85 65 % OK, PDR 52 pitch 17.9 % 주의. 속도 계단 명령(3.84 m/s²)이면 roll 80 N·m → 가속 제한 조건 | 100 % | `w07_base_torque.py`, `base_torque.md`, `torque_budget_w07.csv`, [week07_base_accel_torque.png](../assets/screenshots/week07/week07_base_accel_torque.png) |
 | 8 | 학습 정리: 게인 통일 근거, 짐과 감쇠비, 중력보상 방식별 위험, 가중 DLS · 영공간 · CLIK, 결합 관성 | 100 % | [notes/12](../notes/12_wholebody_rrc_payload_comp.md) |
-| 9 | (5 · 6주차 인계) convex 분해 비교, 5 · 6주차 평가 피드백 반영 | 0 % | 평가표 미수령, convex 는 8주차 접촉 모델(원시 도형 결정)과 함께 |
+| 9 | **팀 연계 — 박종진 결과 대조**: 토크 예산 B1 통합본(박종진 `torque_budget_b1.md`, 내 `torque_budget_w07.csv` 수정 없이 사용) 필요 pitch 44.12 · roll 41.57 N·m 일치, 옆면 · 하강 접근 25자세 정적 최대 pitch 34.21 · roll 28.03 → 최악 이하. 작업공간 확장(테이블 안쪽 0.149 → 0.464 m, yaw −90°, 수직 하강 z 0.605 ~ 0.992 m) 확인 → 8주차 집기 접근 방향 입력. A팀 문안 검토 | 100 % | 박종진 4296c64 `results/torque_budget_b1.md` · `workspace_wb.md` |
+| 10 | (5 · 6주차 인계) convex 분해 비교, 5 · 6주차 평가 피드백 반영 | 0 % | 평가표 미수령, convex 는 8주차 접촉 모델(원시 도형 결정)과 함께 |
 
 ### 실행 환경 · 명령 (재현용)
 
@@ -84,7 +85,7 @@ python sim/w07/w07_base_torque.py         # ~3 s
 
 ## 6. 다음 주 목표 (8주차)
 
-1. 박종진 `wb_ik` 공유 시 `wb_jac.py` 교체 · 재실행, 게인 통일 빌드 반영 확인
+1. 옆면 접근(베이스 yaw −90°) 집기 경로 · 테이블 윗면과 팔 링크 충돌 확인(박종진 작업공간 결과 반영)
 2. 그리퍼 · 접촉 모델(마찰 · condim · solref 스윕, 파지력 대비 미끄러짐 표), `docs/dataset_spec.md`, 저장 · 재생 검증
 3. 파지 중 토크 예산(짐 + 그리퍼) 갱신, 놓기 처리(적분 · 추정 리셋) 반영
 
@@ -100,4 +101,5 @@ python sim/w07/w07_base_torque.py         # ~3 s
 | 일시 | 내용 |
 |---|---|
 | 2026-11-04 | 7주차 작업 · 업로드 |
-| 2026-11-05 | 최종 제출 커밋 = `week07` 태그, 보고서 카톡 제출 · 구술 |
+| 2026-11-04 | 업로드 커밋 8fa9750 (69개, clone 대조 일치) |
+| 2026-11-05 | 박종진 회신(f061e4b 게인 반영 · 68699e2 wb_ik · 4296c64 week07) 반영: 제어기 `wb_ik` 교체(결과 동일), 스냅샷 scripts 갱신, 로그 · 보고서 문구 갱신 — **이 반영 커밋 = 최종 제출 커밋 = `week07` 태그**. 보고서 카톡 제출 · 구술 |

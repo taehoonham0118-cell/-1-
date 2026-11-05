@@ -1,5 +1,5 @@
 # week07 | 작업공간 속도 제어(resolved-rate) — 베이스 + 팔 협조 직선 추종 (함태훈, B1)
-#  자코비안 · 가중치 = wb_jac.py (박종진 wb_ik 인터페이스 v2 공유 시 교체)
+#  자코비안 · 가중치 = 박종진 wb_ik.py (인터페이스 v2, 68699e2 — 함태훈 wb_jac.py 제안 형태 그대로). wb_ik 가 없는 모델 폴더면 wb_jac.py 로 대체(같은 값, 9런 차 0)
 #  제어 (100 Hz, 시뮬 500 Hz):  ẋ_cmd = ẋ_ref + K (x_ref − x)                  (폐루프 CLIK, K = 10 1/s)
 #                              q̇ = J# ẋ_cmd + (I − J# J) q̇0,  J# = W⁻¹Jᵀ(JW⁻¹Jᵀ + λ²I)⁻¹   (λ 0.03, q̇0 = 팔 한계 회피)
 #                              속도 한계: 팔 3.0 rad/s · 베이스 1.5 m/s · 1.571 rad/s (넘으면 q̇ 전체를 같은 비율로 줄임 = 방향 유지)
@@ -14,8 +14,13 @@
 #  실행: python sim/w07/w07_wb_rrc.py [--gif]   (~20 s, GIF 포함 ~60 s · 리눅스 헤드리스는 MUJOCO_GL=egl)
 import sys, csv, time
 from w07_common import *
-from wb_jac import wb_jacobian, wb_weights, wdls, limit_avoid
 sys.path.insert(0, os.path.join(V1, "scripts")); import ik
+try:
+    from wb_ik import wb_jacobian, wb_weights, wdls, limit_avoid      # 박종진 b1/models/v1/scripts/wb_ik.py (팀 연계)
+    WB_SRC = "박종진 wb_ik.py"
+except ImportError:
+    from wb_jac import wb_jacobian, wb_weights, wdls, limit_avoid     # 함태훈 임시 구현(같은 인터페이스)
+    WB_SRC = "함태훈 wb_jac.py"
 
 t0 = time.time(); SIDE = "left"; DT_C = 0.01; KCL = 10.0; LAM = 0.03; T_SET = 0.5; T_PATH = 4.0; T_HOLD = 1.0
 VLIM = dict(arm=3.0, lin=1.5, yaw=np.pi / 2)
@@ -82,7 +87,7 @@ save_json("wb_rrc.json", dict(results=RES, paths={k: [v[0].tolist(), v[1].tolist
 
 lab = dict(arm="팔만 (4 DOF)", wb10="전신 W 10 (팔 우선)", wb1="전신 W 1", wb100="전신 W 100", wb10_3kg="전신 W 10 + 3 kg(FF)")
 Lm = ["# 베이스 + 팔 협조 resolved-rate 직선 추종 (week07, 함태훈) — 자동 생성 `w07_wb_rrc.py`", "",
-      f"제어 100 Hz / 시뮬 500 Hz, CLIK K {KCL:g} 1/s, 가중 DLS λ {LAM}, 영공간 = 팔 관절 한계 회피, 속도 한계 팔 3.0 rad/s · 베이스 1.5 m/s · 90 °/s. "
+      f"자코비안 · 가중치 = {WB_SRC}. 제어 100 Hz / 시뮬 500 Hz, CLIK K {KCL:g} 1/s, 가중 DLS λ {LAM}, 영공간 = 팔 관절 한계 회피, 속도 한계 팔 3.0 rad/s · 베이스 1.5 m/s · 90 °/s. "
       f"경로 5차(최소 저크) {T_PATH:g} s + 유지 {T_HOLD:g} s. 위치만(3×7, 4-DOF 라 그리퍼 축은 자유). 통일 게인 · 중력보상 B · a2_doc",
       "", "- 경로 A: z 0.75 m 전방 직선 x 0.30 → 0.80 m, y 0.287 (6주차 pick_point 높이 · y). 팔 단독 도달 x ≈ 0.44 m (z 0.7 ~ 0.8, 박종진 workspace.md)",
       "- 경로 B: z 0.90 m 측방 직선 y 0.40 → −0.20 m, x 0.40 (왼팔이 정중면 너머 0.2 m — 팔 단독은 0.095 m 까지)", "",
