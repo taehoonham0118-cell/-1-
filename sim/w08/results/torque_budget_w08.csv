@@ -1,0 +1,9 @@
+case,joint,actuator,rated,peak,need_w07,static_w07_model,static_w08,base_add,scenario_3kg,need_w08,margin,ok,pdr52
+a2_doc,shoulder_pitch,TQ,118.8,381.7,44.124,42.77,46.53,2.16,9.83,48.69,144.0,True,6.8
+a2_doc,shoulder_roll,TQ,118.8,381.7,41.569,38.93,42.52,4.19,8.69,46.71,154.4,True,11.3
+a2_doc,shoulder_yaw,TQ,118.8,381.7,12.303,11.81,14.42,0.85,2.19,15.27,677.8,True,
+a2_doc,elbow,RI85,72.6,181.5,12.446,11.78,14.39,1.21,2.35,15.6,365.3,True,
+cad_ri85,shoulder_pitch,RI85,72.6,181.5,44.124,42.77,46.53,2.16,9.83,48.69,49.1,True,6.8
+cad_ri85,shoulder_roll,RI85,72.6,181.5,41.569,38.93,42.52,4.19,8.69,46.71,55.4,True,11.3
+cad_ri85,shoulder_yaw,RI85,72.6,181.5,12.303,11.81,14.42,0.85,2.19,15.27,375.3,True,
+cad_ri85,elbow,RI85,72.6,181.5,12.446,11.78,14.39,1.21,2.35,15.6,365.3,True,
