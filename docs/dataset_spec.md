@@ -11,7 +11,7 @@
 |---|---|
 | 단위 | 에피소드 1개 = HDF5 1개 `ep_<seed 5자리>.hdf5`, gzip 4 |
 | 커밋 | 대용량 원본(`datasets/raw/`)은 커밋하지 않음(.gitignore). 저장소에는 **샘플 3개**(1개는 카메라 포함)만 |
-| 시간 | 제어 주기 50 Hz (`control_hz`), 시뮬 dt 1 ms (`sim_dt`) → 주기당 20 스텝. 길이 T = 제어 주기 수 |
+| 시간 | 제어 주기 50 Hz (`control_hz`), 시뮬 dt 0.5 ms (`sim_dt` = 0.0005) → 주기당 40 스텝 (B1 그리퍼 · 접촉 v1.0, `sim/w08/results/contact_sweep.md`). 길이 T = 제어 주기 수 |
 | 관측 · 행동 짝 | `obs/*[t]` = t번째 명령을 내기 **직전** 상태, `action[t]` = 그 뒤 0.02 s 동안 유지한 명령 |
 | 좌표 · 단위 | world = MuJoCo 월드(+x 전방, +z 위, REP 103). 로봇 좌표 = 베이스 x · y · yaw 기준(높이는 world 와 같음). m · rad · s · kg, 쿼터니언 [w, x, y, z] |
 | 형 | 재생 기준인 `obs/qpos` · `action` · `ctrl` · `time` · `final_qpos` 는 f64, 나머지 관측은 f32, 이미지 u8 |
@@ -44,7 +44,7 @@
 | `seed` · `kind` · `mass` · `obj_xy` · `obj_yaw` | `pick_env.sample_task(seed)` 와 같은 값(같은 seed = 같은 초기 상태) |
 | `success` · `fail` · `fail_stage` | 성공이면 `fail = ""` · `fail_stage = ""` (★ 초안은 `"None"` 문자열). 실패 분류 10종 = 박종진 `expert.FAIL` |
 | `goal_err_mm` · `t_total` · `events` | 목표 오차, 길이, 단계 전환 시각 |
-| `control_hz` · `sim_dt` | 50 · 0.001 |
+| `control_hz` · `sim_dt` | 50 · 0.0005 (재생 시 주기당 스텝 = 1/(control_hz · sim_dt) = 40) |
 | `model_hash` | 컴파일 모델 sha256 앞 12자리 — 다르면 재생 보장 안 함 |
 | ★ `mujoco_version` | 재생 결정성은 같은 버전 · 같은 기기 · 단일 스레드에서만 보장 |
 | `action_names` · ★ `action_body_names` · `stage_names` | JSON 문자열 |
@@ -55,7 +55,7 @@
 ## 4. 재생(replay) 규칙 · 합격 기준
 
 1. `m = pick_env.build(cam=True)`, `reset(m, d, sample_task(seed))`, 지문 `model_hash` 일치 확인
-2. t = 0 … T−1: `apply_action(m, d, action[t])` → `mj_step` 20번 (`action_base_body` 는 학습용, 재생에는 쓰지 않음)
+2. t = 0 … T−1: `apply_action(m, d, action[t])` → `mj_step` 40번 (= `expert.NSUB`) (`action_base_body` 는 학습용, 재생에는 쓰지 않음)
 3. 매 t 에서 `d.qpos` vs `obs/qpos[t]`, 끝에서 `final_qpos` 비교
 4. **합격 = 최대 절대 차 0**(같은 버전 · 기기) · 재생 성공 판정 = 저장 판정 · 지문 일치. 다른 기기 · 버전이면 차를 기록하고 성공 판정 일치로 대신함
 
@@ -80,3 +80,4 @@
 |---|---|---|
 | draft 0.1 | 11/12 | 박종진 초안(수집 100 · 재생 100/100) |
 | **1.0** | 11/12 | 함태훈 확정: 초안 필드 유지 + 로봇 좌표 파생 4개 · 속성 5개 · 성공 시 fail 빈 문자열. 검사 · 변환 도구 `b1_dataset.py` |
+| 1.0 (문서 정정) | 11/12 | 시간 항목 dt 1 ms · 20 스텝 → **0.5 ms · 40 스텝**(박종진 지적, 파일 `sim_dt` 속성은 이미 0.0005). 필드 · spec 문자열 변경 없음 |
