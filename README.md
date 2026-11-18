@@ -24,6 +24,7 @@
 | 6주 | **PDR (×2)** | 관절별 kp · kv 튜닝(고정 kv, armature 반영), 집기 시나리오(박종진 IK + 5차 궤적, 짐 0 ~ 3 kg · 피드포워드 · 베이스 동시) · GIF, 토크 예산표(최소 여유율 3 kg 170 % / RI85 66 %), Isaac Lab 액추에이터표 | [week06](logs/week06.md) | `week06` |
 | 7주 | – | 게인 통일(MuJoCo ↔ Isaac 한 벌) · 검증 ② 재기록, 짐 0 · 3 kg 계단응답 · 짐 질량 중력보상 비교(모르는 짐 · FF · 적분 · 추정), 베이스 + 팔 전신 가중 DLS resolved-rate 직선 추종 · GIF, 베이스 가감속 포함 토크 예산 | [week07](logs/week07.md) | `week07` |
 | 8주 | – | 그리퍼 · 접촉 모델 분석(solref · solimp · impratio · condim · dt 스윕, seed 1080 발산 원인 = dt → 0.5 ms 로 3 kg 9 → 19/20 · 수집 100/100), 시연 데이터 형식 명세 v1.0 · 검사/변환 도구 · 재생 검증(16/16 차 0), action 관절 vs 끝점 비교, 파지 중 토크 예산(3 kg + 그리퍼 0.9 kg) | [week08](logs/week08.md) | `week08` |
+| 9주 | – | 도메인 랜덤화 · 민감도(파라미터 17개 하나씩 ×1 · ×2 + 동시, Top 3 = 테이블 높이 · 손가락 μ · 물체 위치 편향, 경계 이론 일치), 동시 ×1 98 · ×2 72/100, Isaac Lab Event 매핑표, 시스템 식별 계획서, 박종진 BC × 랜덤화(18 → 4/50, BC Top 3 = 테이블 높이 · 지연 · 팔 질량) | [week09](logs/week09.md) | `week09` |
 
 전체 누적표는 [`logs/contribution_log.md`](logs/contribution_log.md) 참고.
 
@@ -44,7 +45,8 @@
 │   ├── week05.md
 │   ├── week06.md
 │   ├── week07.md
-│   └── week08.md
+│   ├── week08.md
+│   └── week09.md
 ├── reports/                   ← 제출한 주간활동보고서(docx) 사본
 ├── notes/                     ← 학습 정리
 │   ├── 01_isaac_install.md    (Isaac Sim/Lab 설치, 노션 기준)
@@ -59,8 +61,10 @@
 │   ├── 10_v1_mjcf_actuator_sensor_validation.md (v1 MJCF 덧붙이기 · 액추에이터 근거 · qfrc_bias · armature · 검증 ①②③)
 │   ├── 11_trajectory_tracking_torque_budget.md (kp · kv 튜닝 · 집기 궤적 추종 · 토크 예산 · Isaac 액추에이터)
 │   ├── 12_wholebody_rrc_payload_comp.md (게인 통일 · 짐 질량 중력보상 · 전신 resolved-rate · 베이스 가감속 토크)
-│   └── 13_contact_model_dataset_action.md (solref · solimp · 마찰 · 발산 원인, 데이터 형식, action 형식)
+│   ├── 13_contact_model_dataset_action.md (solref · solimp · 마찰 · 발산 원인, 데이터 형식, action 형식)
+│   └── 14_domain_randomization_sensitivity_bc.md (도메인 랜덤화 · 민감도 · BC 공변량 이동 · Isaac Event · CDR 강건성 초안)
 ├── sim/
+│   ├── w09/                   ← week09: randomize.py(랜덤화 · 민감도) · randomize_report.py · w09_clearance.py · bc_baseline.py(BC 평가 하네스), results/ (박종진 552614e scenarios/ 사용)
 │   ├── w08/                   ← week08: 접촉 스윕 · seed 1080 원인 표 · 데이터 형식 v1.0 검사/변환(b1_dataset.py) · 재생 검증 · action 형식 비교 · 파지 토크 예산, results/ (박종진 week08 scenarios/ 사용)
 │   ├── w07/                   ← week07: 게인 통일 · 중력보상 비교 · 전신 resolved-rate · 베이스 가속 토크, wb_jac.py, proposal/(빌드 패치), results/, b1_snapshot/(패치 빌드 사본)
 │   ├── w06/                   ← week06: kp · kv 튜닝 · 집기 시나리오 · 토크 예산표 · docs/actuator_params.md, results/, b1_snapshot/(박종진 d6d6304 사본)
@@ -76,6 +80,8 @@
 └── docs/
     ├── GIT_RULES.md           ← 저장소 운영 규칙 (커밋·태그)
     ├── dataset_spec.md        ← B1 시연 데이터 형식 명세 v1.0 (week08)
+    ├── isaaclab_event_mapping.md ← 랜덤화 → Isaac Lab EventTerm 매핑표 (week09)
+    ├── sysid_plan.md          ← 실기 시스템 식별 계획서 v0.1 (week09)
     ├── pipeline_cad_urdf_mjcf.png  ← CAD → URDF → MJCF 파이프라인 그림 (.dot 원본)
     └── templates/weekly_report_template.md
 ```
