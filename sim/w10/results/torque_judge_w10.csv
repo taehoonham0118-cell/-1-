@@ -1,0 +1,9 @@
+case,joint,actuator,rated,need,required,ok,margin_need,margin_req
+a2_doc,shoulder_pitch,TQ,118.8,48.69,58.43,True,144.0,103.3
+a2_doc,shoulder_roll,TQ,118.8,46.71,56.05,True,154.3,111.9
+a2_doc,shoulder_yaw,TQ,118.8,15.27,18.32,True,678.0,548.3
+a2_doc,elbow,RI85,72.6,15.6,18.72,True,365.4,287.8
+cad_ri85,shoulder_pitch,RI85,72.6,48.69,58.43,True,49.1,24.3
+cad_ri85,shoulder_roll,RI85,72.6,46.71,56.05,True,55.4,29.5
+cad_ri85,shoulder_yaw,RI85,72.6,15.27,18.32,True,375.4,296.2
+cad_ri85,elbow,RI85,72.6,15.6,18.72,True,365.4,287.8
