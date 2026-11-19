@@ -2,6 +2,9 @@
 #   check(path)            → v1.0 규칙 위반 목록 (빈 목록 = 통과)
 #   upgrade(src, dst)      → 박종진 초안 v0.1(b1-w08-draft-0.1) 파일을 v1.0 으로 변환 (action · obs 원본은 그대로 복사, 파생 필드만 추가)
 #   body_vel(v_world, yaw) → 베이스 속도 world → 로봇 좌표
+#   train_label(f)         → 학습 라벨 = action_label(있으면, DART) 아니면 action  (판 1.1, 11/19)
+#   판 1.1 (week10 첫 커밋, 11/19, 박종진 요청): 선택 필드 action_label (T, 8) f8 + 속성 dart · randomization 검사 추가.
+#                         spec 문자열은 "b1-dataset-1.0" 그대로(선택 필드만 추가 = 기존 파일 · 도구 그대로 통과)
 #   실행: python b1_dataset.py check <파일|폴더>    /    python b1_dataset.py upgrade <src폴더> <dst폴더>
 import sys,os,glob,json
 import numpy as np,h5py
@@ -15,6 +18,7 @@ FIELDS=[("obs/qpos",27,"f8",True),("obs/qvel",25,"f4",True),("obs/base_pose",3,"
         ("obs/obj_pos",3,"f4",True),("obs/obj_quat",4,"f4",True),("obs/obj_pos_base",3,"f4",True),
         ("obs/gripper_width",None,"f4",True),("obs/stage",None,"i1",True),
         ("action",8,"f8",True),("action_base_body",3,"f4",True),("ctrl",13,"f8",True),("time",None,"f8",True)]
+OPTIONAL=[("action_label",8,"f8")]      # 판 1.1 선택 필드: DART 등 「실제 넣은 명령(action) ≠ 학습 라벨」일 때 전문가 명령
 ATTRS=["spec","seed","kind","mass","obj_xy","obj_yaw","success","fail","fail_stage","goal_err_mm","t_total","control_hz","sim_dt",
        "model_hash","mujoco_version","action_names","action_body_names","stage_names","params","assumptions","events","source"]
 
@@ -47,6 +51,19 @@ def check(path):
             if x.dtype.str[1:]!=dt: bad.append(f"형: {k} {x.dtype} ({dt} 이어야 함)")
             if x.dtype.kind=="f" and not np.all(np.isfinite(x[:])): bad.append(f"NaN/Inf: {k}")
         if "final_qpos" not in f or f["final_qpos"].shape!=(27,): bad.append("없음/모양: final_qpos (27,)")
+        for k,n,dt in OPTIONAL:   # 판 1.1 선택 필드: 있으면 action 과 같은 모양 · 형 · 범위
+            if k not in f: continue
+            x=f[k]
+            if x.shape!=(T,n): bad.append(f"모양: {k} {x.shape} ((T, {n}) 이어야 함)")
+            if x.dtype.str[1:]!=dt: bad.append(f"형: {k} {x.dtype} ({dt} 이어야 함)")
+            if not np.all(np.isfinite(x[:])): bad.append(f"NaN/Inf: {k}")
+            elif x.shape==(T,n) and (x[:,7].min()<-1e-9 or x[:,7].max()>0.055+1e-9): bad.append(f"{k} gripper_opening 범위 밖 (0 ~ 0.055)")
+        if "action_label" in f and "dart" not in f.attrs: bad.append("action_label 이 있으면 속성 dart(잡음 설정 JSON)도 있어야 함")
+        for a in ("dart","randomization"):   # 판 1.1 선택 속성: 있으면 JSON
+            if a in f.attrs:
+                try: v=json.loads(f.attrs[a])
+                except Exception: bad.append(f"속성 {a} 가 JSON 이 아님"); continue
+                if a=="randomization" and not (isinstance(v,dict) and "p" in v and "source" in v): bad.append("randomization 에 p · source 가 있어야 함")
         if "obs/images/overview" in f:
             im=f["obs/images/overview"]
             if im.dtype!=np.uint8 or im.ndim!=4 or im.shape[0]!=T or im.shape[3]!=3: bad.append(f"모양: obs/images/overview {im.shape} {im.dtype}")
@@ -68,6 +85,10 @@ def check(path):
             nq=np.linalg.norm(f["obs/ee_quat"][:],axis=1)
             if np.abs(nq-1).max()>1e-4: bad.append("ee_quat 정규화 안 됨")
     return bad
+
+def train_label(f):
+    """학습 라벨 (T, 8): DART 파일이면 action_label(전문가 명령), 아니면 action. 재생에는 항상 action"""
+    return f["action_label"][:] if "action_label" in f else f["action"][:]
 
 def upgrade(src,dst,mujoco_version="3.15.0",source="PJJ0337/-1- week08 da55741 scenarios/collect.py"):
     """초안 v0.1 → v1.0. 원본 배열은 그대로(재생 결과 불변), 파생 필드 · 속성만 추가"""

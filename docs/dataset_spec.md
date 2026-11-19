@@ -1,4 +1,4 @@
-# B1 시연 데이터 형식 명세 v1.0 (`b1-dataset-1.0`)
+# B1 시연 데이터 형식 명세 v1.1 (`b1-dataset-1.0` 호환 — 선택 필드만 추가)
 
 - 작성: 함태훈 (week08, 2026-11-12) · 기준: 박종진 초안 v0.1 `datasets/dataset_spec_draft.md` (PJJ0337/-1- week08 = da55741)
 - 원칙: 박종진 초안의 필드 이름 · 단위 · 순서는 **그대로 유지**(재수집 부담 최소). v1.0 은 ① 로봇 좌표 파생 필드 4개 ② 속성 5개 ③ 성공 시 `fail = ""` 만 추가 · 정리했다.
@@ -16,7 +16,7 @@
 | 좌표 · 단위 | world = MuJoCo 월드(+x 전방, +z 위, REP 103). 로봇 좌표 = 베이스 x · y · yaw 기준(높이는 world 와 같음). m · rad · s · kg, 쿼터니언 [w, x, y, z] |
 | 형 | 재생 기준인 `obs/qpos` · `action` · `ctrl` · `time` · `final_qpos` 는 f64, 나머지 관측은 f32, 이미지 u8 |
 
-## 2. 필드 (★ = v1.0 에서 추가)
+## 2. 필드 (★ = v1.0 에서 추가, ◆ = v1.1 선택 필드)
 
 | 경로 | 모양 · 형 | 필수 | 내용 |
 |---|---|---|---|
@@ -32,6 +32,7 @@
 | `obs/images/overview` | (T, 96, 96, 3) u8 | 선택 | 고정 카메라 `overview` |
 | `action` | (T, 8) f64 | ● | `[base_vx, base_vy, base_wz, left_shoulder_pitch, left_shoulder_roll, left_shoulder_yaw, left_elbow, gripper_opening]` — 베이스 = **world** 속도 명령, 팔 = **관절 위치 목표**(rad), 그리퍼 = 손가락 1개 벌림 목표(0 ~ 0.055 m). 재생의 기준(실제로 넣은 값) |
 | ★ `action_base_body` | (T, 3) f32 | ● | 베이스 명령을 로봇 좌표로: `[vx_b, vy_b] = R(yaw_t)ᵀ [vx, vy]`, wz 그대로 (Isaac Lab · 실기 베이스 명령과 같은 좌표) |
+| ◆ `action_label` | (T, 8) f64 | 선택 | **학습 라벨**(잡음 없는 전문가 명령), 순서 · 단위 = `action`. DART 처럼 실제 넣은 명령에 잡음을 섞어 수집할 때만 씀 → `action` = 실제로 넣은 명령(재생 기준, 그대로), `action_label` = 같은 상태에서 전문가가 낸 명령. 없으면 학습 라벨 = `action` (`b1_dataset.train_label(f)`) |
 | `ctrl` | (T, 13) f64 | ● | 실제 `d.ctrl` 전체(액추에이터 순서) |
 | `time` | (T,) f64 | ● | 시뮬 시간, 간격 = 1/`control_hz` |
 | `final_qpos` | (27,) f64 | ● | 마지막 명령 뒤 상태(재생 끝점 비교) |
@@ -51,13 +52,16 @@
 | `params` | 그리퍼 · 접촉 · 테이블 · 목표 · 물체 · option · 무작위 범위 JSON |
 | ★ `assumptions` | 가정값 항목 목록(그리퍼 · 접촉 · 테이블 · 물체 · 어깨 구동기 case) — 수치 인용 시 같이 적음 |
 | ★ `source` | 수집 코드 저장소 · 커밋 · 스크립트 |
+| ◆ `dart` (선택) | `action_label` 이 있으면 **필수**: 잡음 설정 JSON(σ · 시간상수 · 적용 단계 등) |
+| ◆ `randomization` (선택) | 랜덤화 환경에서 수집했을 때 JSON `{source: "함태훈 randomize.py <커밋>", f: 범위 배율, p: {파라미터: 값, …}}` — p 는 `randomize.sample_joint(seed, f)` 결과 그대로(테이블 높이 · 지연 · 편향 · 물체 질량 배율 포함). `model_hash` 는 랜덤화된 모델의 지문 |
 
 ## 4. 재생(replay) 규칙 · 합격 기준
 
 1. `m = pick_env.build(cam=True)`, `reset(m, d, sample_task(seed))`, 지문 `model_hash` 일치 확인
 2. t = 0 … T−1: `apply_action(m, d, action[t])` → `mj_step` 40번 (= `expert.NSUB`) (`action_base_body` 는 학습용, 재생에는 쓰지 않음)
 3. 매 t 에서 `d.qpos` vs `obs/qpos[t]`, 끝에서 `final_qpos` 비교
-4. **합격 = 최대 절대 차 0**(같은 버전 · 기기) · 재생 성공 판정 = 저장 판정 · 지문 일치. 다른 기기 · 버전이면 차를 기록하고 성공 판정 일치로 대신함
+4. 랜덤화 수집 파일(`randomization` 속성)은 1 의 모델을 `randomize.make_model(p)` 로 만들고, 물체 질량 배율 · 측정 편향 · 지연을 수집 때와 같이 적용(`sim/w09/bc_eval_pjj.py` 감싸기와 같은 방식)한 뒤 2 ~ 3. **재생은 항상 `action`**(`action_label` 은 쓰지 않음)
+5. **합격 = 최대 절대 차 0**(같은 버전 · 기기) · 재생 성공 판정 = 저장 판정 · 지문 일치. 다른 기기 · 버전이면 차를 기록하고 성공 판정 일치로 대신함
 
 ## 5. action 형식 결정 (박종진과 9주차 BC 입력 전 합의할 것)
 
@@ -81,3 +85,4 @@
 | draft 0.1 | 11/12 | 박종진 초안(수집 100 · 재생 100/100) |
 | **1.0** | 11/12 | 함태훈 확정: 초안 필드 유지 + 로봇 좌표 파생 4개 · 속성 5개 · 성공 시 fail 빈 문자열. 검사 · 변환 도구 `b1_dataset.py` |
 | 1.0 (문서 정정) | 11/12 | 시간 항목 dt 1 ms · 20 스텝 → **0.5 ms · 40 스텝**(박종진 지적, 파일 `sim_dt` 속성은 이미 0.0005). 필드 · spec 문자열 변경 없음 |
+| **1.1** | 11/19 | 박종진 요청(DART 재수집 전): **선택 필드 `action_label`**(T, 8) f64 + 선택 속성 `dart`(action_label 있으면 필수) · `randomization`. 재생 기준은 `action` 그대로. `check` 가 선택 필드 모양 · 형 · 그리퍼 범위 · JSON 검사, `train_label(f)` 추가. spec 문자열 `b1-dataset-1.0` 유지(기존 파일 · 도구 그대로 통과) — 샘플 3개 통과, 박종진 99d60da `collect_dart.py` 형식 그대로 통과 |
