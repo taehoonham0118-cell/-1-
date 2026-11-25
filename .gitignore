@@ -40,3 +40,8 @@ desktop.ini
 *.SLDPRT
 bom*
 BOM*
+
+# week10: 재빌드 사본 (tools/rebuild_and_test.py · w10_pipeline_demo.py)
+build/
+build_demo/
+.pytest_cache/
