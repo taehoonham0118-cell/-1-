@@ -1,0 +1,78 @@
+{
+ "_note": "박종진 wb_ik reach_limit 용: 어깨 pitch 관절점 → 파지 중심(ee − 45 mm) 수평 거리 상한 [m]. full_reach=true 면 제한 불필요(최대 도달 이상)",
+ "reach_max_m": 0.729,
+ "table": [
+  {
+   "actuator": "TQ",
+   "payload": 3,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 6,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 9,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 11,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 12,
+   "r_max": 0.601,
+   "full_reach": false
+  },
+  {
+   "actuator": "TQ",
+   "payload": 13,
+   "r_max": 0.569,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 3,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 4,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 4.5,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 5,
+   "r_max": 0.63,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 5.5,
+   "r_max": 0.591,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 6,
+   "r_max": 0.553,
+   "full_reach": false
+  }
+ ]
+}

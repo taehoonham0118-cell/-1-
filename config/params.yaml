@@ -1,0 +1,66 @@
+# B1 단일 원본 설정 (week10, 함태훈 설계) — 가정값 · case · 플래그를 여기 한 곳에서 바꾼다
+#   흐름: config/params.yaml → tools/rebuild_and_test.py → (박종진 build_v1.py, B1_A2_CASE) MJCF 재생성 → pytest tests/ → 결과 요약
+#   생성된 MJCF 는 손으로 고치지 않는다. 값을 바꾸면 source(출처)와 date 를 같이 고친다
+schema: b1-params-1.0
+updated: 2026-11-25
+
+model:
+  shoulder_case: a2_doc        # a2_doc(어깨 TQ, 팔꿈치 RI85) | cad_ri85(전 관절 RI85) — 팀장 확정 전 a2_doc (6주차 · 11/19 회신)
+  wrist: 4dof                  # 손목 2축은 결정 전까지 모델에 넣지 않음(박종진 wrist_2axis_proposal = 예측만)
+  timestep_s: 0.002            # 기본 scene (빌드 산출물)
+  timestep_pick_s: 0.0005      # 집기 · 접촉 · BC · 랜덤화 (8주차 contact_sweep, 팀장 8주차 회신: 같은 dt 로 통일)
+  gravcomp: true               # 팔 gravcomp + actuatorgravcomp (함태훈 10/17 제안, week06 켬)
+  source: "박종진 build_v1.py (B1_A2_CASE 환경변수), actuator_params.json a2.case"
+
+actuators:                     # [N·m] — A2 구동기 사양서 10/19 판 (5주차 수령). 판정은 정격만, 피크는 표에 같이 적음
+  TQ:   {rated: 118.8, peak: 381.7}
+  RI85: {rated: 72.6,  peak: 181.5}
+  source: "A2 구동기 사양서 (2026-10-19 판)"
+
+cases:
+  a2_doc:   {shoulder_pitch: TQ,   shoulder_roll: TQ,   shoulder_yaw: TQ,   elbow: RI85}
+  cad_ri85: {shoulder_pitch: RI85, shoulder_roll: RI85, shoulder_yaw: RI85, elbow: RI85}
+
+torque_rule:                   # 10주차부터 하나로 고정 (노션 0절 · 팀장 11/19)
+  margin: "(rated - need) / need"   # 필요 대비
+  min_margin: 0.20                  # ⇔ rated ≥ need × 1.2 (= 요구 정격). 정격 대비로 쓰면 1/6 = 16.7 % 와 같은 조건
+  compare_to: rated                 # 피크(URDF effort · forcerange)와 비교하지 않음
+
+payload:
+  target_kg: 3.0               # 기획서: 팔당 3 kg, 최대 신장 자세 — 사양 변경은 팀장 · A팀 결정
+  point: grasp_center          # 파지 중심 = ee site − 45 mm (그리퍼 축)
+
+gripper:                       # 가정값 (A팀 그리퍼 사양 미수령) — 박종진 pick_env.GRIPPER 와 같은 값
+  palm_mass_kg: 0.5            # S14
+  finger_mass_kg: 0.2          # × 2, 8주차 (0.05 kg 이면 3 kg 과 질량비 60 → 수치 발산)
+  grasp_off_m: 0.045
+  grip_force_N: 40.0
+  pad_mu: 1.0                  # 9주차 민감도 Top 2 (m ≤ 2μF/g), E2 실측 전 가정
+  source: "박종진 scenarios/pick_env.py GRIPPER (week08), 가정값 표 S14 · S15"
+
+base_accel:                    # 하체 가속 사양 회신 전 가정 (팀장 7주차 회신)
+  lin_mps2: 1.0
+  yaw_radps2: 1.57
+  add_at_worst_Nm: {shoulder_pitch: 2.16, shoulder_roll: 4.19, shoulder_yaw: 0.85, elbow: 1.21}   # 7주차 base_torque.json design
+  source: "함태훈 sim/w07/results/base_torque.json"
+
+limits:                        # 두 방안 모두 플래그로 구현 — 결정 전 기본 꺼짐 (노션 0절)
+  payload_limit:               # ① 짐 제한
+    enable: false
+    max_kg: auto               # auto = 현재 case 정격에서 20 % 를 지키는 m_max (sim/w10 w10_torque_decision)
+  reach_limit:                 # ② 도달 제한 (박종진 wb_ik reach_limit 이 읽는 값)
+    enable: false
+    r_max_m: auto              # auto = 어깨 pitch 관절점 → 파지 중심 수평 거리 상한 (reach_limit_w10.json)
+
+control:                       # 기획서
+  joint_hz: 1000
+  wbc_hz: 500
+  plan_hz: 50
+
+regression:                    # 바뀌면 안 되는 숫자 (week10 기준, a2_doc 빌드 · mujoco 3.15.0)
+  mass_total_kg: {value: 75.097, ref: 75.094, tol_pct: 5.0}     # 검증 ① (기준 = 공용 가정값 + CAD 질량, BOM 대기)
+  hold_err_deg_max: 0.5                                         # 검증 ② 5 s 정지 유지
+  grav3kg_ee_pitch_Nm: {value: 42.91, tol: 0.1}                  # 검증 ③ 15° 격자, 3 kg @ ee (validate_model)
+  mirror_mm_max: 1.0                                            # 검증 ⑤
+  need3kg_Nm: {shoulder_pitch: 48.69, shoulder_roll: 46.71, tol: 0.05}   # 8주차 파지 중 필요 토크 (팀장 승인 48.7)
+  mmax_kg: {TQ: 11.04, RI85: 4.88, tol: 0.02}                     # 어깨 pitch 기준

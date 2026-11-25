@@ -1,0 +1,629 @@
+{
+ "sweep": [
+  {
+   "case": "a2_doc",
+   "payload": 0.0,
+   "joint": "shoulder_pitch",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 29.92,
+   "required": 35.9,
+   "margin": 297.1,
+   "ok": true,
+   "need_cons": 27.96
+  },
+  {
+   "case": "a2_doc",
+   "payload": 0.0,
+   "joint": "shoulder_roll",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 28.97,
+   "required": 34.76,
+   "margin": 310.1,
+   "ok": true,
+   "need_cons": 25.1
+  },
+  {
+   "case": "a2_doc",
+   "payload": 0.0,
+   "joint": "shoulder_yaw",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 5.18,
+   "required": 6.21,
+   "margin": 2195.6,
+   "ok": true,
+   "need_cons": 4.36
+  },
+  {
+   "case": "a2_doc",
+   "payload": 0.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 5.48,
+   "required": 6.58,
+   "margin": 1223.8,
+   "ok": true,
+   "need_cons": 4.3
+  },
+  {
+   "case": "a2_doc",
+   "payload": 1.0,
+   "joint": "shoulder_pitch",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 36.17,
+   "required": 43.41,
+   "margin": 228.4,
+   "ok": true,
+   "need_cons": 34.26
+  },
+  {
+   "case": "a2_doc",
+   "payload": 1.0,
+   "joint": "shoulder_roll",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 34.88,
+   "required": 41.86,
+   "margin": 240.6,
+   "ok": true,
+   "need_cons": 31.12
+  },
+  {
+   "case": "a2_doc",
+   "payload": 1.0,
+   "joint": "shoulder_yaw",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 8.54,
+   "required": 10.25,
+   "margin": 1291.2,
+   "ok": true,
+   "need_cons": 7.74
+  },
+  {
+   "case": "a2_doc",
+   "payload": 1.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 8.86,
+   "required": 10.63,
+   "margin": 719.8,
+   "ok": true,
+   "need_cons": 7.71
+  },
+  {
+   "case": "a2_doc",
+   "payload": 2.0,
+   "joint": "shoulder_pitch",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 42.43,
+   "required": 50.92,
+   "margin": 180.0,
+   "ok": true,
+   "need_cons": 40.56
+  },
+  {
+   "case": "a2_doc",
+   "payload": 2.0,
+   "joint": "shoulder_roll",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 40.79,
+   "required": 48.95,
+   "margin": 191.2,
+   "ok": true,
+   "need_cons": 37.14
+  },
+  {
+   "case": "a2_doc",
+   "payload": 2.0,
+   "joint": "shoulder_yaw",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 11.9,
+   "required": 14.29,
+   "margin": 898.0,
+   "ok": true,
+   "need_cons": 11.13
+  },
+  {
+   "case": "a2_doc",
+   "payload": 2.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 12.23,
+   "required": 14.67,
+   "margin": 493.7,
+   "ok": true,
+   "need_cons": 11.11
+  },
+  {
+   "case": "a2_doc",
+   "payload": 3.0,
+   "joint": "shoulder_pitch",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 48.69,
+   "required": 58.43,
+   "margin": 144.0,
+   "ok": true,
+   "need_cons": 46.86
+  },
+  {
+   "case": "a2_doc",
+   "payload": 3.0,
+   "joint": "shoulder_roll",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 46.71,
+   "required": 56.05,
+   "margin": 154.4,
+   "ok": true,
+   "need_cons": 43.17
+  },
+  {
+   "case": "a2_doc",
+   "payload": 3.0,
+   "joint": "shoulder_yaw",
+   "actuator": "TQ",
+   "rated": 118.8,
+   "peak": 381.7,
+   "need": 15.27,
+   "required": 18.32,
+   "margin": 678.1,
+   "ok": true,
+   "need_cons": 14.52
+  },
+  {
+   "case": "a2_doc",
+   "payload": 3.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 15.6,
+   "required": 18.72,
+   "margin": 365.4,
+   "ok": true,
+   "need_cons": 14.52
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 0.0,
+   "joint": "shoulder_pitch",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 29.92,
+   "required": 35.9,
+   "margin": 142.7,
+   "ok": true,
+   "need_cons": 27.96
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 0.0,
+   "joint": "shoulder_roll",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 28.97,
+   "required": 34.76,
+   "margin": 150.6,
+   "ok": true,
+   "need_cons": 25.1
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 0.0,
+   "joint": "shoulder_yaw",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 5.18,
+   "required": 6.21,
+   "margin": 1302.9,
+   "ok": true,
+   "need_cons": 4.36
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 0.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 5.48,
+   "required": 6.58,
+   "margin": 1223.8,
+   "ok": true,
+   "need_cons": 4.3
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 1.0,
+   "joint": "shoulder_pitch",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 36.17,
+   "required": 43.41,
+   "margin": 100.7,
+   "ok": true,
+   "need_cons": 34.26
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 1.0,
+   "joint": "shoulder_roll",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 34.88,
+   "required": 41.86,
+   "margin": 108.1,
+   "ok": true,
+   "need_cons": 31.12
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 1.0,
+   "joint": "shoulder_yaw",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 8.54,
+   "required": 10.25,
+   "margin": 750.2,
+   "ok": true,
+   "need_cons": 7.74
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 1.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 8.86,
+   "required": 10.63,
+   "margin": 719.8,
+   "ok": true,
+   "need_cons": 7.71
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 2.0,
+   "joint": "shoulder_pitch",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 42.43,
+   "required": 50.92,
+   "margin": 71.1,
+   "ok": true,
+   "need_cons": 40.56
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 2.0,
+   "joint": "shoulder_roll",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 40.79,
+   "required": 48.95,
+   "margin": 78.0,
+   "ok": true,
+   "need_cons": 37.14
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 2.0,
+   "joint": "shoulder_yaw",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 11.9,
+   "required": 14.29,
+   "margin": 509.9,
+   "ok": true,
+   "need_cons": 11.13
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 2.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 12.23,
+   "required": 14.67,
+   "margin": 493.7,
+   "ok": true,
+   "need_cons": 11.11
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 3.0,
+   "joint": "shoulder_pitch",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 48.69,
+   "required": 58.43,
+   "margin": 49.1,
+   "ok": true,
+   "need_cons": 46.86
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 3.0,
+   "joint": "shoulder_roll",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 46.71,
+   "required": 56.05,
+   "margin": 55.4,
+   "ok": true,
+   "need_cons": 43.17
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 3.0,
+   "joint": "shoulder_yaw",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 15.27,
+   "required": 18.32,
+   "margin": 375.5,
+   "ok": true,
+   "need_cons": 14.52
+  },
+  {
+   "case": "cad_ri85",
+   "payload": 3.0,
+   "joint": "elbow",
+   "actuator": "RI85",
+   "rated": 72.6,
+   "peak": 181.5,
+   "need": 15.6,
+   "required": 18.72,
+   "margin": 365.4,
+   "ok": true,
+   "need_cons": 14.52
+  }
+ ],
+ "mmax": [
+  {
+   "actuator": "TQ",
+   "joint": "shoulder_pitch",
+   "limit": 99.0,
+   "tau0": 29.92,
+   "r_eff": 0.638,
+   "m_lin": 11.04,
+   "m_sweep": 11.04,
+   "q_deg": [
+    90.4,
+    5.4,
+    -113.3,
+    9.1
+   ]
+  },
+  {
+   "actuator": "TQ",
+   "joint": "shoulder_roll",
+   "limit": 99.0,
+   "tau0": 28.97,
+   "r_eff": 0.603,
+   "m_lin": 11.84,
+   "m_sweep": 11.84,
+   "q_deg": [
+    -5.7,
+    81.5,
+    -99.9,
+    -22.8
+   ]
+  },
+  {
+   "actuator": "RI85",
+   "joint": "shoulder_pitch",
+   "limit": 60.5,
+   "tau0": 29.92,
+   "r_eff": 0.638,
+   "m_lin": 4.89,
+   "m_sweep": 4.88,
+   "q_deg": [
+    90.4,
+    5.4,
+    -113.3,
+    9.1
+   ]
+  },
+  {
+   "actuator": "RI85",
+   "joint": "shoulder_roll",
+   "limit": 60.5,
+   "tau0": 28.97,
+   "r_eff": 0.603,
+   "m_lin": 5.33,
+   "m_sweep": 5.33,
+   "q_deg": [
+    -5.7,
+    81.5,
+    -99.9,
+    -22.8
+   ]
+  }
+ ],
+ "rmax": [
+  {
+   "actuator": "TQ",
+   "payload": 3,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 6,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 9,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 11,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "TQ",
+   "payload": 12,
+   "r_max": 0.601,
+   "full_reach": false
+  },
+  {
+   "actuator": "TQ",
+   "payload": 13,
+   "r_max": 0.569,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 3,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 4,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 4.5,
+   "r_max": 0.729,
+   "full_reach": true
+  },
+  {
+   "actuator": "RI85",
+   "payload": 5,
+   "r_max": 0.63,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 5.5,
+   "r_max": 0.591,
+   "full_reach": false
+  },
+  {
+   "actuator": "RI85",
+   "payload": 6,
+   "r_max": 0.553,
+   "full_reach": false
+  }
+ ],
+ "reach": 0.7293536752633277,
+ "hand": {
+  "rho": 0.651,
+  "need_pitch": 48.85,
+  "hand_payload": 19.15,
+  "sim_payload": 18.84
+ },
+ "decision": [
+  {
+   "plan": "현재 (제한 없음)",
+   "case": "a2_doc",
+   "payload": "3 kg",
+   "min_margin": "144.0 % (shoulder_pitch)",
+   "success": "9/10 (3 kg, seed 1000 ~ 1009) · 8주차 19/20",
+   "lose": "—"
+  },
+  {
+   "plan": "① 짐 제한",
+   "case": "a2_doc",
+   "payload": "m_max 11.04 kg",
+   "min_margin": "20.0 % (m_max 에서 정의상)",
+   "success": "3 kg 이 m_max 아래 → 제한 걸리지 않음(현재와 같음)",
+   "lose": "없음 (3 kg < 11.04 kg)"
+  },
+  {
+   "plan": "② 도달 제한",
+   "case": "a2_doc",
+   "payload": "3 kg",
+   "min_margin": "144.0 % (r_max = 전 도달 0.729 m)",
+   "success": "도달 제한 걸리지 않음(현재와 같음)",
+   "lose": "없음 (3 kg 에서 r_max = 최대 도달)"
+  },
+  {
+   "plan": "손목 2축 추가 (예측)",
+   "case": "a2_doc",
+   "payload": "3 kg",
+   "min_margin": "pitch 127 ~ 119 · roll 136 ~ 128 % (지금 대비 −17 ~ −25 %p)",
+   "success": "예측 (박종진)",
+   "lose": "여유율 감소, 그래도 20 % 이상"
+  },
+  {
+   "plan": "현재 (제한 없음)",
+   "case": "cad_ri85",
+   "payload": "3 kg",
+   "min_margin": "49.1 % (shoulder_pitch)",
+   "success": "9/10 (3 kg, seed 1000 ~ 1009) · 8주차 19/20",
+   "lose": "—"
+  },
+  {
+   "plan": "① 짐 제한",
+   "case": "cad_ri85",
+   "payload": "m_max 4.88 kg",
+   "min_margin": "20.0 % (m_max 에서 정의상)",
+   "success": "3 kg 이 m_max 아래 → 제한 걸리지 않음(현재와 같음)",
+   "lose": "없음 (3 kg < 4.88 kg)"
+  },
+  {
+   "plan": "② 도달 제한",
+   "case": "cad_ri85",
+   "payload": "3 kg",
+   "min_margin": "49.1 % (r_max = 전 도달 0.729 m)",
+   "success": "도달 제한 걸리지 않음(현재와 같음)",
+   "lose": "없음 (3 kg 에서 r_max = 최대 도달)"
+  },
+  {
+   "plan": "손목 2축 추가 (예측)",
+   "case": "cad_ri85",
+   "payload": "3 kg",
+   "min_margin": "pitch 38 ~ 34 · roll 44 ~ 39 % (지금 대비 −11 ~ −15 %p)",
+   "success": "예측 (박종진)",
+   "lose": "여유율 감소, 그래도 20 % 이상"
+  }
+ ]
+}
